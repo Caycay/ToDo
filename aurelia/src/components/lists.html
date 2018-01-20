@@ -1,0 +1,26 @@
+<template>
+  <require from="materialize-css/css/materialize.css"></require>
+
+  <div class="header">
+    All lists
+  </div>
+  <div class="list-section">
+    <div class="collection-item">
+      <div class="list-of-item" repeat.for="list of lists">
+        <button md-button="flat: true;" class="primary-text" click.delegate="next(list.items? list.items : null,list.id)">${list.name}</button>
+        <div class="collection-buttons">
+          <button md-button="flat:true;" class="primary-text" click.delegate="editList(list)"><i class="material-icons">mode_edit</i></button>
+          <button md-button="flat:true;" class="primary-text" click.delegate="deleteList(list.id)"><i class="material-icons">delete</i></button>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="add-item">
+      <a md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;" click.delegate="add()">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+  </div>
+
+</template>

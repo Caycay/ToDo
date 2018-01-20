@@ -1,0 +1,33 @@
+<template>
+  <div class="header">
+    Edit your list
+  </div>
+  <div class="list-section">
+    <div class="collection-item">
+      <div class="list-of-item">
+        <fieldset class="item-fields">
+          <div class="item-label">What is the name of your list?</div>
+          <div class="item-body">
+            <md-input class="item-input" md-type="text" md-placeholder="name" md-value.bind="list.name"></md-input>
+            ${list.name}
+          </div>
+        </fieldset>
+
+        <fieldset class="item-fields">
+          <div class="item-label">What is the description of your list?</div>
+          <div class="item-body">
+            <md-input class="item-input" md-type="text" md-placeholder="description" md-value.bind="list.description"></md-input>
+            ${list.description}
+          </div>
+        </fieldset>
+      </div>
+
+    </div>
+    <div class="add-item">
+      <a md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;" click.delegate="updateList()">
+        <i class="material-icons">done</i>
+      </a>
+    </div>
+  </div>
+
+</template>

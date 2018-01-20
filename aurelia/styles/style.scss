@@ -1,0 +1,93 @@
+body{
+  font-size:14px;
+  margin: 100px 0 !important;
+  background-color: #F9F9F9;
+}
+.header{
+  text-align: center;
+  font-size: 3em;
+  font-weight: 300;
+  margin-left: -1.5em;
+}
+.list-section{
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  margin: 0 auto;
+  align-items: center;
+  .information{
+    .collection-item{
+
+    }
+  }
+}
+
+.list-section-details{
+  width: 40%;
+  margin: 0 auto;
+  align-items: center;
+}
+.list{
+  width: 35%;
+  margin: 0 auto;
+  &-element{
+    padding: 1em;
+  }
+}
+.collection-item{
+  width: 100%;
+  margin: 3em auto;
+  padding: 2em 0;
+  background-color: white;
+  box-shadow: 2px 2px 25px 1px rgba(78,78,89,1);
+
+  .list-of-item{
+    padding: 1em 4em;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    .item-checked{
+      [type="checkbox"]+label{
+        color:black;
+        line-height: 22px;
+      }
+      }
+    .collection-buttons-done{
+      button{
+        .btn i, .btn-large i, .btn-floating i, .btn-large i, .btn-flat i{
+          color: gray !important;
+        }
+      }
+    }
+    .item-checked-true{
+      [type="checkbox"]+label{
+        line-height: 22px;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+.add-item{
+  .btn-floating.btn-large{
+    margin-left: 1em;
+  }
+}
+
+fieldset{
+  border: none !important;
+}
+.item{
+  &-label{
+    font-size:1.3em;
+  }
+  &-body{
+    width: 80%;
+    margin: 0 auto;
+  }
+  &-input{
+    input{
+      text-align: center;
+    }
+  }
+}
