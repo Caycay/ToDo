@@ -173,7 +173,8 @@
   "e2eTestRunner": {
     "id": "protractor",
     "displayName": "Protractor",
-    "source": "test/e2e/**/*.ts",
+    "source": "test/e2e/src/**/*.ts",
+    "dist": "test/e2e/dist/",
     "typingsSource": [
       "custom_typings/**/*.d.ts"
     ]

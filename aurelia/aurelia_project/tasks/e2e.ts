@@ -2,7 +2,7 @@ import * as gulp from 'gulp';
 import * as project from '../aurelia.json';
 import * as del from "del";
 import * as plumber from "gulp-plumber";
-
+import * as ts from "gulp-typescript";
 
 import {CLIOptions} from 'aurelia-cli';
 import { protractor, webdriver_standalone, webdriver_update } from 'gulp-protractor';

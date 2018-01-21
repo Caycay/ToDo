@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "test/e2e/",
+    "outDir": "dist",
     "sourceMap": true,
     "target": "es5",
     "module": "amd",
@@ -11,19 +13,24 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "lib": [
-      "es2017",
+      "es2015",
       "dom"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "src/*"
+      ]
+    }
   },
-  "exclude": [
-    "node_modules",
-    "aurelia_project"
-  ],
   "filesGlob": [
     "./src/**/*.ts",
-    "./test/**/*.ts",
-    "./custom_typings/**/*.d.ts",
-    "./node_modules/**/*.d.ts"
+    "./test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
   ],
   "atom": {
     "rewriteTsconfig": false

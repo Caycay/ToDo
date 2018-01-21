@@ -8,7 +8,7 @@ exports.config = {
     package: 'aurelia-protractor-plugin'
   }],
   suites: {
-    app: ['test/e2e/**/app.spec.ts']
+    app: ['test/e2e/dist/**/app.spec.js']
   },
   jasmineNodeOpts: {
     showColors: true,
