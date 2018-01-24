@@ -10,7 +10,9 @@ export class AddItem{
   constructor(private ea: EventAggregator, private httpService){
   }
   activate(params){
-    this.item = {propertyString: '', propertyString2: '', propertyNumber: null, listId: params.id, id: '', done: false };
+    console.log(params);
+    debugger;
+    this.item = {propertyString: '', propertyString2: '', propertyNumber: null, listId: params.id.id, id: '', done: false };
 
   }
   add(){

@@ -25,7 +25,7 @@ export class Lists{
       this.ea.publish('GoToDetails:next', {details});
     }
     else{
-      this.ea.publish('ListOfItem:add', id);
+      this.ea.publish('ListOfItem:add', {id});
     }
   }
   add(){

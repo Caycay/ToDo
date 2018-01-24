@@ -84,7 +84,7 @@ export class App {
         this.router.navigateToRoute('lists');
       }),
       this.ea.subscribe('ListOfItem:add', (id: string) => {
-        this.router.navigateToRoute('add-item', id);
+        this.router.navigateToRoute('add-item', {id});
       }),
       this.ea.subscribe('Item:save', (details: Array<Object>) => {
         this.router.navigateToRoute('lists', details);
