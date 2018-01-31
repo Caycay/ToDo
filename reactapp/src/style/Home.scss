@@ -1,0 +1,30 @@
+body{
+  font-size:14px;
+  margin: 100px 0 !important;
+  background-color: #F9F9F9;
+}
+.list {
+  text-align: center;
+
+  .header {
+    text-align: center;
+    font-size: 3em;
+    font-weight: 300;
+    margin: 0 auto;
+  }
+}
+.collection-item {
+  width: 100%;
+  margin: 3em auto;
+  padding: 2em 0;
+  background-color: white;
+  box-shadow: 2px 2px 25px 1px rgba(78, 78, 89, 1);
+}
+.list-section{
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 0 auto;
+  align-items: center;
+
+}

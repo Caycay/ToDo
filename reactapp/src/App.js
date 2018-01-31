@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {Button, Icon} from 'react-materialize'
+import Home from './components/Home';
+import Item from './components/Item'
+import {
+    BrowserRouter as Router,
+    Route
+} from 'react-router-dom';
+import {connect} from "react-redux";
+import {setList} from "./actions/listAction"
 
 
 class App extends Component {
+    componentWillMount(){
+        this.props.dispatch(setList());
+    }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-          <Button waves='light'>
-              <Icon>thumb_up</Icon>
-          </Button>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+     <Router>
+         <div className="container">
+             <Route exact path="/" component={Home} />
+             <Route path="/list/:id" component={Item} />
+         </div>
+     </Router>
     );
   }
 }
 
-export default App;
+export default connect((store) => {
+    return{
+        list: store.list.list,
+        listFetched: store.list.fetched
+    }
+})(App);
