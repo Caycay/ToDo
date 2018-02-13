@@ -1,6 +1,7 @@
-import ListApi from "../api/list-api";
 import * as types from "./action-types";
-export function setList(){
+import ListService from "../api/list-service";
+
+export function xsetList(){
     return{
         type: "CHANGE_LIST",
         payload:
@@ -41,9 +42,11 @@ export function setList(){
             ]
     }
 }
-export function getLists(){
+export function setList(){
+    debugger;
+
         return {
             type: types.LOAD_LISTS,
-            payload: ListApi.getAllLists()
+            payload: ListService.getAllLists()
         };
 }

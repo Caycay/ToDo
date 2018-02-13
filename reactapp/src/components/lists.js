@@ -9,7 +9,9 @@ class Lists extends Component{
 
 
     getList() {
-        const lists = this.props.list;
+        const lists = [];
+        this.lists = this.props.list;
+        console.log(this.props);
         debugger;
         if((lists || []).length === 0) {
             return null;

@@ -4,16 +4,13 @@ import Header from "./header";
 import { Component } from 'react';
 import * as React from 'react';
 
-//      
-              
-
-  
 
 class Lists extends Component{
 
 
     getList() {
-        const lists = this.props.list;
+        const lists = [];
+        this.lists = this.props.list;
         if((lists || []).length === 0) {
             return null;
         }

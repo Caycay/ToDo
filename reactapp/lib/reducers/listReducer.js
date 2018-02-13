@@ -1,11 +1,12 @@
+import * as types from "../actions/action-types";
 export default function reducer(state={
-    list: [],
-    fetching: false,
-    fetched: false,
-    error: null
+    list:[]
     }, action){
     switch (action.type){
         case "CHANGE_LIST": {
+            return {...state, list: action.payload};
+        }
+        case types.LOAD_LISTS: {
             return {...state, list: action.payload};
         }
         default:

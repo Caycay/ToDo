@@ -1,14 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Lists from "../lists";
-import {setList} from "../../actions/listAction";
+import {setList} from "../../actions/list-action";
 
-export class ListsContainer extends React.Component{
-    componentWillMount(){
+export class ListsContainer extends React.Component {
+    componentWillMount() {
         this.props.dispatch(setList());
+        console.log(this.props);
     }
-    render(){
-        return(
+
+    render() {
+        return (
             <Lists list={this.props.list}/>
         )
     }
@@ -16,8 +18,8 @@ export class ListsContainer extends React.Component{
 
 
 export default connect((store) => {
-    return{
-        list: store.list.list,
-        listFetched: store.list.fetched
-    }
-})(ListsContainer);
+    console.log(store);
+    return {
+        list: store.list.list
+    };
+})(ListsContainer)

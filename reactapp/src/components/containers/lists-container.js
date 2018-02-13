@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Lists from "../lists";
-import {getLists} from "../../actions/list-action";
+import {setList} from "../../actions/list-action";
+import ListService from "../../api/list-service";
 
-export class ListsContainer extends React.Component {
+export class ListsContainer extends Component {
     componentWillMount() {
-        this.props.dispatch(getLists());
-        console.log(this.props);
-    }
+        ListService.getAllLists().then(x=>{
+            debugger;
+            if(x){
+                x.forEach(y => {
 
+                    this.props.list.push(y);
+                });
+            }
+            console.log(this.props );
+
+        });
+    }
     render() {
+        console.log(this.props );
         return (
             <Lists list={this.props.list}/>
         )
