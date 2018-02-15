@@ -20,6 +20,23 @@ body{
   padding: 2em 0;
   background-color: white;
   box-shadow: 2px 2px 25px 1px rgba(78, 78, 89, 1);
+  .item-grup{
+    color: black;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    &:hover{
+      color: #6495ED;
+    }
+  }
+  .items{
+    padding: 2em 0;
+    display: flex;
+    justify-content: space-evenly;
+    &:hover{
+      color: #6495ED;
+    }
+  }
+
 }
 .list-section{
   display: flex;

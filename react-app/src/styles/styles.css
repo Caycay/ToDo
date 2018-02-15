@@ -17,6 +17,18 @@ body {
   padding: 2em 0;
   background-color: white;
   box-shadow: 2px 2px 25px 1px #4e4e59; }
+  .collection-item .item-grup {
+    color: black;
+    font-size: 1.1em;
+    letter-spacing: 1px; }
+    .collection-item .item-grup:hover {
+      color: #6495ED; }
+  .collection-item .items {
+    padding: 2em 0;
+    display: flex;
+    justify-content: space-evenly; }
+    .collection-item .items:hover {
+      color: #6495ED; }
 
 .list-section {
   display: flex;

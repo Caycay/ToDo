@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 
-class TodoItem extends Component {
+class ItemName extends Component {
     render() {
         return (
             <p>
@@ -14,4 +14,4 @@ class TodoItem extends Component {
     }
 }
 
-export default TodoItem;
+export default ItemName;

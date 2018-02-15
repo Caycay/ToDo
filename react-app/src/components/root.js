@@ -5,14 +5,14 @@ import {ConnectedRouter} from 'react-router-redux'
 import App from './app';
 
 export default class Root extends Component {
-    render(){
+    render() {
         const {store, history} = this.props;
-        return(
-          <Provider store={store}>
-              <ConnectedRouter history={history}>
-                  <App/>
-              </ConnectedRouter>
-          </Provider>
+        return (
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <App/>
+                </ConnectedRouter>
+            </Provider>
         );
     }
 

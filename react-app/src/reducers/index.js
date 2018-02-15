@@ -4,6 +4,6 @@ import lists from './list-reducer'
 
 
 const rootReducer = combineReducers({
-   lists, routing: routerReducer
+    lists, routing: routerReducer
 });
 export default rootReducer;

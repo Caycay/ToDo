@@ -1,3 +1,6 @@
 export default {
-    lists: Array
+    lists: [],
+    items: [],
+    isLoading: false,
+    isError: false
 }

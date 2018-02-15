@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import ListsView from '../lists-view';
 import {connect} from 'react-redux';
-import ListsNames from "../lists-names";
+import ListName from "../list-name";
 
 export class ListsContainer extends Component {
      constructor(){
-         super()
+         super();
          this.state = {
              lists: []
          }
@@ -19,7 +19,7 @@ export class ListsContainer extends Component {
     render() {
         return (
             <ListsView
-                lists={this.generateListView}
+                list={this.generateListView()}
             />
         );
     }
@@ -27,18 +27,16 @@ export class ListsContainer extends Component {
     getAllLists = () => {
         this.props.actions.getAllLists().payload.then(result => {
             this.setState({lists: result});
-            //this.generateListView();
         });
     };
 
     generateListView() {
-        console.log(this.state);
         if((this.state.lists || []).length === 0) {
             return null;
         }
         return this.state.lists.map((list, index) => {
             return (
-                <ListsNames list={list}/>
+                <ListName list={list} key={index}/>
             );
         })
     }
