@@ -3,13 +3,26 @@ body {
   margin: 100px 0 !important;
   background-color: #F9F9F9; }
 
+.header {
+  text-align: center;
+  font-size: 3em;
+  font-weight: 300;
+  margin: 0 auto; }
+
 .list {
   text-align: center; }
-  .list .header {
-    text-align: center;
-    font-size: 3em;
-    font-weight: 300;
-    margin: 0 auto; }
+  .list-name {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+    padding: 0 5em; }
+  .list-section {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin: 0 auto;
+    align-items: center; }
 
 .collection-item {
   width: 100%;
@@ -29,12 +42,5 @@ body {
     justify-content: space-evenly; }
     .collection-item .items:hover {
       color: #6495ED; }
-
-.list-section {
-  display: flex;
-  justify-content: space-between;
-  width: 70%;
-  margin: 0 auto;
-  align-items: center; }
 
 /*# sourceMappingURL=styles.css.map */

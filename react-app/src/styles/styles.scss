@@ -2,18 +2,32 @@ body{
   font-size:14px;
   margin: 100px 0 !important;
   background-color: #F9F9F9;
-
 }
+.header {
+  text-align: center;
+  font-size: 3em;
+  font-weight: 300;
+  margin: 0 auto;
+}
+
 .list {
   text-align: center;
-
-  .header {
-    text-align: center;
-    font-size: 3em;
-    font-weight: 300;
+  &-name{
+    display: flex;
+    justify-content: space-between;
     margin: 0 auto;
+    align-items: center;
+    padding: 0 5em;
+  }
+  &-section{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin: 0 auto;
+    align-items: center;
   }
 }
+
 .collection-item {
   width: 100%;
   margin: 3em auto;
@@ -36,13 +50,5 @@ body{
       color: #6495ED;
     }
   }
-
-}
-.list-section{
-  display: flex;
-  justify-content: space-between;
-  width: 70%;
-  margin: 0 auto;
-  align-items: center;
 
 }

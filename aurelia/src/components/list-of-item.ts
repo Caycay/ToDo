@@ -17,8 +17,8 @@ export class ListOfItem{
 
   }
   getItem(idList: string){
-    this.httpService.getAllItem().then((result) => {
-      this.items = result.where(x=>x.listId == idList);
+    this.httpService.getAllItem(idList).then((result) => {
+      this.items = result;
     });
   }
   add(){

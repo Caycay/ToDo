@@ -6,7 +6,7 @@ export function getAllLists(){
     return function (dispatch){
         return dispatch({
             type: types.GET_LISTS,
-            payload: ApiService.apiGetList(apiServer.method.lists)
+            payload: ApiService.apiGetAll(apiServer.method.lists)
         });
     }
 }
@@ -14,7 +14,23 @@ export function getAllItems(listId){
     return function (dispatch){
         return dispatch({
             type: types.GET_ITEMS,
-            payload: ApiService.apiGetItems(apiServer.method.listItemWithId, listId)
+            payload: ApiService.apiGetById(apiServer.method.listItemWithId, listId)
         });
+    }
+}
+export function getListById(listId){
+    return function (dispatch){
+        return dispatch({
+            type: types.GET_LIST_BY_ID,
+            payload: ApiService.apiGetById(apiServer.method.listWithId, listId)
+        });
+    }
+}
+export function updateList(settings, fieldName, value){
+    return{
+        type: types.UPDATE_LIST,
+        settings,
+        fieldName,
+        value
     }
 }
