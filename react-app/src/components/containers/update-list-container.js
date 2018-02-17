@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import ListEdit from '../list-edit'
-export class EditListContainer extends Component {
+import {apiServer} from "../../constant/const";
+export class UpdateListContainer extends Component {
     constructor(){
         super();
         this.state = {
@@ -16,7 +17,14 @@ export class EditListContainer extends Component {
         this.getListById(id);
     }
     updateList = e =>{
-        this.props.actions.updateList(this.state.list, e.target.name, e.target.value)
+        let list = Object.assign({}, this.state.list);
+        list[e.target.name] = e.target.value;
+        this.setState({list: list});
+    };
+    saveList = () =>{
+      let list = this.state.list;
+      console.log(list);
+      this.props.actions.updateList(list, apiServer.method.listWithId);
     };
     getListById = (id) => {
         this.props.actions.getListById(id).payload.then(result => {
@@ -28,11 +36,12 @@ export class EditListContainer extends Component {
             <ListEdit
                 list={this.state.list}
                 onChange={this.updateList}
+                onSaveClick={this.saveList}
             />
         );
     }
 }
-EditListContainer.propTypes = {
+UpdateListContainer.propTypes = {
     actions: PropTypes.object.isRequired,
     //lists: PropTypes.array.isRequired
 };
@@ -49,4 +58,4 @@ function mapStateToProps(state) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(EditListContainer);
+)(UpdateListContainer);

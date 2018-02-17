@@ -13,7 +13,7 @@ export class ListsContainer extends Component {
              lists: []
          }
      }
-    componentWillMount(){
+    componentDidMount(){
         this.getAllLists();
     }
     render() {

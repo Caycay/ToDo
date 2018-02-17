@@ -17,7 +17,7 @@ body{
     justify-content: space-between;
     margin: 0 auto;
     align-items: center;
-    padding: 0 5em;
+    padding: 1em 5em;
   }
   &-section{
     display: flex;
@@ -25,6 +25,12 @@ body{
     width: 40%;
     margin: 0 auto;
     align-items: center;
+    .btn-add{
+      background-color: darkgrey;
+      &:hover{
+        background-color: #6495ED;
+      }
+    }
   }
 }
 
@@ -33,6 +39,7 @@ body{
   margin: 3em auto;
   padding: 2em 0;
   background-color: white;
+  position: relative;
   box-shadow: 2px 2px 25px 1px rgba(78, 78, 89, 1);
   .item-grup{
     color: black;
@@ -50,5 +57,13 @@ body{
       color: #6495ED;
     }
   }
+  .inputs{
+    padding: 3em;
 
+  }
+  .add-item{
+    position: absolute;
+    left:110%;
+    bottom: 40%;
+  }
 }

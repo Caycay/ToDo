@@ -1,21 +1,22 @@
 import React from 'react';
 import Header from "./header";
 import {Input} from "react-materialize";
+import BtnAdd from "./btn-add";
+import Link from "react-router-dom/es/Link";
 
-const ListEdit = ({list, onChange}) => (
+const ListEdit = ({list, onChange, onSaveClick}) => (
     <div className="list-edit">
-        <Header header={"Edit " + list.name + " list"}/>
+        <Header header={"Edit list"}/>
         <div className="list-section">
             <div className="collection-item">
                 <div className="inputs">
-                    <Input name="name" onChange={onChange} label={"New name (old: " + list.name + ")"} value={list.name}/>
-                    <Input label={"New description (old: " + list.description + ")"}/>
+                    <Input name="name" onChange={onChange} label="New name" value={list.name}/>
+                    <Input name="description" onChange={onChange} label="New description" value={list.description}/>
                 </div>
-            </div>
-            <div className="add-item">
-                <div id="addListBtn">
-                    <i className="material-icons">add</i>
-                </div>
+                <Link title="Save"  to={"/"} className="item-grup" >
+
+                <BtnAdd onSaveClick={onSaveClick}/>
+                </Link>
             </div>
         </div>
     </div>

@@ -16,19 +16,24 @@ body {
     justify-content: space-between;
     margin: 0 auto;
     align-items: center;
-    padding: 0 5em; }
+    padding: 1em 5em; }
   .list-section {
     display: flex;
     justify-content: space-between;
     width: 40%;
     margin: 0 auto;
     align-items: center; }
+    .list-section .btn-add {
+      background-color: darkgrey; }
+      .list-section .btn-add:hover {
+        background-color: #6495ED; }
 
 .collection-item {
   width: 100%;
   margin: 3em auto;
   padding: 2em 0;
   background-color: white;
+  position: relative;
   box-shadow: 2px 2px 25px 1px #4e4e59; }
   .collection-item .item-grup {
     color: black;
@@ -42,5 +47,11 @@ body {
     justify-content: space-evenly; }
     .collection-item .items:hover {
       color: #6495ED; }
+  .collection-item .inputs {
+    padding: 3em; }
+  .collection-item .add-item {
+    position: absolute;
+    left: 110%;
+    bottom: 40%; }
 
 /*# sourceMappingURL=styles.css.map */

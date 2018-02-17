@@ -11,8 +11,8 @@ class ApiService extends Component {
             .then(response => response.json());
     }
 
-    static apiPut(endpointUrl, id, data) {
-        return fetch(apiServer.url + endpointUrl.replace(/:id/, id + ''), {
+    static apiPut(endpointUrl, data) {
+        return fetch(apiServer.url + endpointUrl.replace(/:id/, data.id + ''), {
                 method: 'PUT',
                 mode: 'CORS',
                 body: JSON.stringify(data),

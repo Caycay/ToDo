@@ -26,11 +26,10 @@ export function getListById(listId){
         });
     }
 }
-export function updateList(settings, fieldName, value){
+export function updateList(settings, endpointUrl){
     return{
-        type: types.UPDATE_LIST,
+        type: types.UPDATE,
         settings,
-        fieldName,
-        value
+        endpointUrl
     }
 }
