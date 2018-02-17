@@ -26,9 +26,17 @@ export function getListById(listId){
         });
     }
 }
-export function updateList(settings, endpointUrl){
+export function update(settings, endpointUrl){
     return{
         type: types.UPDATE,
+        settings,
+        endpointUrl
+    }
+}
+export function create(settings, endpointUrl){
+    debugger;
+    return{
+        type: types.CREATE,
         settings,
         endpointUrl
     }

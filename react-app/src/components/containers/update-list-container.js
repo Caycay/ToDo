@@ -16,15 +16,14 @@ export class UpdateListContainer extends Component {
         const id = this.props.match.params.id;
         this.getListById(id);
     }
-    updateList = e =>{
+    update = e =>{
         let list = Object.assign({}, this.state.list);
         list[e.target.name] = e.target.value;
         this.setState({list: list});
     };
     saveList = () =>{
       let list = this.state.list;
-      console.log(list);
-      this.props.actions.updateList(list, apiServer.method.listWithId);
+      this.props.actions.update(list, apiServer.method.listWithId);
     };
     getListById = (id) => {
         this.props.actions.getListById(id).payload.then(result => {
