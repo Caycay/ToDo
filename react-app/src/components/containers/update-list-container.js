@@ -10,9 +10,11 @@ export class UpdateListContainer extends Component {
         super();
         this.state = {
             list: {}
-        }
+        };
     }
     componentWillMount(){
+        console.log(this.props);
+
         const id = this.props.match.params.id;
         this.getListById(id);
     }
@@ -34,7 +36,7 @@ export class UpdateListContainer extends Component {
         return (
             <ListEdit
                 list={this.state.list}
-                onChange={this.updateList}
+                onChange={this.update}
                 onSaveClick={this.saveList}
             />
         );

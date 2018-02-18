@@ -33,11 +33,18 @@ export function update(settings, endpointUrl){
         endpointUrl
     }
 }
-export function create(settings, endpointUrl){
-    debugger;
+export function createNew(settings, endpointUrl){
     return{
-        type: types.CREATE,
+        type: types.CREATE_NEW,
         settings,
         endpointUrl
+    }
+}
+export function remove(endpointUrl, id){
+    debugger;
+    return{
+        type: types.DELETE,
+        endpointUrl,
+        id
     }
 }

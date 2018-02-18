@@ -5,16 +5,19 @@ import {bindActionCreators} from 'redux';
 import ListsView from '../lists-view';
 import {connect} from 'react-redux';
 import ListName from "../list-name";
+import {apiServer} from "../../constant/const";
 
 export class ListsContainer extends Component {
      constructor(){
          super();
          this.state = {
              lists: []
-         }
+         };
+
      }
-    componentDidMount(){
+    componentWillMount(){
         this.getAllLists();
+
     }
     render() {
         return (
@@ -30,13 +33,19 @@ export class ListsContainer extends Component {
         });
     };
 
+    remove = id => {
+        console.log(id);
+        this.props.actions.remove(apiServer.method.listWithId, id);
+        window.location.reload();
+    };
+
     generateListView() {
         if((this.state.lists || []).length === 0) {
             return null;
         }
         return this.state.lists.map((list, index) => {
             return (
-                <ListName list={list} key={index}/>
+                <ListName list={list} onClick={this.remove} key={index}/>
             );
         })
     }

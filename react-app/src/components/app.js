@@ -5,7 +5,7 @@ import {Switch, Route} from 'react-router-dom';
 import ListsContainer from './containers/read-list-container';
 import ItemsContainer from './containers/read-item-container';
 import EditListContainer from './containers/update-list-container'
-import {CreateListContainer} from "./containers/create-list-container";
+import CreateListContainer from "./containers/create-list-container";
 
 class App extends Component {
     render() {

@@ -1,39 +1,45 @@
 import ListAdd from '../list-add'
-import React, {Component} from 'react'
-import {apiServer} from "../../constant/const";
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as actions from '../../actions/lists-actions';
+import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {apiServer} from "../../constant/const";
 
 
-//to do ! 
-export class CreateListContainer extends Component {
-    constructor(){
-        super();
+//to do !
+class CreateListContainer extends Component {
+    constructor(props){
+        super(props);
         this.state = {
-            list: {}
-        }
+            list: {
+                name: '',
+                description: ''
+            }
+        };
+
     }
-    create = e =>{
+    addValue = e =>{
         let list = Object.assign({}, this.state.list);
         list[e.target.name] = e.target.value;
         this.setState({list: list});
+        console.log(this.state);
     };
     componentWillMount(){
-        console.log(this.state.list);
+        console.log(this.props);
+
     }
-    saveList = () =>{
+    createNew = () =>{
         let list = this.state.list;
         console.log(this.props.actions);
-        this.props.actions.create(list, apiServer.method.lists);
+        this.props.actions.createNew(list, apiServer.method.lists);
     };
     render() {
         return (
             <ListAdd
                 list={this.state.list}
-                onChange={this.updateList}
-                onSaveClick={this.saveList}
+                onChange={this.addValue}
+                onSaveClick={this.createNew}
             />
         );
     }
@@ -43,15 +49,17 @@ CreateListContainer.propTypes = {
     //lists: PropTypes.array.isRequired
 };
 function mapDispatchToProps(dispatch) {
+    debugger;
     return {
         actions: bindActionCreators(actions, dispatch)
     };
 }
 function mapStateToProps(state) {
     return {
-        lists: state.lists
+        list: state.list
     };
 }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

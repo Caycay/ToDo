@@ -38,7 +38,8 @@ body {
   .collection-item .item-grup {
     color: black;
     font-size: 1.1em;
-    letter-spacing: 1px; }
+    letter-spacing: 1px;
+    cursor: pointer; }
     .collection-item .item-grup:hover {
       color: #6495ED; }
   .collection-item .items {

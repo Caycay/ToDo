@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 
 
 class ItemName extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {propertyString, propertyString2, propertyNumber} = this.props.item;
