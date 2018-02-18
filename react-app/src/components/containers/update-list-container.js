@@ -13,8 +13,6 @@ export class UpdateListContainer extends Component {
         };
     }
     componentWillMount(){
-        console.log(this.props);
-
         const id = this.props.match.params.id;
         this.getListById(id);
     }

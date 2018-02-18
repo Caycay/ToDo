@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
+import Link from "react-router-dom/es/Link";
+import {Input} from "react-materialize";
 
+const ItemName = ({item, onClick}) => (
+    <div className="items-list">
+        <div className="item">
+            <Input name='group1' type='checkbox' value='red' label={item.propertyString + " " + item.propertyString2 + " " + item.propertyNumber} />
 
-class ItemName extends Component {
+        </div>
+        <div className="collection-buttons">
+            <Link title="Edit" to={"/edit/item/" + item.id} className="item-grup"><i className="material-icons">mode_edit</i></Link>
+            <div className="item-grup" onClick={() => onClick(item.id)}><i className="material-icons">delete</i></div>
 
-    render() {
-        const {propertyString, propertyString2, propertyNumber} = this.props.item;
-        return (
-            <div className="items">
-                <div className="items__prop">{propertyString}</div>
-                <div className="items__prop2">{propertyString2}</div>
-                <div className="items__prop3">{propertyNumber}</div>
-            </div>
-
-        )
-    }
-}
+        </div>
+    </div>
+);
 
 export default ItemName;

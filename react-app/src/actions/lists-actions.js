@@ -26,6 +26,14 @@ export function getListById(listId){
         });
     }
 }
+export function getItemById(id){
+    return function (dispatch){
+        return dispatch({
+            type: types.GET_ITEM_BY_ID,
+            payload: ApiService.apiGetById(apiServer.method.itemWithId, id)
+        });
+    }
+}
 export function update(settings, endpointUrl){
     return{
         type: types.UPDATE,
@@ -34,6 +42,7 @@ export function update(settings, endpointUrl){
     }
 }
 export function createNew(settings, endpointUrl){
+    debugger;
     return{
         type: types.CREATE_NEW,
         settings,

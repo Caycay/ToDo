@@ -6,8 +6,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {apiServer} from "../../constant/const";
 
-
-//to do !
 class CreateListContainer extends Component {
     constructor(props){
         super(props);
@@ -25,10 +23,6 @@ class CreateListContainer extends Component {
         this.setState({list: list});
         console.log(this.state);
     };
-    componentWillMount(){
-        console.log(this.props);
-
-    }
     createNew = () =>{
         let list = this.state.list;
         console.log(this.props.actions);
@@ -49,7 +43,6 @@ CreateListContainer.propTypes = {
     //lists: PropTypes.array.isRequired
 };
 function mapDispatchToProps(dispatch) {
-    debugger;
     return {
         actions: bindActionCreators(actions, dispatch)
     };

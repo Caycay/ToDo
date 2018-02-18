@@ -44,6 +44,7 @@ export class ListsContainer extends Component {
             return null;
         }
         return this.state.lists.map((list, index) => {
+
             return (
                 <ListName list={list} onClick={this.remove} key={index}/>
             );

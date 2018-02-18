@@ -36,6 +36,7 @@ class ApiService extends Component {
         }).catch(err => err);
     }
     static apiDelete(endpointUrl, id) {
+        debugger;
         return fetch(apiServer.url + endpointUrl.replace(/:id/, id + ''), {
             method: 'DELETE',
             headers: {

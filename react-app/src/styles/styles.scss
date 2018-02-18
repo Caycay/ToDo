@@ -41,6 +41,22 @@ body{
   background-color: white;
   position: relative;
   box-shadow: 2px 2px 25px 1px rgba(78, 78, 89, 1);
+  .items-list{
+    padding: 1em;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    .item{
+      width: 60%;
+      display: flex;
+      &:hover{
+        color: #6495ED;
+      }
+      &__prop2{
+        margin: 0 5em;
+      }
+    }
+  }
   .item-grup{
     color: black;
     font-size: 1.1em;
@@ -50,21 +66,17 @@ body{
       color: #6495ED;
     }
   }
-  .items{
-    padding: 2em 0;
-    display: flex;
-    justify-content: space-evenly;
-    &:hover{
-      color: #6495ED;
-    }
-  }
+
   .inputs{
     padding: 3em;
 
   }
   .add-item{
-    position: absolute;
-    left:110%;
-    bottom: 40%;
+    position: fixed;
+    left:75%;
+    bottom: 50%;
   }
+}
+.collection-buttons{
+  display: flex;
 }

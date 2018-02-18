@@ -13,6 +13,9 @@ export default function listReducer(state = initialState, action) {
         case types.GET_LIST_BY_ID: {
             return objectAssign({}, state, {list: action.payload});
         }
+        case types.GET_ITEM_BY_ID: {
+            return objectAssign({}, state, {item: action.payload});
+        }
         case types.UPDATE: {
             return ApiService.apiPut(action.endpointUrl, action.settings)
         }
@@ -20,6 +23,7 @@ export default function listReducer(state = initialState, action) {
             return ApiService.apiPost(action.endpointUrl, action.settings)
         }
         case types.DELETE: {
+            debugger;
             return ApiService.apiDelete(action.endpointUrl, action.id)
         }
         default:

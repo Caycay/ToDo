@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import ItemsView from '../items-view';
 import {connect} from 'react-redux';
 import ItemName from "../item-name";
+import {apiServer} from "../../constant/const";
 
 class ItemsContainer extends Component{
     constructor(props){
@@ -12,7 +13,6 @@ class ItemsContainer extends Component{
         this.state = {
             items: []
         };
-
     }
     componentWillMount(){
         const id = this.props.match.params.id;
@@ -22,6 +22,7 @@ class ItemsContainer extends Component{
         return (
             <ItemsView
                 items={this.generateListView()}
+                id = {this.props.match.params.id}
             />
         );
     }
@@ -30,13 +31,19 @@ class ItemsContainer extends Component{
             this.setState({items: result});
         });
     };
+    remove = id => {
+        this.props.actions.remove(apiServer.method.itemWithId, id);
+       // window.location.reload();
+    };
     generateListView() {
         if((this.state.items || []).length === 0) {
             return null;
         }
         return this.state.items.map((item, index) => {
+            console.log(item);
+
             return (
-                <ItemName item={item} key={index}/>
+                <ItemName item={item} onClick={this.remove} key={index}/>
             );
         })
     }
