@@ -34,7 +34,6 @@ export class ListsContainer extends Component {
     };
 
     remove = id => {
-        console.log(id);
         this.props.actions.remove(apiServer.method.listWithId, id);
         window.location.reload();
     };
