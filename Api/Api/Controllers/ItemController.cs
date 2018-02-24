@@ -27,33 +27,25 @@ namespace Api.Controllers
             itemReposiotry.InsertItem(item);
             return Request.CreateResponse<Item>(HttpStatusCode.Created, item);
         }
+        [Route("api/list/{idList}/item/{idItem}")]
         [HttpGet]
-        public async Task<List<Item>> GetAllList()
-        {
-            return await itemReposiotry._listOfItem.Find(new BsonDocument()).ToListAsync();
+        public Task<Item> GetItem(string idList, string idItem)
+        {       
+            return itemReposiotry.GetItemById(idItem, idList);
+            
         }
 
-        public HttpResponseMessage GetItem(string id)
-        {
-            try
-            {
-                return Request.CreateResponse(HttpStatusCode.Found, itemReposiotry.GetItemById(id));
-            }
-            catch (System.Exception)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No Data found");
-            }
-        }
         [HttpPut]
         public HttpResponseMessage UpdateItem(string id, Item item)
         {
             itemReposiotry.UpdateItem(id, item);
             return Request.CreateResponse<Item>(HttpStatusCode.OK, item);
         }
+        [Route("api/list/{idList}/item/{idItem}")]
         [HttpDelete]
-        public HttpResponseMessage Delete(string id)
+        public HttpResponseMessage Delete(string idList, string idItem)
         {
-            itemReposiotry.DeleteList(id);
+            itemReposiotry.DeleteList(idList, idItem);
             return Request.CreateResponse(HttpStatusCode.OK, "Delete");
         }
     }

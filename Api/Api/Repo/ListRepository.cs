@@ -16,7 +16,7 @@ namespace Api.Repo
         public ListRepository()
         {
             _client = new MongoClient("mongodb://localhost");
-            _datebase = _client.GetDatabase("listDatabase3");
+            _datebase = _client.GetDatabase("db1");
             _listCollection = _datebase.GetCollection<ListOfItem>("lists");
         }
         public bool CheckConnection()
@@ -50,9 +50,19 @@ namespace Api.Repo
         }
         public async Task UpdateList(string id, ListOfItem loi)
         {
-            loi.id = new ObjectId(id);
-            var filter = Builders<ListOfItem>.Filter.Eq(x => x.id, new ObjectId(id));
-            await _listCollection.ReplaceOneAsync(filter, loi);
+            try
+            {
+                var list = _listCollection.Find(_ => _.id == new ObjectId(id)).SingleOrDefault();
+                list.name = loi.name;
+                list.description = loi.description;
+                var filter = Builders<ListOfItem>.Filter.Eq(x => x.id, new ObjectId(id));
+                await _listCollection.ReplaceOneAsync(filter, list);
+
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
         public async Task DeleteList(string id)
         {

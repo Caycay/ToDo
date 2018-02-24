@@ -13,13 +13,11 @@ namespace Api.Repo
     {
         private IMongoClient _client;
         private IMongoDatabase _datebase;
-        public IMongoCollection<Item> _listOfItem;
         ListRepository listRepository = new ListRepository();
         public ItemRepository()
         {
             _client = new MongoClient("mongodb://localhost");
-            _datebase = _client.GetDatabase("listDatabase2");
-            _listOfItem = _datebase.GetCollection<Item>("items");
+            _datebase = _client.GetDatabase("db1");
         }
         public bool CheckConnection()
         {
@@ -37,28 +35,21 @@ namespace Api.Repo
 
         public async Task InsertItem(Item item)
         {
+            item.id = ObjectId.GenerateNewId();
             ListOfItem listOfItem = await listRepository._listCollection.FindSync(_ => _.id == new ObjectId(item.listId)).SingleAsync();
             var filter = Builders<ListOfItem>.Filter.Eq(x => x.id, new ObjectId(item.listId));
-
             listOfItem.items.Add(item);
-             _listOfItem.InsertOne(item);
-           await listRepository._listCollection.ReplaceOneAsync(filter, listOfItem);
+            await listRepository._listCollection.ReplaceOneAsync(filter, listOfItem);
         }
-
-        public async Task<List<Item>> GetAllList()
+        public async Task<Item> GetItemById(string idItem, string idList)
         {
-            return await _listOfItem.Find(new BsonDocument()).ToListAsync();
-        }
-        public async Task<Item> GetItemById(string id)
-        {
-            //  var list = _listCollection.Find(x=>x.Id == id);
-            var result = await _listOfItem.FindSync(_ => _.id == new ObjectId(id)).SingleAsync();
-            return result;
+            ListOfItem listOfItem = await listRepository._listCollection.FindSync(_ => _.id == new ObjectId(idList)).SingleAsync();
+            Item item = listOfItem.items.Find(_ => _.id == new ObjectId(idItem));
+            return item;
         }
         public async Task UpdateItem(string id, Item item)
         {
             item.id = new ObjectId(id);
-            var filter = Builders<Item>.Filter.Eq(x => x.id, new ObjectId(id));
             var filterList = Builders<ListOfItem>.Filter.Eq(x => x.id, new ObjectId(item.listId));
             ListOfItem listOfItem = await listRepository._listCollection.FindSync(_ => _.id == new ObjectId(item.listId)).SingleAsync();
             Item oldItem = listOfItem.items.Find(x => x.id == item.id);
@@ -66,13 +57,26 @@ namespace Api.Repo
             oldItem.propertyString = item.propertyString;
             oldItem.propertyString2 = item.propertyString2;
 
-            var result =  _listOfItem.ReplaceOne(filter, item);
             await listRepository._listCollection.ReplaceOneAsync(filterList, listOfItem);
 
         }
-        public async Task DeleteList(string id)
+        public async Task DeleteList(string idList, string idItem)
         {
-            var result = await _listOfItem.FindOneAndDeleteAsync(_ => _.id == new ObjectId(id));
+            try
+            {
+                ListOfItem listOfItem = await listRepository._listCollection.FindSync(_ => _.id == new ObjectId(idList)).SingleAsync();
+                var filterList = Builders<ListOfItem>.Filter.Eq(x => x.id, new ObjectId(idList));
+
+                var item = listOfItem.items.FirstOrDefault(_ => _.id == new ObjectId(idItem));
+                var newList = listOfItem.items.Remove(item);
+                await listRepository._listCollection.ReplaceOneAsync(filterList, listOfItem);
+
+            }
+            catch (Exception e)
+            {
+                
+                throw;
+            }
         }
     }
 }

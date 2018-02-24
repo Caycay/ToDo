@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -125,6 +126,7 @@
     <Compile Include="Models\ListOfItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\ItemRepository.cs" />
+    <Compile Include="Repo\ItemsRepository.cs" />
     <Compile Include="Repo\ListRepository.cs" />
   </ItemGroup>
   <ItemGroup>

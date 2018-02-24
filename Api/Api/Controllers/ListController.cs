@@ -31,17 +31,10 @@ namespace Api.Controllers
             listRepository.InsertList(list);
             return Request.CreateResponse<ListOfItem>(HttpStatusCode.Created, list);
         }
-        
-        public HttpResponseMessage GetList(string id)
+
+        public Task<ListOfItem> GetList(string id)
         {
-            try
-            {
-                return Request.CreateResponse(HttpStatusCode.Found, listRepository.GetListById(id));
-            }
-            catch (System.Exception)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No Data found");
-            }
+            return listRepository.GetListById(id);
         }
         [HttpPut]
         public HttpResponseMessage UpdateList(string id, ListOfItem listOfItem)
