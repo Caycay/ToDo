@@ -5,3 +5,4 @@ export const GET_ITEM_BY_ID = 'GET_ITEM_BY_ID';
 export const UPDATE = 'UPDATE';
 export const CREATE_NEW = 'CREATE_NEW';
 export const DELETE = 'DELETE';
+export const DELETE_ITEM = 'DELETE_ITEM';

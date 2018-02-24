@@ -26,7 +26,16 @@ export function getListById(listId){
         });
     }
 }
-export function getItemById(id){
+export function getItemById(idL, idI){
+    return function (dispatch){
+        return dispatch({
+            type: types.GET_ITEM_BY_ID,
+            payload: ApiService.apiGetItem(apiServer.method.itemWithListId, idL, idI)
+        });
+    }
+}
+
+export function getItemBySingleId(id){
     return function (dispatch){
         return dispatch({
             type: types.GET_ITEM_BY_ID,
@@ -34,6 +43,7 @@ export function getItemById(id){
         });
     }
 }
+
 export function update(settings, endpointUrl){
     return{
         type: types.UPDATE,
@@ -49,11 +59,20 @@ export function createNew(settings, endpointUrl){
         endpointUrl
     }
 }
-export function remove(endpointUrl, id){
+export function deleteList(endpointUrl, id){
     debugger;
     return{
         type: types.DELETE,
         endpointUrl,
         id
+    }
+}
+export function deleteItem(endpointUrl, idItem, idList){
+    debugger;
+    return{
+        type: types.DELETE_ITEM,
+        endpointUrl,
+        idItem,
+        idList
     }
 }

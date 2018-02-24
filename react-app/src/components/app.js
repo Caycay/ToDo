@@ -10,6 +10,7 @@ import CreateListContainer from "./containers/create-list-container";
 import CreateItemContainer from "./containers/create-item-container";
 
 class App extends Component {
+
     render() {
         return (
             <Switch>
@@ -18,7 +19,7 @@ class App extends Component {
                 <Route path="/edit/list/:id" component={UpdateListContainer}/>
                 <Route path="/add/list/" component={CreateListContainer}/>
                 <Route path="/add/item/:id" component={CreateItemContainer}/>
-                <Route path="/edit/item/:id" component={UpdateItemContainer}/>
+                <Route path="/edit/item/:idItem/:idList" component={UpdateItemContainer}/>
             </Switch>
         )
     }

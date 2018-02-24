@@ -9,8 +9,8 @@ const ItemName = ({item, onClick}) => (
 
         </div>
         <div className="collection-buttons">
-            <Link title="Edit" to={"/edit/item/" + item.id} className="item-grup"><i className="material-icons">mode_edit</i></Link>
-            <div className="item-grup" onClick={() => onClick(item.id)}><i className="material-icons">delete</i></div>
+            <Link title="Edit" to={"/edit/item/"+  item.id +"/"+ item.listId} className="item-grup"><i className="material-icons">mode_edit</i></Link>
+            <div className="item-grup" onClick={() => onClick(item.id, item.listId)}><i className="material-icons">delete</i></div>
 
         </div>
     </div>

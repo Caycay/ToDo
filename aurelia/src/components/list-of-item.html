@@ -10,7 +10,7 @@
         </md-checkbox>
         <div class="${checked ? 'collection-buttons-done' : 'collection-buttons'}">
           <button md-button="flat:true;" class="primary-text" click.delegate="editItem(item)"><i class="material-icons">mode_edit</i></button>
-          <button md-button="flat:true;" class="primary-text" click.delegate="deleteItem(item.id)"><i class="material-icons">delete</i></button>
+          <button md-button="flat:true;" class="primary-text" click.delegate="deleteItem(item.id, item.listId)"><i class="material-icons">delete</i></button>
         </div>
 
 

@@ -26,6 +26,10 @@ export default function listReducer(state = initialState, action) {
             debugger;
             return ApiService.apiDelete(action.endpointUrl, action.id)
         }
+        case types.DELETE_ITEM: {
+            debugger;
+            return ApiService.apiDeleteItem(action.endpointUrl, action.idItem, action.idList)
+        }
         default:
             return state;
     }

@@ -31,8 +31,8 @@ class ItemsContainer extends Component{
             this.setState({items: result});
         });
     };
-    remove = id => {
-        this.props.actions.remove(apiServer.method.itemWithId, id);
+    remove = (idL, idI) => {
+        this.props.actions.deleteItem(apiServer.method.itemWithListId, idI, idL);
        // window.location.reload();
     };
     generateListView() {

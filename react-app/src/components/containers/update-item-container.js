@@ -14,16 +14,18 @@ export class UpdateItemContainer extends Component {
     }
 
     componentWillMount() {
-        const id = this.props.match.params.id;
-        this.getItemById(id);
+        debugger;
+        const params = this.props.match.params;
+        this.getItemById(params.idItem, params.idList);
     }
 
-    getItemById = (id) => {
-        this.props.actions.getItemById(id).payload.then(result => {
+    getItemById = (idItem, idList) => {
+        this.props.actions.getItemById( idList, idItem).payload.then(result => {
             this.setState({item: result});
         });
     };
     saveItem = () =>{
+        debugger;
         let item  = this.state.item;
         this.props.actions.update(item, apiServer.method.itemWithId);
     };
@@ -34,7 +36,7 @@ export class UpdateItemContainer extends Component {
     };
 
     render() {
-        return (
+       return (
             <ItemEdit
                 item={this.state.item}
                 onChange={this.addValue}
@@ -55,6 +57,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
+        list: state.list,
         item: state.item
     };
 }
