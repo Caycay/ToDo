@@ -1,31 +1,28 @@
-import {apiServer} from "../../constant/const";
-import {Component} from 'react'
+import { apiServer } from "../../constant/const";
+import { Component } from 'react';
 class ApiService extends Component {
     static apiGetAll(endpointUrl) {
-        return fetch(apiServer.url + endpointUrl)
-            .then(response => response.json());
+        return fetch(apiServer.url + endpointUrl).then(response => response.json());
     }
 
     static apiGetById(endpoint, id) {
-        return fetch(apiServer.url + endpoint.replace(/:id/, id + ''))
-            .then(response => response.json());
+        return fetch(apiServer.url + endpoint.replace(/:id/, id + '')).then(response => response.json());
     }
 
-    static apiGetItem(endpoint, id) {
-        return fetch(apiServer.url + endpoint.replace(/:id/, id + ''))
-            .then(response => response.json());
+    static apiGetItem(endpoint, idL, idI) {
+        return fetch(apiServer.url + endpoint.replace(/:idL/, idL + '').replace(/:idI/, idI + '')).then(response => response.json());
     }
 
     static apiPut(endpointUrl, data) {
         return fetch(apiServer.url + endpointUrl.replace(/:id/, data.id + ''), {
-                method: 'PUT',
-                mode: 'CORS',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                return response;
+            method: 'PUT',
+            mode: 'CORS',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response;
         }).catch(err => err);
     }
     static apiPost(endpointUrl, data) {
@@ -63,4 +60,4 @@ class ApiService extends Component {
     }
 }
 
-export default  ApiService;
+export default ApiService;

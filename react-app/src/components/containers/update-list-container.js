@@ -14,7 +14,7 @@ export class UpdateListContainer extends Component {
     }
     componentWillMount(){
         const id = this.props.match.params.id;
-        this.getListById(id);
+        this.setList(id);
     }
     update = e =>{
         let list = Object.assign({}, this.state.list);
@@ -25,8 +25,8 @@ export class UpdateListContainer extends Component {
       let list = this.state.list;
       this.props.actions.update(list, apiServer.method.listWithId);
     };
-    getListById = (id) => {
-        this.props.actions.getListById(id).payload.then(result => {
+    setList = (id) => {
+        this.props.actions.setList(id).payload.then(result => {
             this.setState({list: result});
         });
     };

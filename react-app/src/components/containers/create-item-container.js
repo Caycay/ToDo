@@ -5,35 +5,30 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {apiServer} from "../../constant/const";
 import ItemAdd from "../item-add";
+import apiService from "../../api/services/api-http-service";
 
-class CreateItemContainer extends Component {
+class CreateItemContainer extends Component{
     constructor(props) {
         super(props);
-        this.state = {
-            item: {
-                propertyString: '',
-                propertyString2: '',
-                propertyNumber: '',
-                done: false,
-                listId: props.match.params.id
-
-            }
-        };
     }
-
+    componentWillMount(){
+        let item = this.props.item;
+        item['listId'] = this.props.match.params.id;
+        this.props.actions.setNewItem(item);
+    }
     createNew = () => {
-        let item = this.state.item;
-        this.props.actions.createNew(item, apiServer.method.items);
+        apiService.apiPost(apiServer.method.items, this.props.item);
     };
     addValue = e => {
-        let item = Object.assign({}, this.state.item);
+        let item = Object.assign({}, this.props.item);
         item[e.target.name] = e.target.value;
-        this.setState({item: item});
+        this.props.actions.setNewItem(item);
     };
 
     render() {
+        const {item} = this.props;
         return (
-            <ItemAdd item={this.state.item}
+            <ItemAdd item={item}
                      onChange={this.addValue}
                      onSaveClick={this.createNew}
             />
@@ -51,7 +46,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        item: state.item
+        item: state.lists.item
     };
 }
 

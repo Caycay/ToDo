@@ -16,11 +16,11 @@ export class UpdateItemContainer extends Component {
     componentWillMount() {
         debugger;
         const params = this.props.match.params;
-        this.getItemById(params.idItem, params.idList);
+        this.setItem(params.idItem, params.idList);
     }
 
-    getItemById = (idItem, idList) => {
-        this.props.actions.getItemById( idList, idItem).payload.then(result => {
+    setItem = (idItem, idList) => {
+        this.props.actions.setItem( idList, idItem).payload.then(result => {
             this.setState({item: result});
         });
     };

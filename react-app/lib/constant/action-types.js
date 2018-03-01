@@ -6,5 +6,3 @@ export const UPDATE = 'UPDATE';
 export const CREATE_NEW = 'CREATE_NEW';
 export const DELETE = 'DELETE';
 export const DELETE_ITEM = 'DELETE_ITEM';
-export const SET_NEW_ITEM = 'SET_NEW_ITEM';
-export const SET_NEW_LIST = 'SET_NEW_LIST';

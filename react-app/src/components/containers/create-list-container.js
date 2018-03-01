@@ -5,34 +5,24 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {apiServer} from "../../constant/const";
-import Service from "../../service/service"
+import apiService from "../../api/services/api-http-service";
 
 class CreateListContainer extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            list: {
-                name: '',
-                description: ''
-            }
-        };
-
     }
     addValue = e =>{
-        let list = Object.assign({}, this.state.list);
+        let list = Object.assign({}, this.props.list);
         list[e.target.name] = e.target.value;
-        this.setState({list: list});
-        console.log(this.state);
+        this.props.actions.setNewList(list);
     };
     createNew = () =>{
-        let list = this.state.list;
-        console.log(this.props.actions);
-        this.props.actions.createNew(list, apiServer.method.lists);
+        apiService.apiPost(apiServer.method.lists, this.props.list);
     };
     render() {
         return (
             <ListAdd
-                list={this.state.list}
+                list={this.props.list}
                 onChange={this.addValue}
                 onSaveClick={this.createNew}
             />
@@ -50,7 +40,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        list: state.list
+        list: state.lists.list
     };
 }
 

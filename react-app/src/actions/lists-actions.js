@@ -2,43 +2,62 @@ import * as types from '../constant/action-types';
 import ApiService from "../api/services/api-http-service";
 import {apiServer} from "../constant/const";
 
-export function getAllLists(){
+export function setLists(lists){
     return function (dispatch){
         return dispatch({
-            type: types.GET_LISTS,
-            payload: ApiService.apiGetAll(apiServer.method.lists)
+            type: types.SET_LISTS,
+            payload: lists
         });
     }
 }
-export function getAllItems(listId){
+export function setItems(items){
     return function (dispatch){
         return dispatch({
-            type: types.GET_ITEMS,
-            payload: ApiService.apiGetById(apiServer.method.listItemWithId, listId)
+            type: types.SET_ITEMS,
+            payload: items
         });
     }
 }
-export function getListById(listId){
+export function createNew(object){
+    return{
+        type: types.CREATE_NEW,
+        payload: object
+    }
+}
+export function setNewItem(item){
+    return{
+        type: types.SET_NEW_ITEM,
+        payload: item
+    }
+}
+export function setNewList(list){
+    return{
+        type: types.SET_NEW_LIST,
+        payload: list
+    }
+}
+
+
+export function setList(listId){
     return function (dispatch){
         return dispatch({
-            type: types.GET_LIST_BY_ID,
+            type: types.SET_LIST,
             payload: ApiService.apiGetById(apiServer.method.listWithId, listId)
         });
     }
 }
-export function getItemById(idL, idI){
+export function setItem(idL, idI){
     return function (dispatch){
         return dispatch({
-            type: types.GET_ITEM_BY_ID,
+            type: types.SET_ITEM,
             payload: ApiService.apiGetItem(apiServer.method.itemWithListId, idL, idI)
         });
     }
 }
-
 export function getItemBySingleId(id){
     return function (dispatch){
         return dispatch({
-            type: types.GET_ITEM_BY_ID,
+            type: types.SET_ITEM,
             payload: ApiService.apiGetById(apiServer.method.itemWithId, id)
         });
     }
@@ -51,14 +70,7 @@ export function update(settings, endpointUrl){
         endpointUrl
     }
 }
-export function createNew(settings, endpointUrl){
-    debugger;
-    return{
-        type: types.CREATE_NEW,
-        settings,
-        endpointUrl
-    }
-}
+
 export function deleteList(endpointUrl, id){
     debugger;
     return{
@@ -76,3 +88,4 @@ export function deleteItem(endpointUrl, idItem, idList){
         idList
     }
 }
+

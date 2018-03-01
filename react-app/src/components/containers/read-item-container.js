@@ -6,6 +6,7 @@ import ItemsView from '../items-view';
 import {connect} from 'react-redux';
 import ItemName from "../item-name";
 import {apiServer} from "../../constant/const";
+import ApiService from "../../api/services/api-http-service";
 
 class ItemsContainer extends Component{
     constructor(props){
@@ -16,7 +17,9 @@ class ItemsContainer extends Component{
     }
     componentWillMount(){
         const id = this.props.match.params.id;
-        this.getAllItems(id);
+        ApiService.apiGetItem(apiServer.method.listItemWithId, id).then(x=>{
+            this.props.actions.setItems(x);
+        });
     }
     render() {
         return (
@@ -26,22 +29,15 @@ class ItemsContainer extends Component{
             />
         );
     }
-    getAllItems = (id) => {
-        this.props.actions.getAllItems(id).payload.then(result => {
-            this.setState({items: result});
-        });
-    };
     remove = (idL, idI) => {
         this.props.actions.deleteItem(apiServer.method.itemWithListId, idI, idL);
-       // window.location.reload();
     };
     generateListView() {
-        if((this.state.items || []).length === 0) {
+        const {items} = this.props;
+        if((items || []).length === 0) {
             return null;
         }
-        return this.state.items.map((item, index) => {
-            console.log(item);
-
+        return items.map((item, index) => {
             return (
                 <ItemName item={item} onClick={this.remove} key={index}/>
             );
@@ -59,7 +55,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        items: state.items
+        items: state.lists.items
     };
 }
 export default connect(

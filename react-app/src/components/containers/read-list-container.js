@@ -6,20 +6,19 @@ import ListsView from '../lists-view';
 import {connect} from 'react-redux';
 import ListName from "../list-name";
 import {apiServer} from "../../constant/const";
+import ApiService from "../../api/services/api-http-service";
 
 export class ListsContainer extends Component {
-     constructor(){
-         super();
-         this.state = {
-             lists: []
-         };
-
+     constructor(props){
+         super(props);
      }
     componentWillMount(){
-        this.getAllLists();
-
+        ApiService.apiGetAll(apiServer.method.lists).then(x=>{
+            this.props.actions.setLists(x);
+        });
     }
     render() {
+        console.log(this.props);
         return (
             <ListsView
                 list={this.generateListView()}
@@ -27,22 +26,19 @@ export class ListsContainer extends Component {
         );
     }
 
-    getAllLists = () => {
-        this.props.actions.getAllLists().payload.then(result => {
-            this.setState({lists: result});
+    remove = id => {
+        ApiService.apiDelete(apiServer.method.listWithId, id).then(x=>{
+            this.props.actions.deleteList(id);
         });
     };
 
-    remove = id => {
-        this.props.actions.deleteList(apiServer.method.listWithId, id);
-        window.location.reload();
-    };
-
     generateListView() {
-        if((this.state.lists || []).length === 0) {
+
+        const {lists} = this.props;
+        if((lists || []).length === 0) {
             return null;
         }
-        return this.state.lists.map((list, index) => {
+        return lists.map((list, index) => {
 
             return (
                 <ListName list={list} onClick={this.remove} key={index}/>
@@ -62,7 +58,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        lists: state.lists
+        lists: state.lists.lists
     };
 }
 export default connect(
