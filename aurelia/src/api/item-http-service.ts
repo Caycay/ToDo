@@ -6,7 +6,7 @@ export class ItemHttpService extends ApiHttpService{
     return this.apiGet(apiServer.method.items.replace(/:id/, `${id}`)).then(res=>{return res.json()});
   }
   addItem(item: ApiItem){
-    return this.apiPost(apiServer.method.items, item).then(res=>res.json());
+    return this.apiPost(apiServer.method.item, item).then(res=>res.json());
   }
   deleteItem(idList:string, idItem:string){
     return this.apiDelete(apiServer.method.itemWithId.replace(/:id/, `${idList}`).replace(/:idItem/, `${idItem}`));

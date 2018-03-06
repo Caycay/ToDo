@@ -6,13 +6,14 @@ import {ApiItem} from "../models/api-data-models";
 @inject(EventAggregator, ItemHttpService)
 export class AddItem{
   item: ApiItem;
-
+  idList : string;
   constructor(private ea: EventAggregator, private httpService){
   }
   activate(params){
     console.log(params);
+    this.idList = params.id.id;
     debugger;
-    this.item = {propertyString: '', propertyString2: '', propertyNumber: null, listId: params.id.id, id: '', done: false };
+    this.item = {propertyString: '', propertyString2: '', propertyNumber: null, listId: this.idList, id: '', done: false };
 
   }
   add(){

@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import ItemEdit from "../item-edit";
 import {apiServer} from "../../constant/const";
+import ApiService from "../../api/services/api-http-service";
 export class UpdateItemContainer extends Component {
     constructor() {
         super();
@@ -14,31 +15,31 @@ export class UpdateItemContainer extends Component {
     }
 
     componentWillMount() {
-        debugger;
         const params = this.props.match.params;
         this.setItem(params.idItem, params.idList);
     }
 
     setItem = (idItem, idList) => {
-        this.props.actions.setItem( idList, idItem).payload.then(result => {
-            this.setState({item: result});
+        ApiService.apiGetItemById(apiServer.method.itemWithListId, idList, idItem).then(x=>{
+           this.props.actions.setItem(x);
         });
+
     };
     saveItem = () =>{
-        debugger;
-        let item  = this.state.item;
-        this.props.actions.update(item, apiServer.method.itemWithId);
+        let item  = this.props.item;
+        ApiService.apiPut(apiServer.method.itemWithId, item);
+
     };
     addValue = e => {
-        let item = Object.assign({}, this.state.item);
+        let item = Object.assign({}, this.props.item);
         item[e.target.name] = e.target.value;
-        this.setState({item: item});
+        this.props.actions.setNewItem(item);
     };
 
     render() {
        return (
             <ItemEdit
-                item={this.state.item}
+                item={this.props.item}
                 onChange={this.addValue}
                 onSaveClick={this.saveItem}
             />
@@ -57,8 +58,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        list: state.list,
-        item: state.item
+        item: state.lists.item
     };
 }
 export default connect(

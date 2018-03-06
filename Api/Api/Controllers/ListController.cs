@@ -23,7 +23,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<List<ListOfItem>> GetAllList()
         {
-            return await listRepository._listCollection.Find(new BsonDocument()).ToListAsync();
+            return await listRepository.GetAllList();
         }
         [HttpPost]
         public HttpResponseMessage InsertList(ListOfItem list)

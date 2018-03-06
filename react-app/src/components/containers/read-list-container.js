@@ -13,9 +13,7 @@ export class ListsContainer extends Component {
          super(props);
      }
     componentWillMount(){
-        ApiService.apiGetAll(apiServer.method.lists).then(x=>{
-            this.props.actions.setLists(x);
-        });
+        this.getLists();
     }
     render() {
         console.log(this.props);
@@ -25,10 +23,14 @@ export class ListsContainer extends Component {
             />
         );
     }
-
+    getLists(){
+        ApiService.apiGetAll(apiServer.method.lists).then(x=>{
+            this.props.actions.setLists(x);
+        });
+    }
     remove = id => {
         ApiService.apiDelete(apiServer.method.listWithId, id).then(x=>{
-            this.props.actions.deleteList(id);
+            this.getLists();
         });
     };
 

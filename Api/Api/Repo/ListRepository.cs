@@ -40,7 +40,9 @@ namespace Api.Repo
 
         public async Task<List<ListOfItem>> GetAllList()
         {
-            return await _listCollection.Find(new BsonDocument()).ToListAsync();
+            var s = _listCollection.Find(new BsonDocument()).ToListAsync();
+            
+            return await s;
         }
         public async Task<ListOfItem> GetListById(string id)
         {

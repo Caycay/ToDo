@@ -46,11 +46,11 @@ export function setList(listId){
         });
     }
 }
-export function setItem(idL, idI){
+export function setItem(item){
     return function (dispatch){
         return dispatch({
             type: types.SET_ITEM,
-            payload: ApiService.apiGetItem(apiServer.method.itemWithListId, idL, idI)
+            payload: item
         });
     }
 }
@@ -68,24 +68,6 @@ export function update(settings, endpointUrl){
         type: types.UPDATE,
         settings,
         endpointUrl
-    }
-}
-
-export function deleteList(endpointUrl, id){
-    debugger;
-    return{
-        type: types.DELETE,
-        endpointUrl,
-        id
-    }
-}
-export function deleteItem(endpointUrl, idItem, idList){
-    debugger;
-    return{
-        type: types.DELETE_ITEM,
-        endpointUrl,
-        idItem,
-        idList
     }
 }
 

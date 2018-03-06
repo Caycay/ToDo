@@ -28,15 +28,6 @@ export default function listReducer(state = initialState, action) {
         case types.CREATE_NEW: {
             return ApiService.apiPost(action.endpointUrl, action.settings)
         }
-        case types.DELETE: {
-            let newState = [];
-            newState = state.lists.remove(x=>x.id === action.id);
-            return newState;
-        }
-        case types.DELETE_ITEM: {
-            debugger;
-            return ApiService.apiDeleteItem(action.endpointUrl, action.idItem, action.idList)
-        }
         default:
             return state;
     }

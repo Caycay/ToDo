@@ -10,6 +10,10 @@ class ApiService extends Component {
         return fetch(apiServer.url + endpoint.replace(/:id/, id + ''))
             .then(response => response.json());
     }
+    static apiGetItemById(endpoint, idList, idItem) {
+        return fetch(apiServer.url + endpoint.replace(/:idL/, idList + '').replace(/:idI/, idItem + ''))
+            .then(response => response.json());
+    }
 
     static apiGetItem(endpoint, id) {
         return fetch(apiServer.url + endpoint.replace(/:id/, id + ''))
@@ -41,7 +45,6 @@ class ApiService extends Component {
         }).catch(err => err);
     }
     static apiDelete(endpointUrl, id) {
-        debugger;
         return fetch(apiServer.url + endpointUrl.replace(/:id/, id + ''), {
             method: 'DELETE',
             headers: {

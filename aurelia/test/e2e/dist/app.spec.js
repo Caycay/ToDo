@@ -3,17 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var protractor_1 = require("protractor");
 var config_1 = require("./config");
 var helper_po_1 = require("./helper.po");
-describe('App', function () {
+describe('Home', function () {
     var helper = new helper_po_1.Helper();
     var EC = protractor_1.protractor.ExpectedConditions;
     beforeAll(function () {
-        protractor_1.browser.get('http://localhost:9001/');
+        protractor_1.browser.get('http://localhost:9000/');
     });
     afterAll(function () {
         protractor_1.browser.get('about:blank');
     });
     it("should go to view add list", function () {
-        config_1.waitForUrl('localhost:9001');
+        config_1.waitForUrl('localhost:9000');
         helper.clickButton('addListBtn');
         expect(EC.urlContains('add-list'));
     });

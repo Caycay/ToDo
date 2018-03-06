@@ -16,10 +16,7 @@ class ItemsContainer extends Component{
         };
     }
     componentWillMount(){
-        const id = this.props.match.params.id;
-        ApiService.apiGetItem(apiServer.method.listItemWithId, id).then(x=>{
-            this.props.actions.setItems(x);
-        });
+        this.getItem();
     }
     render() {
         return (
@@ -29,8 +26,19 @@ class ItemsContainer extends Component{
             />
         );
     }
+    getItem(){
+        const id = this.props.match.params.id;
+
+        ApiService.apiGetItem(apiServer.method.listItemWithId, id).then(x=>{
+            this.props.actions.setItems(x);
+        });
+    }
     remove = (idL, idI) => {
-        this.props.actions.deleteItem(apiServer.method.itemWithListId, idI, idL);
+        ApiService.apiDeleteItem(apiServer.method.itemWithListId, idI,idL).then(x=>{
+            this.getItem();
+
+        });
+
     };
     generateListView() {
         const {items} = this.props;

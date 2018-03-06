@@ -12,7 +12,8 @@ class CreateListContainer extends Component {
         super(props);
     }
     addValue = e =>{
-        let list = Object.assign({}, this.props.list);
+        let list = {};
+        debugger;
         list[e.target.name] = e.target.value;
         this.props.actions.setNewList(list);
     };

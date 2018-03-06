@@ -71,7 +71,6 @@ export function waitForCss(sel, timeout = 5000) {
 export function waitForUrl(phrase, timeout = 5000) {
   return browser.wait(EC.urlContains(phrase), timeout);
 }
-
 export function clickElement(el: ElementFinder) {
   return browser.executeScript('arguments[0].click()', el);
 }

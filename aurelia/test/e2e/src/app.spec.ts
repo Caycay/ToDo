@@ -2,19 +2,19 @@ import {$, browser, by, element, protractor} from 'protractor';
 import {waitForUrl} from "./config";
 import {Helper} from "./helper.po";
 
-describe('App', ()=>{
+describe('Home', ()=>{
   let helper: Helper = new Helper();
   const EC = protractor.ExpectedConditions;
 
   beforeAll(()=>{
-    browser.get('http://localhost:9001/');
+    browser.get('http://localhost:9000/');
   });
   afterAll(()=>{
     browser.get('about:blank');
   });
 
   it(`should go to view add list`, ()=>{
-    waitForUrl('localhost:9001');
+    waitForUrl('localhost:9000');
     helper.clickButton('addListBtn');
     expect(EC.urlContains('add-list'));
   });

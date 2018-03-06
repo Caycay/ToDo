@@ -11,7 +11,6 @@ export class AddList{
 
   }
   add(){
-    console.log(this.list);
     this.httpService.addList(this.list).then((response)=>{
       this.ea.publish('ListItem:save');
     }).catch(err=>console.log('error:', err));
