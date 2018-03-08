@@ -6,30 +6,34 @@ import {connect} from 'react-redux';
 import ItemEdit from "../item-edit";
 import {apiServer} from "../../constant/const";
 import ApiService from "../../api/services/api-http-service";
+
 export class UpdateItemContainer extends Component {
+
     constructor() {
         super();
         this.state = {
             item: {}
         };
-    }
+    };
 
     componentWillMount() {
         const params = this.props.match.params;
         this.setItem(params.idItem, params.idList);
-    }
+    };
 
     setItem = (idItem, idList) => {
-        ApiService.apiGetItemById(apiServer.method.itemWithListId, idList, idItem).then(x=>{
-           this.props.actions.setItem(x);
+        ApiService.apiGetItemById(apiServer.method.itemWithListId, idList, idItem).then(x => {
+            this.props.actions.setItem(x);
         });
 
     };
-    saveItem = () =>{
-        let item  = this.props.item;
+
+    saveItem = () => {
+        let item = this.props.item;
         ApiService.apiPut(apiServer.method.itemWithId, item);
 
     };
+
     addValue = e => {
         let item = Object.assign({}, this.props.item);
         item[e.target.name] = e.target.value;
@@ -37,7 +41,7 @@ export class UpdateItemContainer extends Component {
     };
 
     render() {
-       return (
+        return (
             <ItemEdit
                 item={this.props.item}
                 onChange={this.addValue}
@@ -49,18 +53,20 @@ export class UpdateItemContainer extends Component {
 
 UpdateItemContainer.propTypes = {
     actions: PropTypes.object.isRequired,
-    //lists: PropTypes.array.isRequired
 };
+
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(actions, dispatch)
     };
 }
+
 function mapStateToProps(state) {
     return {
         item: state.lists.item
     };
 }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

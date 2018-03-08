@@ -5,31 +5,39 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import ListEdit from '../list-edit'
 import {apiServer} from "../../constant/const";
+import ApiService from "../../api/services/api-http-service";
+
 export class UpdateListContainer extends Component {
-    constructor(){
+
+    constructor() {
         super();
         this.state = {
             list: {}
         };
-    }
-    componentWillMount(){
+    };
+
+    componentWillMount() {
         const id = this.props.match.params.id;
         this.setList(id);
-    }
-    update = e =>{
+    };
+
+    update = e => {
         let list = Object.assign({}, this.state.list);
         list[e.target.name] = e.target.value;
         this.setState({list: list});
     };
-    saveList = () =>{
-      let list = this.state.list;
-      this.props.actions.update(list, apiServer.method.listWithId);
+
+    saveList = () => {
+        let list = this.state.list;
+        ApiService.apiPut(apiServer.method.itemWithId, list);
     };
+
     setList = (id) => {
-        this.props.actions.setList(id).payload.then(result => {
-            this.setState({list: result});
+        ApiService.apiGetById(apiServer.method.listWithId, id).then(x => {
+            this.props.actions.setList(x);
         });
     };
+
     render() {
         return (
             <ListEdit
@@ -42,17 +50,20 @@ export class UpdateListContainer extends Component {
 }
 UpdateListContainer.propTypes = {
     actions: PropTypes.object.isRequired,
-    //lists: PropTypes.array.isRequired
 };
 function mapDispatchToProps(dispatch) {
+
     return {
         actions: bindActionCreators(actions, dispatch)
     };
+
 }
 function mapStateToProps(state) {
+
     return {
         list: state.list
     };
+
 }
 export default connect(
     mapStateToProps,

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
 const ListName = ({list, onClick}) => (
 
     <div className="list-name">

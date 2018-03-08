@@ -13,12 +13,12 @@ const ListEdit = ({list, onChange, onSaveClick}) => (
                     <Input name="name" onChange={onChange} label="New name" value={list.name}/>
                     <Input name="description" onChange={onChange} label="New description" value={list.description}/>
                 </div>
-                <Link title="Save"  to={"/"} className="item-grup" >
-
-                <BtnAdd onSaveClick={onSaveClick}/>
+                <Link title="Save" to={"/"} className="item-grup">
+                    <BtnAdd onSaveClick={onSaveClick}/>
                 </Link>
             </div>
         </div>
     </div>
 );
+
 export default ListEdit;

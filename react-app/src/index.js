@@ -7,12 +7,13 @@ import Root from './components/root';
 
 import registerServiceWorker from './registerServiceWorker';
 
-
 const store = configureStore();
+
 ReactDOM.render(
     <AppContainer>
         <Root store={store} history={history}/>
     </AppContainer>,
     document.getElementById('root')
 );
+
 registerServiceWorker();

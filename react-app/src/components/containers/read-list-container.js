@@ -9,12 +9,15 @@ import {apiServer} from "../../constant/const";
 import ApiService from "../../api/services/api-http-service";
 
 export class ListsContainer extends Component {
-     constructor(props){
-         super(props);
-     }
-    componentWillMount(){
+
+    constructor(props) {
+        super(props);
+    };
+
+    componentWillMount() {
         this.getLists();
-    }
+    };
+
     render() {
         console.log(this.props);
         return (
@@ -22,14 +25,16 @@ export class ListsContainer extends Component {
                 list={this.generateListView()}
             />
         );
-    }
-    getLists(){
-        ApiService.apiGetAll(apiServer.method.lists).then(x=>{
+    };
+
+    getLists() {
+        ApiService.apiGetAll(apiServer.method.lists).then(x => {
             this.props.actions.setLists(x);
         });
-    }
+    };
+
     remove = id => {
-        ApiService.apiDelete(apiServer.method.listWithId, id).then(x=>{
+        ApiService.apiDelete(apiServer.method.listWithId, id).then(x => {
             this.getLists();
         });
     };
@@ -37,7 +42,7 @@ export class ListsContainer extends Component {
     generateListView() {
 
         const {lists} = this.props;
-        if((lists || []).length === 0) {
+        if ((lists || []).length === 0) {
             return null;
         }
         return lists.map((list, index) => {
@@ -46,23 +51,26 @@ export class ListsContainer extends Component {
                 <ListName list={list} onClick={this.remove} key={index}/>
             );
         })
-    }
+    };
 }
 
 ListsContainer.propTypes = {
     actions: PropTypes.object.isRequired,
     //lists: PropTypes.array.isRequired
 };
+
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(actions, dispatch)
     };
 }
+
 function mapStateToProps(state) {
     return {
         lists: state.lists.lists
     };
 }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

@@ -15,11 +15,12 @@ const ItemEdit = ({item, onChange, onSaveClick}) => (
                     <Input name="propertyNumber" onChange={onChange} label="third" value={item.propertyNumber}/>
                 </div>
             </div>
-            <Link title="Save" to={"/list/"+item.listId} className="item-grup">
+            <Link title="Save" to={"/list/" + item.listId} className="item-grup">
 
                 <BtnAdd onSaveClick={onSaveClick}/>
             </Link>
         </div>
     </div>
 );
+
 export default ItemEdit;

@@ -9,8 +9,8 @@ const ListsView = ({list}) => (
         <div className="list-section">
             <div className="collection-item">
                 {list}
-                <Link title="Add new list"  to={"/add/list/"} className="item-grup" >
-                <BtnAdd />
+                <Link title="Add new list" to={"/add/list/"} className="item-grup">
+                    <BtnAdd />
                 </Link>
             </div>
         </div>

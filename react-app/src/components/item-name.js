@@ -5,12 +5,15 @@ import {Input} from "react-materialize";
 const ItemName = ({item, onClick}) => (
     <div className="items-list">
         <div className="item">
-            <Input name='group1' type='checkbox' value='red' label={item.propertyString + " " + item.propertyString2 + " " + item.propertyNumber} />
+            <Input name='group1' type='checkbox' value='red'
+                   label={item.propertyString + " " + item.propertyString2 + " " + item.propertyNumber}/>
 
         </div>
         <div className="collection-buttons">
-            <Link title="Edit" to={"/edit/item/"+  item.id +"/"+ item.listId} className="item-grup"><i className="material-icons">mode_edit</i></Link>
-            <div className="item-grup" onClick={() => onClick(item.id, item.listId)}><i className="material-icons">delete</i></div>
+            <Link title="Edit" to={"/edit/item/" + item.id + "/" + item.listId} className="item-grup"><i
+                className="material-icons">mode_edit</i></Link>
+            <div className="item-grup" onClick={() => onClick(item.id, item.listId)}><i className="material-icons">delete</i>
+            </div>
 
         </div>
     </div>

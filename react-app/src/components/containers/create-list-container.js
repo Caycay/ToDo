@@ -8,18 +8,21 @@ import {apiServer} from "../../constant/const";
 import apiService from "../../api/services/api-http-service";
 
 class CreateListContainer extends Component {
-    constructor(props){
+
+    constructor(props) {
         super(props);
-    }
-    addValue = e =>{
-        let list = {};
-        debugger;
+    };
+
+    addValue = e => {
+        let list = Object.assign({}, this.props.list);
         list[e.target.name] = e.target.value;
         this.props.actions.setNewList(list);
     };
-    createNew = () =>{
+
+    createNew = () => {
         apiService.apiPost(apiServer.method.lists, this.props.list);
     };
+
     render() {
         return (
             <ListAdd
@@ -30,15 +33,18 @@ class CreateListContainer extends Component {
         );
     }
 }
+
 CreateListContainer.propTypes = {
     actions: PropTypes.object.isRequired,
     //lists: PropTypes.array.isRequired
 };
+
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(actions, dispatch)
     };
 }
+
 function mapStateToProps(state) {
     return {
         list: state.lists.list
