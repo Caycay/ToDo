@@ -9,11 +9,13 @@ export class Lists {
   lists: Array<List>;
 
   constructor(private ea: EventAggregator, private listApi) {
+    this.ea.publish('blockUI');
 
   }
 
   attached() {
     this.getList();
+    this.ea.publish('blockUI');
   }
 
   getList() {

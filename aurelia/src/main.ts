@@ -5,6 +5,7 @@ export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .feature('resources')
+    .feature('common/elements')
     .plugin('aurelia-materialize-bridge', b => b.useButton()
       .useCheckbox()
       .useCollapsible()

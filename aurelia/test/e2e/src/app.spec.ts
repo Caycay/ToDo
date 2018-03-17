@@ -7,14 +7,14 @@ describe('Home', ()=>{
   const EC = protractor.ExpectedConditions;
 
   beforeAll(()=>{
-    browser.get('http://localhost:9000/');
+    browser.get(browser.baseUrl);
+    waitForUrl(browser.baseUrl);
   });
   afterAll(()=>{
     browser.get('about:blank');
   });
 
   it(`should go to view add list`, ()=>{
-    waitForUrl('localhost:9000');
     helper.clickButton('addListBtn');
     expect(EC.urlContains('add-list'));
   });
@@ -31,7 +31,7 @@ describe('Home', ()=>{
     expect(EC.urlContains('lists'));
   });
   xit(`should display my new list`, ()=>{
-    let element = element.all(by.css('#name0')).first(); //all is undefined
+    let element = element.all(by.css('#name0')).first();
     expect(element.getText()).toBe('myE2EList');
   });
   it(`should go to edit list page`, ()=>{
@@ -50,8 +50,13 @@ describe('Home', ()=>{
     waitForUrl('lists');
     expect(EC.urlContains('lists'));
   });
-  it(`should go to add item page`, ()=>{
+  it(`should go to empty item list`, ()=>{
     helper.clickButton('name0');
+    waitForUrl('list-of-item');
+    expect(EC.urlContains('list-of-item'));
+  });
+  it(`should click add item button`, ()=>{
+    helper.clickButton('btnAddItem');
     waitForUrl('add-item');
     expect(EC.urlContains('add-item'));
   });
@@ -61,10 +66,10 @@ describe('Home', ()=>{
     expect(helper.getInputValue('inputProperty1')).toBe('myProperty');
     expect(helper.getInputValue('inputProperty2')).toBe('mySecondProperty');
   });
-  it(`should add item, and go to list`, ()=>{
+  it(`should add item, and go to item list`, ()=>{
     helper.clickButton('btnDone');
-    waitForUrl('lists');
-    expect(EC.urlContains('lists'));
+    waitForUrl('list');
+    expect(EC.urlContains('list'));
   });
   
 });

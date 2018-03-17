@@ -62,4 +62,50 @@ fieldset {
 .item-input input {
   text-align: center; }
 
+busy-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.c-busy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 1s; }
+  .c-busy-inline {
+    position: relative;
+    display: inline-block;
+    margin: 0 24px; }
+    .c-busy-inline .preloader-wrapper {
+      width: 24px;
+      height: 24px; }
+  .c-busy__indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 91;
+    transform: translate(-50%, -50%); }
+
+.c-busy--inline {
+  position: relative; }
+  .c-busy--inline .c-busy__indicator {
+    position: static; }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  30% {
+    opacity: .3; }
+  100% {
+    opacity: 1; } }
+@keyframes fadeOut {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
 /*# sourceMappingURL=style.css.map */

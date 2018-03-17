@@ -26,6 +26,7 @@ let serve = gulp.series(
       let urls = bs.options.get('urls').toJS();
       log(`Application Available At: ${urls.local}`);
       log(`BrowserSync Available At: ${urls.ui}`);
+
       done();
     });
   }
@@ -52,3 +53,4 @@ if (CLIOptions.hasFlag('watch')) {
 }
 
 export default run;
+

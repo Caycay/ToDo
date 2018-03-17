@@ -7,13 +7,13 @@ describe('Home', function () {
     var helper = new helper_po_1.Helper();
     var EC = protractor_1.protractor.ExpectedConditions;
     beforeAll(function () {
-        protractor_1.browser.get('http://localhost:9000/');
+        protractor_1.browser.get(protractor_1.browser.baseUrl);
+        config_1.waitForUrl(protractor_1.browser.baseUrl);
     });
     afterAll(function () {
         protractor_1.browser.get('about:blank');
     });
     it("should go to view add list", function () {
-        config_1.waitForUrl('localhost:9000');
         helper.clickButton('addListBtn');
         expect(EC.urlContains('add-list'));
     });
@@ -48,8 +48,13 @@ describe('Home', function () {
         config_1.waitForUrl('lists');
         expect(EC.urlContains('lists'));
     });
-    it("should go to add item page", function () {
+    it("should go to empty item list", function () {
         helper.clickButton('name0');
+        config_1.waitForUrl('list-of-item');
+        expect(EC.urlContains('list-of-item'));
+    });
+    it("should click add item button", function () {
+        helper.clickButton('btnAddItem');
         config_1.waitForUrl('add-item');
         expect(EC.urlContains('add-item'));
     });
@@ -59,9 +64,9 @@ describe('Home', function () {
         expect(helper.getInputValue('inputProperty1')).toBe('myProperty');
         expect(helper.getInputValue('inputProperty2')).toBe('mySecondProperty');
     });
-    it("should add item, and go to list", function () {
+    it("should add item, and go to item list", function () {
         helper.clickButton('btnDone');
-        config_1.waitForUrl('lists');
-        expect(EC.urlContains('lists'));
+        config_1.waitForUrl('list');
+        expect(EC.urlContains('list'));
     });
 });

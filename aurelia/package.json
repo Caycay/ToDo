@@ -17,6 +17,7 @@
     "aurelia-fetch-client": "^1.2.0",
     "aurelia-materialize-bridge": "^0.31.0",
     "bluebird": "^3.4.1",
+    "jasmine-spec-reporter": "^4.2.1",
     "materialize-css": "^0.100.2",
     "requirejs": "^2.3.2",
     "text": "github:requirejs/text#latest"
