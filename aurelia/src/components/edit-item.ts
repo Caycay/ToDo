@@ -1,27 +1,32 @@
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {inject} from 'aurelia-framework'
 import {ItemHttpService} from "../api/item-http-service";
 import {ApiItem, ApiList} from "../models/api-data-models";
 import {ListHttpService} from "../api/list-http-service";
 
 @inject(EventAggregator, ItemHttpService, ListHttpService)
-export class EditItem{
+export class EditItem {
   item: ApiItem;
   list: ApiList;
-  constructor(private ea: EventAggregator, private httpService, private listHttpService){
-  }
-  activate(params){
-    this.item = params;
-    this.listHttpService.getAllList().then((response: Array<ApiList>)=>{
-      this.list = response.find(x=>x.id == this.item.listId);
-      console.log(this.list);
 
+  constructor(private ea: EventAggregator, private itemService: ItemHttpService, private listService: ListHttpService) {
+  }
+
+  activate(params) {
+    this.item = params.idItem;
+    this.getItem(params.idList, params.idItem)
+  }
+
+  getItem(idList: string, idItem: string) {
+    this.itemService.getItemById(idList, idItem).then((response) => {
+      this.item = response;
     });
   }
-  edit(){
-    this.httpService.editItem(this.item).then((response)=>{
-      this.ea.publish('GoToDetails:next', this.list.items);
 
-    }).catch(err=>console.log("error:", err));
+  edit() {
+    this.itemService.editItem(this.item).then((response) => {
+      const idList = this.item.listId;
+      this.ea.publish('GoToDetails:next', idList);
+    }).catch(err => console.log("error:", err));
   }
 }

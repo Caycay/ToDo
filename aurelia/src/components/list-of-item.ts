@@ -1,35 +1,38 @@
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {inject} from 'aurelia-framework'
 import {ApiItem} from "../models/api-data-models";
 import {ItemHttpService} from "../api/item-http-service";
 
 @inject(EventAggregator, ItemHttpService)
-export class ListOfItem{
+export class ListOfItem {
   items: Array<ApiItem>;
-
-  constructor(private ea: EventAggregator, private httpService){
-
-  }
-  activate(params){
-    this.items = params.details;
-    console.log(this.items);
-
+  idList: string;
+  constructor(private ea: EventAggregator, private httpService) {
 
   }
-  getItem(idList: string){
-    this.httpService.getAllItem(idList).then((result) => {
+
+  activate(params) {
+    this.idList = params.idList;
+    this.getItem(this.idList);
+  }
+
+  getItem(idList: string) {
+    this.httpService.getItemsByListId(idList).then((result) => {
       this.items = result;
     });
   }
-  add(){
-    this.ea.publish('ListOfItem:add', this.items[0].listId);
+
+  add() {
+    this.ea.publish('ListOfItem:add', this.idList);
   }
-  deleteItem(idItem:string, idList:string){
-    this.httpService.deleteItem(idItem, idList).then((response)=>{
-      this.httpService.getAllItem(this.items[0].id);
+
+  deleteItem(idItem: string, idList: string) {
+    this.httpService.deleteItem(idItem, idList).then((response) => {
+      this.httpService.getItemById(this.items[0].id);
     });
   }
-  editItem(item: ApiItem){
-    this.ea.publish('ListOfItem:edit', item);
+
+  editItem(idItem: string, idList: string) {
+    this.ea.publish('ListOfItem:edit', {idItem: idItem, idList: idList});
   }
 }

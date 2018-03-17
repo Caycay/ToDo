@@ -9,16 +9,16 @@
           ${item.propertyString} ${item.propertyString2} ${item.propertyNumber}
         </md-checkbox>
         <div class="${checked ? 'collection-buttons-done' : 'collection-buttons'}">
-          <button md-button="flat:true;" class="primary-text" click.delegate="editItem(item)"><i class="material-icons">mode_edit</i></button>
-          <button md-button="flat:true;" class="primary-text" click.delegate="deleteItem(item.id, item.listId)"><i class="material-icons">delete</i></button>
+          <button md-button="flat:true;" class="primary-text" click.delegate="editItem(item.id, item.listId)"><i class="material-icons">mode_edit</i>
+          </button>
+          <button md-button="flat:true;" class="primary-text" click.delegate="deleteItem(item.id, item.listId)"><i
+            class="material-icons">delete</i></button>
         </div>
-
-
       </div>
-
     </div>
     <div class="add-item">
-      <a md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;" click.delegate="add()">
+      <a md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;"
+         click.delegate="add()">
         <i class="material-icons">add</i>
       </a>
     </div>

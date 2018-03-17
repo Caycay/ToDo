@@ -9,7 +9,7 @@ const ItemsView = ({items, id}) => (
         <div className="list-section">
             <div className="collection-item">
                 {items}
-                <Link title="Add new list" to={"/add/item/" + id} className="item-grup">
+                <Link title="Add new item" to={"/add/item/" + id} className="item-grup">
                     <BtnAdd />
                 </Link>
             </div>

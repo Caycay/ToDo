@@ -14,4 +14,7 @@ export class ListHttpService extends ApiHttpService{
   editList(list: ApiList){
     return this.apiPut(apiServer.method.listWithId.replace(/:id/, `${list.id}`), list).then(res=>res.json());
   }
+  getListById(id:string){
+    return this.apiGet(apiServer.method.listWithId.replace(/:id/, `${id}`)).then(res=>res.json());
+  }
 }

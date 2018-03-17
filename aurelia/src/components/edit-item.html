@@ -8,20 +8,23 @@
         <fieldset class="item-fields">
           <div class="item-label">What is the name of your item?</div>
           <div class="item-body">
-            <md-input class="item-input" md-type="text" md-placeholder="name" md-value.bind="item.propertyString"></md-input>
+            <md-input class="item-input" md-type="text" md-placeholder="name"
+                      md-value.bind="item.propertyString"></md-input>
           </div>
         </fieldset>
         <fieldset class="item-fields">
           <div class="item-label">What is the description of your item?</div>
           <div class="item-body">
-            <md-input class="item-input" md-type="text" md-placeholder="description" md-value.bind="item.propertyString2"></md-input>
+            <md-input class="item-input" md-type="text" md-placeholder="description"
+                      md-value.bind="item.propertyString2"></md-input>
           </div>
         </fieldset>
       </div>
 
     </div>
     <div class="add-item">
-      <a md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;" click.delegate="edit()">
+      <a md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;"
+         click.delegate="edit()">
         <i class="material-icons">done</i>
       </a>
     </div>

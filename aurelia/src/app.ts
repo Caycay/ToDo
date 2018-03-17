@@ -1,13 +1,17 @@
-import { Router, RouterConfiguration } from 'aurelia-router';
+import {Router, RouterConfiguration} from 'aurelia-router';
 import {Subscription, EventAggregator} from 'aurelia-event-aggregator';
 import {inject} from 'aurelia-framework';
 import {HttpClient} from "aurelia-fetch-client";
 import {ApiItem, ApiList} from "./models/api-data-models";
+
 @inject(EventAggregator)
 export class App {
   router: Router;
   private subscriptions: Subscription[];
-  constructor(private ea: EventAggregator){}
+
+  constructor(private ea: EventAggregator) {
+  }
+
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Aurelia Application';
 
@@ -69,13 +73,15 @@ export class App {
     });
     this.router = router;
   }
+
   detached() {
     this.subscriptions.forEach(subscription => subscription.dispose());
   }
+
   attached() {
     this.subscriptions = [
-      this.ea.subscribe('GoToDetails:next', (details: Array<Object>) => {
-        this.router.navigateToRoute('list-of-item', details);
+      this.ea.subscribe('GoToDetails:next', (listId) => {
+        this.router.navigateToRoute('list-of-item', {idList: listId});
       }),
       this.ea.subscribe('ListItem:add', () => {
         this.router.navigateToRoute('add-list');
@@ -84,16 +90,13 @@ export class App {
         this.router.navigateToRoute('lists');
       }),
       this.ea.subscribe('ListOfItem:add', (id: string) => {
-        this.router.navigateToRoute('add-item', {id});
+        this.router.navigateToRoute('add-item', {listId: id});
       }),
-      this.ea.subscribe('Item:save', (details: Array<Object>) => {
-        this.router.navigateToRoute('lists', details);
+      this.ea.subscribe('ListOfItem:edit', (id) => {
+        this.router.navigateToRoute('edit-item', id);
       }),
-      this.ea.subscribe('ListOfItem:edit', (item: ApiItem) => {
-        this.router.navigateToRoute('edit-item', item);
-      }),
-      this.ea.subscribe('ListItem:edit', (list: ApiList)=>{
-        this.router.navigateToRoute('edit-list', list);
+      this.ea.subscribe('ListItem:edit', (listId: string) => {
+        this.router.navigateToRoute('edit-list', listId);
       })
     ]
   }

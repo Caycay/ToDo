@@ -8,14 +8,16 @@
         <fieldset class="item-fields">
           <div class="item-label">What is the name of your list?</div>
           <div class="item-body">
-            <md-input id="inputName" class="item-input" md-type="text" md-placeholder="name" md-value.bind="list.name"></md-input>
+            <md-input id="inputName" class="item-input" md-type="text" md-placeholder="name"
+                      md-value.bind="list.name"></md-input>
             ${list.name}
           </div>
         </fieldset>
         <fieldset class="item-fields">
           <div class="item-label">What is the description of your list?</div>
           <div class="item-body">
-            <md-input id="inputDescription" class="item-input" md-type="text" md-placeholder="description" md-value.bind="list.description"></md-input>
+            <md-input id="inputDescription" class="item-input" md-type="text" md-placeholder="description"
+                      md-value.bind="list.description"></md-input>
             ${list.description}
           </div>
         </fieldset>
@@ -23,7 +25,8 @@
 
     </div>
     <div class="add-item">
-      <a id="btnAdd" md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;" click.delegate="add()">
+      <a id="btnAdd" md-button="floating: true; large: true; pulse.bind: pulse;" md-waves="color: light; circle: true;"
+         click.delegate="add()">
         <i class="material-icons">done</i>
       </a>
     </div>

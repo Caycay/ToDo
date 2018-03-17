@@ -7,6 +7,6 @@ export const apiServer = {
     listWithId: '/api/list/:id',
     items: '/api/list/:id/items',
     itemWithId: '/api/item/:id',
-    itemsWithIdList: '/api/list/:id/items/:idItem'
+    itemsWithIdList: '/api/list/:id/item/:idItem'
   }
 };

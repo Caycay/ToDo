@@ -10,7 +10,7 @@ const ListsView = ({list}) => (
             <div className="collection-item">
                 {list}
                 <Link title="Add new list" to={"/add/list/"} className="item-grup">
-                    <BtnAdd />
+                    <BtnAdd title={list.description}/>
                 </Link>
             </div>
         </div>
