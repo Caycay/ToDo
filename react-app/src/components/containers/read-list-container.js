@@ -14,12 +14,8 @@ export class ListsContainer extends Component {
         super(props);
     };
 
-    componentWillMount() {
-        this.getLists();
-    };
-
     render() {
-        console.log(this.props);
+        this.getLists();
         return (
             <ListsView
                 list={this.generateListView()}

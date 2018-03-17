@@ -11,6 +11,9 @@ class CreateItemContainer extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            item: {}
+        };
     };
 
     componentWillMount() {

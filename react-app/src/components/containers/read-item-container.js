@@ -17,11 +17,8 @@ class ItemsContainer extends Component {
         };
     };
 
-    componentWillMount() {
-        this.getItem();
-    };
-
     render() {
+        this.getItem();
         return (
             <ItemsView
                 items={this.generateListView()}

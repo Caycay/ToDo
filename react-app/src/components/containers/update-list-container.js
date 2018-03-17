@@ -22,14 +22,14 @@ export class UpdateListContainer extends Component {
     };
 
     update = e => {
-        let list = Object.assign({}, this.state.list);
+        let list = Object.assign({}, this.props.list);
         list[e.target.name] = e.target.value;
-        this.setState({list: list});
+        this.props.actions.setNewList(list);
     };
 
     saveList = () => {
-        let list = this.state.list;
-        ApiService.apiPut(apiServer.method.itemWithId, list);
+        let list = this.props.list;
+        ApiService.apiPut(apiServer.method.listWithId, list);
     };
 
     setList = (id) => {
@@ -41,7 +41,7 @@ export class UpdateListContainer extends Component {
     render() {
         return (
             <ListEdit
-                list={this.state.list}
+                list={this.props.list}
                 onChange={this.update}
                 onSaveClick={this.saveList}
             />
@@ -59,9 +59,8 @@ function mapDispatchToProps(dispatch) {
 
 }
 function mapStateToProps(state) {
-
     return {
-        list: state.list
+        list: state.lists.list
     };
 
 }
