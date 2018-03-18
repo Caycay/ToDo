@@ -26,9 +26,9 @@ export class ListOfItem {
     this.ea.publish('ListOfItem:add', this.idList);
   }
 
-  deleteItem(idItem: string, idList: string) {
-    this.httpService.deleteItem(idItem, idList).then((response) => {
-      this.httpService.getItemById(this.items[0].id);
+  deleteItem(idList: string, idItem: string) {
+    this.httpService.deleteItem(idList, idItem).then((response) => {
+      this.getItem(idList)
     });
   }
 

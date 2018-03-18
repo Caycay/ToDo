@@ -11,6 +11,14 @@ var RandomString = (function () {
         }
         return text;
     };
+    RandomString.generateNumber = function (length) {
+        var possible = '0123456789';
+        var number = 0;
+        for (var i = 0; i < length; i++) {
+            number += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return number;
+    };
     RandomString.generateEmail = function () {
         var email = '';
         email = this.generateString(15);

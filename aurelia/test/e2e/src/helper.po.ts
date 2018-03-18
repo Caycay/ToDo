@@ -74,4 +74,8 @@ export class Helper {
     waitForEl(elem);
     browser.executeScript('arguments[0].click()', elem);
   }
+  clickOnElement(element){
+    waitForEl(element);
+    browser.executeScript('arguments[0].click()', element);
+  }
 }

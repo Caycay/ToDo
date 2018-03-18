@@ -57,6 +57,10 @@ var Helper = (function () {
         config_1.waitForEl(elem);
         protractor_1.browser.executeScript('arguments[0].click()', elem);
     };
+    Helper.prototype.clickOnElement = function (element) {
+        config_1.waitForEl(element);
+        protractor_1.browser.executeScript('arguments[0].click()', element);
+    };
     return Helper;
 }());
 exports.Helper = Helper;

@@ -1,8 +1,9 @@
 import {$, browser, by, element, protractor} from 'protractor';
 import {waitForUrl} from "./config";
 import {Helper} from "./helper.po";
+import {UserData} from "./user-data";
 
-describe('Home', ()=>{
+describe('App', ()=>{
   let helper: Helper = new Helper();
   const EC = protractor.ExpectedConditions;
 
@@ -19,20 +20,18 @@ describe('Home', ()=>{
     expect(EC.urlContains('add-list'));
   });
   it(`should fill name and description`, ()=>{
-    helper.enterMdInputText('inputName', 'myE2EList');
-    helper.enterMdInputText('inputDescription', 'testE2E');
-    expect(helper.getInputValue('inputName')).toBe('myE2EList');
-    expect(helper.getInputValue('inputDescription')).toBe('testE2E');
-
+    helper.enterMdInputText('inputName', UserData.listName);
+    helper.enterMdInputText('inputDescription', UserData.listDescription);
+    expect(helper.getInputValue('inputName')).toBe(UserData.listName);
+    expect(helper.getInputValue('inputDescription')).toBe(UserData.listDescription);
   });
-  it(`should save list and go to lists`, ()=>{
+  it(`should save list and go to all lists`, ()=>{
     helper.clickButton('btnAdd');
     waitForUrl('lists');
     expect(EC.urlContains('lists'));
   });
-  xit(`should display my new list`, ()=>{
-    let element = element.all(by.css('#name0')).first();
-    expect(element.getText()).toBe('myE2EList');
+  it(`should display my new list`, ()=>{
+    expect(element(by.buttonText(UserData.listName)).getText()).toBe(UserData.listName);
   });
   it(`should go to edit list page`, ()=>{
     helper.clickButton('edit0');
@@ -40,10 +39,10 @@ describe('Home', ()=>{
     expect(EC.urlContains('edit-list'));
   });
   it(`should fill name and description in edit page`, ()=>{
-    helper.enterMdInputText('inputEditName', 'editE2EName');
-    helper.enterMdInputText('inputEditDesc', 'editDesc');
-    expect(helper.getInputValue('inputEditName')).toBe('editE2EName');
-    expect(helper.getInputValue('inputEditDesc')).toBe('editDesc');
+    helper.enterMdInputText('inputEditName', UserData.editListName);
+    helper.enterMdInputText('inputEditDesc', UserData.editListDescription);
+    expect(helper.getInputValue('inputEditName')).toBe(UserData.editListName);
+    expect(helper.getInputValue('inputEditDesc')).toBe(UserData.editListDescription);
   });
   it(`should save edit list and go to list`, ()=>{
     helper.clickButton('btnSave');
@@ -51,7 +50,8 @@ describe('Home', ()=>{
     expect(EC.urlContains('lists'));
   });
   it(`should go to empty item list`, ()=>{
-    helper.clickButton('name0');
+    let myList = element(by.cssContainingText(UserData.editListName, '.btn-flat'));
+    helper.clickOnElement(myList);
     waitForUrl('list-of-item');
     expect(EC.urlContains('list-of-item'));
   });
@@ -71,5 +71,19 @@ describe('Home', ()=>{
     waitForUrl('list');
     expect(EC.urlContains('list'));
   });
-  
+  it(`should edit item, and go to item list`, ()=>{
+    helper.clickButton('btnDone');
+    waitForUrl('list');
+    expect(EC.urlContains('list'));
+  });
+  it(`should delete item, and go to item list`, ()=>{
+    helper.clickButton('btnDone');
+    waitForUrl('list');
+    expect(EC.urlContains('list'));
+  });
+  it(`should delete list`, ()=>{
+    helper.clickButton('btnDone');
+    waitForUrl('list');
+    expect(EC.urlContains('list'));
+  });
 });

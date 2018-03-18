@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var protractor_1 = require("protractor");
 var config_1 = require("./config");
 var helper_po_1 = require("./helper.po");
-describe('Home', function () {
+var user_data_1 = require("./user-data");
+describe('App', function () {
     var helper = new helper_po_1.Helper();
     var EC = protractor_1.protractor.ExpectedConditions;
     beforeAll(function () {
@@ -18,30 +19,27 @@ describe('Home', function () {
         expect(EC.urlContains('add-list'));
     });
     it("should fill name and description", function () {
-        helper.enterMdInputText('inputName', 'myE2EList');
-        helper.enterMdInputText('inputDescription', 'testE2E');
-        expect(helper.getInputValue('inputName')).toBe('myE2EList');
-        expect(helper.getInputValue('inputDescription')).toBe('testE2E');
+        helper.enterMdInputText('inputName', user_data_1.UserData.listName);
+        helper.enterMdInputText('inputDescription', user_data_1.UserData.listDescription);
+        expect(helper.getInputValue('inputName')).toBe(user_data_1.UserData.listName);
+        expect(helper.getInputValue('inputDescription')).toBe(user_data_1.UserData.listDescription);
     });
-    it("should save list and go to lists", function () {
+    it("should save list and go to all lists", function () {
         helper.clickButton('btnAdd');
         config_1.waitForUrl('lists');
         expect(EC.urlContains('lists'));
     });
-    xit("should display my new list", function () {
-        var element = element.all(protractor_1.by.css('#name0')).first();
-        expect(element.getText()).toBe('myE2EList');
-    });
     it("should go to edit list page", function () {
-        helper.clickButton('edit0');
+        var myList = protractor_1.element(protractor_1.by.buttonText(user_data_1.UserData.listName));
+        helper.clickOnElement(myList);
         config_1.waitForUrl('edit-list');
         expect(EC.urlContains('edit-list'));
     });
     it("should fill name and description in edit page", function () {
-        helper.enterMdInputText('inputEditName', 'editE2EName');
-        helper.enterMdInputText('inputEditDesc', 'editDesc');
-        expect(helper.getInputValue('inputEditName')).toBe('editE2EName');
-        expect(helper.getInputValue('inputEditDesc')).toBe('editDesc');
+        helper.enterMdInputText('inputEditName', user_data_1.UserData.editListName);
+        helper.enterMdInputText('inputEditDesc', user_data_1.UserData.editListDescription);
+        expect(helper.getInputValue('inputEditName')).toBe(user_data_1.UserData.editListName);
+        expect(helper.getInputValue('inputEditDesc')).toBe(user_data_1.UserData.editListDescription);
     });
     it("should save edit list and go to list", function () {
         helper.clickButton('btnSave');
@@ -49,7 +47,8 @@ describe('Home', function () {
         expect(EC.urlContains('lists'));
     });
     it("should go to empty item list", function () {
-        helper.clickButton('name0');
+        var myList = protractor_1.element(protractor_1.by.cssContainingText(user_data_1.UserData.editListName, '.btn-flat'));
+        helper.clickOnElement(myList);
         config_1.waitForUrl('list-of-item');
         expect(EC.urlContains('list-of-item'));
     });
