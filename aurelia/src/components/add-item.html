@@ -4,7 +4,7 @@
   </div>
   <div class="list-section">
     <div class="collection-item">
-      <div class="list-of-item">
+      <div class="input-form">
         <fieldset class="item-fields">
           <div class="item-label">What is the name of your item?</div>
           <div class="item-body">
@@ -17,6 +17,13 @@
           <div class="item-body">
             <md-input id="inputProperty2" class="item-input" md-type="text" md-placeholder="description"
                       md-value.bind="item.propertyString2"></md-input>
+          </div>
+        </fieldset>
+        <fieldset class="item-fields">
+          <div class="item-label">What is the number of your item?</div>
+          <div class="item-body">
+            <md-input id="inputProperty3" class="item-input" md-type="text" md-placeholder="number"
+                      md-value.bind="item.propertyNumber"></md-input>
           </div>
         </fieldset>
       </div>

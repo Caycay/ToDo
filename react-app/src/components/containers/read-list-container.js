@@ -13,9 +13,10 @@ export class ListsContainer extends Component {
     constructor(props) {
         super(props);
     };
-
-    render() {
+    componentDidMount(){
         this.getLists();
+    }
+    render() {
         return (
             <ListsView
                 list={this.generateListView()}

@@ -29,9 +29,11 @@ describe('App', function () {
         config_1.waitForUrl('lists');
         expect(EC.urlContains('lists'));
     });
+    it("should display my new list", function () {
+        expect(protractor_1.element(protractor_1.by.buttonText(user_data_1.UserData.listName)).getText()).toBe(user_data_1.UserData.listName);
+    });
     it("should go to edit list page", function () {
-        var myList = protractor_1.element(protractor_1.by.buttonText(user_data_1.UserData.listName));
-        helper.clickOnElement(myList);
+        helper.clickButton('editBtn' + user_data_1.UserData.listName);
         config_1.waitForUrl('edit-list');
         expect(EC.urlContains('edit-list'));
     });
@@ -47,8 +49,7 @@ describe('App', function () {
         expect(EC.urlContains('lists'));
     });
     it("should go to empty item list", function () {
-        var myList = protractor_1.element(protractor_1.by.cssContainingText(user_data_1.UserData.editListName, '.btn-flat'));
-        helper.clickOnElement(myList);
+        helper.clickButton('listBtn' + user_data_1.UserData.editListName);
         config_1.waitForUrl('list-of-item');
         expect(EC.urlContains('list-of-item'));
     });
@@ -64,6 +65,21 @@ describe('App', function () {
         expect(helper.getInputValue('inputProperty2')).toBe('mySecondProperty');
     });
     it("should add item, and go to item list", function () {
+        helper.clickButton('btnDone');
+        config_1.waitForUrl('list');
+        expect(EC.urlContains('list'));
+    });
+    it("should edit item, and go to item list", function () {
+        helper.clickButton('btnDone');
+        config_1.waitForUrl('list');
+        expect(EC.urlContains('list'));
+    });
+    it("should delete item, and go to item list", function () {
+        helper.clickButton('btnDone');
+        config_1.waitForUrl('list');
+        expect(EC.urlContains('list'));
+    });
+    it("should delete list", function () {
         helper.clickButton('btnDone');
         config_1.waitForUrl('list');
         expect(EC.urlContains('list'));

@@ -2,6 +2,7 @@ import initialState from './initial-state';
 import objectAssign from 'object-assign';
 import * as types from '../constant/action-types'
 import ApiService from "../api/services/api-http-service";
+import {LOCATION_CHANGE} from "react-router-redux";
 
 export default function listReducer(state = initialState, action) {
 
@@ -26,6 +27,9 @@ export default function listReducer(state = initialState, action) {
         }
         case types.CREATE_NEW: {
             return ApiService.apiPost(action.endpointUrl, action.settings)
+        }
+        case LOCATION_CHANGE: {
+            return initialState
         }
         default:
             return state;

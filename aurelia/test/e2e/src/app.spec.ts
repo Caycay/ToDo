@@ -34,7 +34,7 @@ describe('App', ()=>{
     expect(element(by.buttonText(UserData.listName)).getText()).toBe(UserData.listName);
   });
   it(`should go to edit list page`, ()=>{
-    helper.clickButton('edit0');
+    helper.clickButton('editBtn'+ UserData.listName);
     waitForUrl('edit-list');
     expect(EC.urlContains('edit-list'));
   });
@@ -50,8 +50,7 @@ describe('App', ()=>{
     expect(EC.urlContains('lists'));
   });
   it(`should go to empty item list`, ()=>{
-    let myList = element(by.cssContainingText(UserData.editListName, '.btn-flat'));
-    helper.clickOnElement(myList);
+    helper.clickButton('listBtn'+UserData.editListName);
     waitForUrl('list-of-item');
     expect(EC.urlContains('list-of-item'));
   });
@@ -67,21 +66,6 @@ describe('App', ()=>{
     expect(helper.getInputValue('inputProperty2')).toBe('mySecondProperty');
   });
   it(`should add item, and go to item list`, ()=>{
-    helper.clickButton('btnDone');
-    waitForUrl('list');
-    expect(EC.urlContains('list'));
-  });
-  it(`should edit item, and go to item list`, ()=>{
-    helper.clickButton('btnDone');
-    waitForUrl('list');
-    expect(EC.urlContains('list'));
-  });
-  it(`should delete item, and go to item list`, ()=>{
-    helper.clickButton('btnDone');
-    waitForUrl('list');
-    expect(EC.urlContains('list'));
-  });
-  it(`should delete list`, ()=>{
     helper.clickButton('btnDone');
     waitForUrl('list');
     expect(EC.urlContains('list'));

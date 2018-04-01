@@ -33,6 +33,11 @@ body {
   padding: 2em 0;
   background-color: white;
   box-shadow: 2px 2px 25px 1px #4e4e59; }
+  .collection-item .input-form {
+    padding: 1em 4em;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center; }
   .collection-item .list-of-item {
     padding: 1em 4em;
     justify-content: space-between;

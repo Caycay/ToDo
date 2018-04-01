@@ -30,6 +30,7 @@ export class UpdateListContainer extends Component {
     saveList = () => {
         let list = this.props.list;
         ApiService.apiPut(apiServer.method.listWithId, list);
+        window.location.reload();
     };
 
     setList = (id) => {

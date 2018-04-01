@@ -15,10 +15,10 @@ class ItemsContainer extends Component {
         this.state = {
             items: []
         };
-    };
-
-    render() {
         this.getItem();
+
+    };
+    render() {
         return (
             <ItemsView
                 items={this.generateListView()}
@@ -29,7 +29,6 @@ class ItemsContainer extends Component {
 
     getItem() {
         const id = this.props.match.params.id;
-
         ApiService.apiGetItem(apiServer.method.listItemWithId, id).then(x => {
             this.props.actions.setItems(x);
         });

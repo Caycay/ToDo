@@ -10,7 +10,8 @@ export default {
     items: [],
     list: {
         name: '',
-        description: ''
+        description: '',
+        items: []
     },
     isLoading: false,
     isError: false

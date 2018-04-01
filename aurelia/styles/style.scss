@@ -44,7 +44,12 @@ body {
   padding: 2em 0;
   background-color: white;
   box-shadow: 2px 2px 25px 1px rgba(78, 78, 89, 1);
-
+  .input-form{
+    padding: 1em 4em;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
   .list-of-item {
     padding: 1em 4em;
     justify-content: space-between;

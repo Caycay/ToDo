@@ -11,10 +11,10 @@ const ListAdd = ({list, onChange, onSaveClick}) => (
             <div className="list-section">
                 <div className="collection-item">
                     <div className="inputs">
-                        <Input name="name" onChange={onChange} label="New name" value={list.name}/>
-                        <Input name="description" onChange={onChange} label="New description" value={list.description}/>
+                        <Input id="name" name="name" onChange={onChange} label="New name" value={list.name}/>
+                        <Input id="description" name="description" onChange={onChange} label="New description" value={list.description}/>
                     </div>
-                    <Link title="Save" to={"/"} className="item-grup">
+                    <Link title="Save" to={"/"} className="item-grup" refresh="true">
 
                         <BtnAdd onSaveClick={onSaveClick}/>
                     </Link>

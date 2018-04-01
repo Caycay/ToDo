@@ -1,24 +1,30 @@
 {
 	"id": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+	"owner": "756657",
 	"name": "MyApi",
 	"description": "",
 	"order": [
 		"08aac813-3641-3a06-ecdf-79ec105392a7",
-		"de5937ac-2ab2-81db-ea1f-9bbf74b1c0b4",
 		"f18278c0-033e-9de7-bbd7-0b6c77c221ea",
+		"de5937ac-2ab2-81db-ea1f-9bbf74b1c0b4",
 		"71b64f0f-af43-e45e-337d-d8c2e3b22b84",
 		"d769b8c8-c1b6-aed1-c450-d8ff852897d5",
 		"c4e7f921-4da7-7408-6f28-bde2901f0712",
 		"fd0aa4ac-cc46-6217-16fe-e2ab588cbcfb",
 		"59a794bb-55dc-90f6-ab0e-5101379394ff",
-		"48a1456b-ec16-0344-136a-668edc735775",
-		"00f47a57-1cbe-70ae-fd95-5c6539f6dac0"
+		"00f47a57-1cbe-70ae-fd95-5c6539f6dac0",
+		"48a1456b-ec16-0344-136a-668edc735775"
 	],
 	"folders": [],
 	"folders_order": [],
 	"timestamp": 1515342981179,
-	"owner": "756657",
 	"public": false,
+	"lastUpdatedBy": "756657",
+	"lastRevision": 3274413679,
+	"team": null,
+	"variables": null,
+	"auth": null,
+	"events": null,
 	"requests": [
 		{
 			"id": "00f47a57-1cbe-70ae-fd95-5c6539f6dac0",
@@ -27,11 +33,11 @@
 				{
 					"key": "Content-Type",
 					"value": "application/json",
-					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "localhost:62848/api/item/{{itemId}}",
+			"url": "localhost:62848/api/list/{{listId}}/item/{{itemId}}",
+			"folder": null,
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -41,13 +47,30 @@
 			"dataMode": "params",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1516374843084,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"time": 1519471505335,
 			"name": "deleteItem",
-			"description": "",
+			"description": null,
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
-			"responses": []
+			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200",
+							"tests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');",
+							""
+						]
+					}
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"variables": null
 		},
 		{
 			"id": "08aac813-3641-3a06-ecdf-79ec105392a7",
@@ -148,7 +171,8 @@
 			"id": "71b64f0f-af43-e45e-337d-d8c2e3b22b84",
 			"headers": "",
 			"headerData": [],
-			"url": "localhost:62848/api/item/",
+			"url": "localhost:62848/api/list/{{listId}}/item/{{itemId}}",
+			"folder": null,
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -158,19 +182,44 @@
 			"dataMode": "params",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\n\ntests[\"Body matches propertyString\"] = responseBody.has('\"propertyString\":'+postman.getEnvironmentVariable(\"property1\"));\ntests[\"Body matches propertyString2\"] = responseBody.has('\"propertyString2\":'+postman.getEnvironmentVariable(\"property2\"));\ntests[\"Body matches propertyNumber\"] = responseBody.has('\"propertyNumber\":'+postman.getEnvironmentVariable(\"property3\"));\ntests[\"Body matches done\"] = responseBody.has('\"done\":'+postman.getEnvironmentVariable(\"property-flag\"));\n\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1516374198589,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"time": 1519469725081,
 			"name": "getItem",
-			"description": "",
+			"description": null,
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
-			"responses": []
+			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');",
+							"tests[\"Response body has id\"] = responseBody.has(\"id\");",
+							"",
+							"tests[\"Body matches propertyString\"] = responseBody.has('\"propertyString\":'+postman.getEnvironmentVariable(\"property1\"));",
+							"tests[\"Body matches propertyString2\"] = responseBody.has('\"propertyString2\":'+postman.getEnvironmentVariable(\"property2\"));",
+							"tests[\"Body matches propertyNumber\"] = responseBody.has('\"propertyNumber\":'+postman.getEnvironmentVariable(\"property3\"));",
+							"tests[\"Body matches done\"] = responseBody.has('\"done\":'+postman.getEnvironmentVariable(\"property-flag\"));",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"variables": null
 		},
 		{
 			"id": "c4e7f921-4da7-7408-6f28-bde2901f0712",
 			"headers": "",
 			"headerData": [],
-			"url": "localhost:62848/api/item/{{itemId}}",
+			"url": "http://localhost:62848/api/list/{{listId}}/items",
+			"folder": null,
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -182,9 +231,9 @@
 			"tests": "tests[\"Status code is 302\"] = responseCode.code === 302;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\n\ntests[\"Body matches propertyString\"] = responseBody.has('\"propertyString\":'+postman.getEnvironmentVariable(\"property1\"));\ntests[\"Body matches propertyString2\"] = responseBody.has('\"propertyString2\":'+postman.getEnvironmentVariable(\"property2\"));\ntests[\"Body matches propertyNumber\"] = responseBody.has('\"propertyNumber\":'+postman.getEnvironmentVariable(\"property3\"));\ntests[\"Body matches done\"] = responseBody.has('\"done\":'+postman.getEnvironmentVariable(\"property-flag\"));\n\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1516374310978,
+			"time": 1522012390912,
 			"name": "getItemById",
-			"description": "",
+			"description": null,
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
 			"responses": []
 		},
@@ -193,6 +242,7 @@
 			"headers": "",
 			"headerData": [],
 			"url": "localhost:62848/api/list/{{listId}}",
+			"folder": null,
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -201,14 +251,35 @@
 			"data": null,
 			"dataMode": "params",
 			"version": 2,
-			"tests": "tests[\"Status code is 302\"] = responseCode.code === 302;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\nvar data = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"listId\", data.id)\ntests[\"Body matches name\"] = responseBody.has('\"name\":'+postman.getEnvironmentVariable(\"list-name\"));\ntests[\"Body matches description\"]= responseBody.has('\"description\":'+postman.getEnvironmentVariable(\"list-description\"));\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1516374249883,
+			"tests": "tests[\"Status code is 302\"] = responseCode.code === 200;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\n\ntests[\"Body matches name\"] = responseBody.has('\"name\":'+postman.getEnvironmentVariable(\"list-name\"));\ntests[\"Body matches description\"]= responseBody.has('\"description\":'+postman.getEnvironmentVariable(\"list-description\"));\n",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"time": 1521278635231,
 			"name": "getListById",
-			"description": "",
+			"description": null,
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
-			"responses": []
+			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 302\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');",
+							"tests[\"Response body has id\"] = responseBody.has(\"id\");",
+							"",
+							"tests[\"Body matches name\"] = responseBody.has('\"name\":'+postman.getEnvironmentVariable(\"list-name\"));",
+							"tests[\"Body matches description\"]= responseBody.has('\"description\":'+postman.getEnvironmentVariable(\"list-description\"));",
+							""
+						]
+					}
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"variables": null
 		},
 		{
 			"id": "de5937ac-2ab2-81db-ea1f-9bbf74b1c0b4",

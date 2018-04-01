@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Link from "react-router-dom/es/Link";
 import {Input} from "react-materialize";
 
@@ -10,9 +10,9 @@ const ItemName = ({item, onClick}) => (
 
         </div>
         <div className="collection-buttons">
-            <Link title="Edit" to={"/edit/item/" + item.id + "/" + item.listId} className="item-grup"><i
+            <Link title="Edit" to={"/edit/item/" + item.id + "/" + item.listId} id={"editBtn"+item.propertyString} className="item-grup"><i
                 className="material-icons">mode_edit</i></Link>
-            <div className="item-grup" onClick={() => onClick(item.id, item.listId)}><i className="material-icons">delete</i>
+            <div className="item-grup" id={"deleteBtn"+item.propertyString} onClick={() => onClick(item.id, item.listId)}><i className="material-icons">delete</i>
             </div>
 
         </div>

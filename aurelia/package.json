@@ -8,7 +8,8 @@
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/r.js.cmd -o rbuild.js",
-    "webdriver-update": "webdriver-manager update --versions.chrome=63.0"
+    "webdriver-update": "webdriver-manager update --versions.chrome=63.0",
+    "cypress:open": "cypress open"
   },
   "license": "MIT",
   "dependencies": {
@@ -24,6 +25,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@bahmutov/add-typescript-to-cypress": "^2.0.0",
     "@types/jasmine": "^2.2.0",
     "@types/node": "^6.0.45",
     "aurelia-cli": "^0.31.3",
@@ -32,6 +34,7 @@
     "aurelia-tools": "^1.0.0",
     "browser-sync": "^2.13.0",
     "connect-history-api-fallback": "^1.2.0",
+    "cypress": "^2.1.0",
     "debounce": "^1.0.2",
     "del": "^3.0.0",
     "event-stream": "^3.3.3",
