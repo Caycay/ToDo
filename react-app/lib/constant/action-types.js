@@ -8,3 +8,4 @@ export const DELETE = 'DELETE';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const SET_NEW_ITEM = 'SET_NEW_ITEM';
 export const SET_NEW_LIST = 'SET_NEW_LIST';
+export const RESET = 'RESET';

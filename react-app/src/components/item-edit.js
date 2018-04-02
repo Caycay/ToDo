@@ -10,9 +10,9 @@ const ItemEdit = ({item, onChange, onSaveClick}) => (
         <div className="list-section">
             <div className="collection-item">
                 <div className="inputs">
-                    <Input name="propertyString" onChange={onChange} label="first" value={item.propertyString}/>
-                    <Input name="propertyString2" onChange={onChange} label="second" value={item.propertyString2}/>
-                    <Input name="propertyNumber" onChange={onChange} label="third" value={item.propertyNumber}/>
+                    <Input id="propertyString" name="propertyString" onChange={onChange} label="first" value={item.propertyString}/>
+                    <Input id="propertyString2" name="propertyString2" onChange={onChange} label="second" value={item.propertyString2}/>
+                    <Input id="propertyNumber" name="propertyNumber" onChange={onChange} label="third" value={item.propertyNumber}/>
                 </div>
             </div>
             <Link title="Save" to={"/list/" + item.listId} className="item-grup">

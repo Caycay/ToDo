@@ -20,6 +20,7 @@ class CreateListContainer extends Component {
 
         this.createNew = () => {
             apiService.apiPost(apiServer.method.lists, this.props.list);
+            window.location.reload();
         };
 
         this.state = {

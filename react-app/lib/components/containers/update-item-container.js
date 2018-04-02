@@ -21,6 +21,7 @@ export class UpdateItemContainer extends Component {
         this.saveItem = () => {
             let item = this.props.item;
             ApiService.apiPut(apiServer.method.itemWithId, item);
+            window.location.reload();
         };
 
         this.addValue = e => {

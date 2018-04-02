@@ -20,12 +20,12 @@ const ListAdd = ({ list, onChange, onSaveClick }) => React.createElement(
                 React.createElement(
                     "div",
                     { className: "inputs" },
-                    React.createElement(Input, { name: "name", onChange: onChange, label: "New name", value: list.name }),
-                    React.createElement(Input, { name: "description", onChange: onChange, label: "New description", value: list.description })
+                    React.createElement(Input, { id: "name", name: "name", onChange: onChange, label: "New name", value: list.name }),
+                    React.createElement(Input, { id: "description", name: "description", onChange: onChange, label: "New description", value: list.description })
                 ),
                 React.createElement(
                     Link,
-                    { title: "Save", to: "/", className: "item-grup" },
+                    { title: "Save", to: "/", className: "item-grup", refresh: "true" },
                     React.createElement(BtnAdd, { onSaveClick: onSaveClick })
                 )
             )

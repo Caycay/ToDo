@@ -14,6 +14,7 @@ class CreateItemContainer extends Component {
 
         this.createNew = () => {
             apiService.apiPost(apiServer.method.items, this.props.item);
+            window.location.reload();
         };
 
         this.addValue = e => {

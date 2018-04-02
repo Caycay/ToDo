@@ -16,7 +16,7 @@ const ItemName = ({ item, onClick }) => React.createElement(
         { className: "collection-buttons" },
         React.createElement(
             Link,
-            { title: "Edit", to: "/edit/item/" + item.id + "/" + item.listId, className: "item-grup" },
+            { title: "Edit", to: "/edit/item/" + item.id + "/" + item.listId, id: "editBtn" + item.propertyString, className: "item-grup" },
             React.createElement(
                 "i",
                 {
@@ -26,7 +26,7 @@ const ItemName = ({ item, onClick }) => React.createElement(
         ),
         React.createElement(
             "div",
-            { className: "item-grup", onClick: () => onClick(item.id, item.listId) },
+            { className: "item-grup", id: "deleteBtn" + item.propertyString, onClick: () => onClick(item.id, item.listId) },
             React.createElement(
                 "i",
                 { className: "material-icons" },

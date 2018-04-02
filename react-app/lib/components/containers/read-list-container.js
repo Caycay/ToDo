@@ -19,9 +19,10 @@ export class ListsContainer extends Component {
             });
         };
     }
-
-    render() {
+    componentDidMount() {
         this.getLists();
+    }
+    render() {
         return React.createElement(ListsView, {
             list: this.generateListView()
         });
@@ -34,7 +35,6 @@ export class ListsContainer extends Component {
     }
 
     generateListView() {
-
         const { lists } = this.props;
         if ((lists || []).length === 0) {
             return null;
