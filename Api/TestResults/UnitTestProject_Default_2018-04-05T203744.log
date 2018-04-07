@@ -1,0 +1,136 @@
+﻿2018-04-05T20:37:44.8503838+02:00;VSTestExecutionThread;Info;SpecFlow+Runner execution started
+2018-04-05T20:37:44.9599506+02:00;VSTestExecutionThread;Info;SpecRun Evaluation Mode: Please purchase at http://www.specflow.org/plus to remove test execution delay.
+2018-04-05T20:37:44.9599506+02:00;VSTestExecutionThread;Info;SpecRun: running tests in D:\MyApp\Api\UnitTestProject\bin\Debug\UnitTestProject.dll
+2018-04-05T20:37:44.9609525+02:00;VSTestExecutionThread;Info;Profile: Default
+2018-04-05T20:37:52.0317424+02:00;Thread#12;Info;Discovering target: Default
+2018-04-05T20:37:52.0317424+02:00;Thread#12;Info;Discovering tests from assembly: D:\MyApp\Api\UnitTestProject\bin\Debug\UnitTestProject.dll
+Appdomain Disposed
+Test Suite Dump
+#0: UnitTestProject/Default - 
+#1: Default - 
+#2: UnitTestProject - 
+#3: List - 
+#4: Add two numbers, cat - TestAssembly:UnitTestProject/Feature:List/Scenario:Add+two+numbers%2c+cat
+#5: Add two numbers, doge - TestAssembly:UnitTestProject/Feature:List/Scenario:Add+two+numbers%2c+doge
+End: Test Suite Dump
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #4 from normal test queue 
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread #0: creating new test thread executor for UnitTestProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (target: Default)
+Loading SpecRun type 'TechTalk.SpecRun.Framework.TestAssemblyExecutor' from: C:\Users\Admin\AppData\Local\Temp\VisualStudioTestExplorerExtensions\SpecRun.Runner.1.7.0\tools\TechTalk.SpecRun.Framework.Executor.dll
+Thread#0: Test #4/0 is started on thread #0
+Thread#0:T:-> Using app.config
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("cat", "miau") (2,3s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return (200)
+Thread#0:T:error: Assert.IsTrue — niepowodzenie. 
+Thread#0:TestItem#4:Scheduler: reschedule tests for testitem #4
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #4
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 1
+Thread#0: Test #4/0 is finished on thread #0 as Failed within 2,8682157 seconds
+Thread#0: Test #4/1 is started on thread #0
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("cat", "miau") (2,0s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return (200)
+Thread#0:T:error: Assert.IsTrue — niepowodzenie. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #4
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 2
+Thread#0: Test #4/1 is finished on thread #0 as Failed within 2,0283003 seconds
+Thread#0: Test #4/2 is started on thread #0
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("cat", "miau") (2,0s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return (200)
+Thread#0:T:error: Assert.IsTrue — niepowodzenie. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #5 from normal test queue 
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #4/2 is finished on thread #0 as Failed within 2,0229084 seconds
+Thread#0: Test #5/0 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("doge", "wof") (2,0s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return (200)
+Thread#0:T:error: Assert.IsTrue — niepowodzenie. 
+Thread#0:TestItem#5:Scheduler: reschedule tests for testitem #5
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #5
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 1
+Thread#0: Test #5/0 is finished on thread #0 as Failed within 2,0203694 seconds
+Thread#0: Test #5/1 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("doge", "wof") (2,0s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return (200)
+Thread#0:T:error: Assert.IsTrue — niepowodzenie. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #5
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 2
+Thread#0: Test #5/1 is finished on thread #0 as Failed within 2,0132373 seconds
+Thread#0: Test #5/2 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("doge", "wof") (2,0s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return (200)
+Thread#0:T:error: Assert.IsTrue — niepowodzenie. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: at the end of normal test queue
+Thread#0:Scheduler: enumerator for thread is at end
+Thread#0:Scheduler: No more tests for thread
+Thread#0: Test #5/2 is finished on thread #0 as Failed within 2,0380401 seconds
+Appdomain Disposed
+Thread#-1:Scheduler: get next test for thread -1
+Thread#:Scheduler: at the end of normal test queue
+Thread#-1:Scheduler: enumerator for thread is at end
+Total: 2 (test executions: 6)
+Succeeded: 0
+Ignored: 0
+Pending: 0
+Skipped: 0
+Failed: 2

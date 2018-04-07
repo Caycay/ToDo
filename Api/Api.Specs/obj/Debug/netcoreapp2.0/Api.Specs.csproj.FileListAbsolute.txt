@@ -1,0 +1,11 @@
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Api.Specs.deps.json
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Api.Specs.dll
+D:\MyApp\Api\Api.Specs\obj\Debug\netcoreapp2.0\Api.Specs.csprojResolveAssemblyReference.cache
+D:\MyApp\Api\Api.Specs\obj\Debug\netcoreapp2.0\Api.Specs.csproj.CoreCompileInputs.cache
+D:\MyApp\Api\Api.Specs\obj\Debug\netcoreapp2.0\Api.Specs.AssemblyInfoInputs.cache
+D:\MyApp\Api\Api.Specs\obj\Debug\netcoreapp2.0\Api.Specs.AssemblyInfo.cs
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Api.Specs.runtimeconfig.json
+D:\MyApp\Api\Api.Specs\bin\Debug\netcoreapp2.0\Api.Specs.runtimeconfig.dev.json

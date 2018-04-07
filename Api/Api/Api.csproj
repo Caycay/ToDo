@@ -151,13 +151,6 @@
     <Compile Include="Repo\ItemsRepository.cs" />
     <Compile Include="Repo\ListRepository.cs" />
     <Compile Include="SpecFlowFeature1Steps.cs" />
-    <Compile Include="Tests\Feature\List.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>List.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Tests\HttpRequestWrapper.cs" />
-    <Compile Include="Tests\Steps\List.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.srprofile">
@@ -173,10 +166,6 @@
     <None Include="SpecRunTestProfile_2011_09.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Tests\Feature\List.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>List.feature.cs</LastGenOutput>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
