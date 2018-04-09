@@ -11,7 +11,11 @@ Examples:
 	| cat  | miau        | 200		  |
 	| doge | wof         | 200        |
 
-@mytag
+Scenario: Get List
+	Given I request to view all list
+	And want to see my new list
+	Then want to get id
+
 Scenario Outline: Edit list
 	Given I can edit my list (<Name>, <Description>)
 	And ModelState is correct

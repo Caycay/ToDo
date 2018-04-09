@@ -9,6 +9,8 @@ using MongoDB.Bson;
 using System.Net.Http;
 using System.Net;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
+
 
 namespace Api.Controllers
 {
@@ -21,32 +23,68 @@ namespace Api.Controllers
             listRepository.CheckConnection();
         }
         [HttpGet]
-        public async Task<List<ListOfItem>> GetAllList()
+        public async Task<IHttpActionResult> GetAllList()
         {
-            return await listRepository.GetAllList();
+            var lists = await listRepository.GetAllList();
+            return Ok(lists);
         }
         [HttpPost]
         public HttpResponseMessage InsertList(ListOfItem list)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, allErrors);
+            }
+
             listRepository.InsertList(list);
-            return Request.CreateResponse<ListOfItem>(HttpStatusCode.Created, list);
+            return Request.CreateResponse(HttpStatusCode.Created, list);
         }
 
-        public Task<ListOfItem> GetList(string id)
+        [ResponseType(typeof(ListOfItem))]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetList(string id)
         {
-            return listRepository.GetListById(id);
+            var list = await listRepository.GetListById(id);
+            if(list != null)
+            {
+                return Ok(list);
+            }
+            return NotFound();
         }
+
         [HttpPut]
         public HttpResponseMessage UpdateList(string id, ListOfItem listOfItem)
         {
-            listRepository.UpdateList(id, listOfItem);
-            return Request.CreateResponse<ListOfItem>(HttpStatusCode.OK, listOfItem);
+            
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, allErrors);
+            }
+            var list = listRepository.UpdateList(id, listOfItem);
+
+            if (list != null && !list.IsFaulted)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, listOfItem);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Sorry !");
         }
+
         [HttpDelete]
         public HttpResponseMessage Delete(string id)
         {
-            listRepository.DeleteList(id);
-            return Request.CreateResponse(HttpStatusCode.OK, "Delete");
+            var list =  listRepository.DeleteList(id);
+            if(list != null && list.Result)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Sorry!");
         }
     }
 }

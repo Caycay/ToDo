@@ -100,32 +100,41 @@ this.AddNewList("doge", "wof", "200", ((string[])(null)));
 #line hidden
         }
         
+        [TechTalk.SpecRun.ScenarioAttribute("Get List", SourceLine=13)]
+        public virtual void GetList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get List", ((string[])(null)));
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 15
+ testRunner.Given("I request to view all list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 16
+ testRunner.And("want to see my new list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+ testRunner.Then("want to get id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         public virtual void EditList(string name, string description, string statusCode, string[] exampleTags)
         {
-            string[] @__tags = new string[] {
-                    "mytag"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit list", @__tags);
-#line 15
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit list", exampleTags);
+#line 19
 this.ScenarioSetup(scenarioInfo);
-#line 16
+#line 20
  testRunner.Given(string.Format("I can edit my list ({0}, {1})", name, description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
+#line 21
  testRunner.And("ModelState is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 18
+#line 22
  testRunner.Then(string.Format("the system should return {0}", statusCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Edit list, hello", new string[] {
-                "mytag"}, SourceLine=21)]
+        [TechTalk.SpecRun.ScenarioAttribute("Edit list, hello", SourceLine=25)]
         public virtual void EditList_Hello()
         {
-#line 15
+#line 19
 this.EditList("hello", "kitty", "200", ((string[])(null)));
 #line hidden
         }

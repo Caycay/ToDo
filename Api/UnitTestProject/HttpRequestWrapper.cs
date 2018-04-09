@@ -14,12 +14,12 @@ namespace UnitTestProject
         {
             _restRequest = new RestRequest();
         }
-        public HttpRequestWrapper SetResource(string resource)
+        public HttpRequestWrapper SetResourse(string resource)
         {
             _restRequest.Resource = resource;
             return this;
         }
-        public HttpRequestWrapper setMethod(Method method)
+        public HttpRequestWrapper SetMethod(Method method)
         {
             _restRequest.Method = method;
             return this;

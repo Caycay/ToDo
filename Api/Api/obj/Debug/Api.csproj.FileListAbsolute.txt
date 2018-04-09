@@ -70,14 +70,9 @@ D:\MyApp\Api\Api\obj\Debug\Api.csprojResolveAssemblyReference.cache
 D:\MyApp\Api\Api\obj\Debug\Api.csproj.CoreCompileInputs.cache
 D:\MyApp\Api\Api\obj\Debug\Api.dll
 D:\MyApp\Api\Api\obj\Debug\Api.pdb
-D:\MyApp\Api\Api\bin\Default.srprofile
 D:\MyApp\Api\Api\bin\nunit.framework.dll
 D:\MyApp\Api\Api\bin\RestSharp.dll
-D:\MyApp\Api\Api\bin\SpecRun.SpecFlowPlugin.dll
 D:\MyApp\Api\Api\bin\System.ValueTuple.dll
-D:\MyApp\Api\Api\bin\TechTalk.SpecFlow.dll
-D:\MyApp\Api\Api\bin\TechTalk.SpecRun.Common.dll
-D:\MyApp\Api\Api\bin\TechTalk.SpecRun.dll
 D:\MyApp\Api\Api\bin\nunit.framework.pdb
 D:\MyApp\Api\Api\bin\nunit.framework.xml
 D:\MyApp\Api\Api\bin\System.ValueTuple.xml
