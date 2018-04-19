@@ -5,6 +5,7 @@ using Api.Models;
 using RestSharp;
 using System.Net;
 using MongoDB.Bson;
+using System.Web.Script.Serialization;
 
 
 namespace UnitTestProject
@@ -14,11 +15,45 @@ namespace UnitTestProject
     public class SpecFlowFeature1Steps
     {
         private int result;
+        private string _content;
         private IRestResponse _restResponse;
         private HttpStatusCode _statusCode;
         private ListOfItem _list;
         private List<ListOfItem> _lists;
         private ListOfItem _newList;
+
+        [Given(@"sending a query to the database")]
+        public void GivenSendingAQueryToTheDatabase()
+        {
+            var request = new HttpRequestWrapper()
+              .SetMethod(Method.GET)
+              .SetResourse("http://localhost:62848/api/list");
+
+            _restResponse = new RestResponse();
+            _restResponse = request.Execute();
+            _statusCode = _restResponse.StatusCode;
+            _content = _restResponse.Content;
+        }
+
+        [Given(@"sending a query to the database with ID")]
+        public void GivenSendingAQueryToTheDatabaseWithID()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I got all lists")]
+        public void ThenIGotAllLists()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I got one list")]
+        public void ThenIGotOneList()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+
         [Given(@"I can edit my list \(hello, kitty\)")]
         public void GivenICanEditMyListHelloKitty()
         {
@@ -27,20 +62,28 @@ namespace UnitTestProject
         [Given(@"I create a new list \((.*), (.*)\)")]
         public void GivenICreateANewList(string Name, string Descritpion)
         {
-            _list = new ListOfItem()
-            {
-                name = Name,
-                description = Descritpion
-            };
-            var request = new HttpRequestWrapper()
-                .SetMethod(Method.POST)
-                .SetResourse("/api/list")
-                .AddJsonContent(_list);
-            _restResponse = new RestResponse();
-            _restResponse = request.Execute();
-            _statusCode = _restResponse.StatusCode;
-            FeatureContext.Current.Set<ListOfItem>(_list);
-            FeatureContext.Current.Set(_list, "ListKey");
+          
+            //_list = new ListOfItem()
+            //{
+            //    name = Name,
+            //    id = ObjectId.Empty,
+            //    description = Descritpion
+            //};
+            //Dictionary<string, string> header = new Dictionary<string, string>();
+            //header.Add("Accept", "application/json");
+            //header.Add("Content-type", "application/json");
+
+            //var request = new HttpRequestWrapper()
+            //    .SetMethod(Method.POST)
+            //    .AddHeaders(header)
+            //    .SetResourse("http://localhost:62848/api/list")
+            //    .AddJsonContent("{\"name:\" \"sds\"}");
+
+            //_restResponse = new RestResponse();
+            //_restResponse = request.Execute();
+            //_statusCode = _restResponse.StatusCode;
+            //FeatureContext.Current.Set<ListOfItem>(_list);
+            //FeatureContext.Current.Set(_list, "ListKey");
         }
         [Given(@"ModelState is correct")]
         public void GivenModelStateIsCorrect()
@@ -51,14 +94,14 @@ namespace UnitTestProject
         [Then(@"the system should return (.*)")]
         public void ThenTheSystemShouldReturn(HttpStatusCode statusCode)
         {
-            Assert.AreEqual(statusCode, HttpStatusCode.OK);
+            Assert.AreEqual(_statusCode, statusCode);
         }
         [Given(@"I request to view all list")]
         public void GivenIRequestToViewAllList()
         {
             var request = new HttpRequestWrapper()
                 .SetMethod(Method.GET)
-                .SetResourse("/api/list");
+                .SetResourse("http://localhost:62848/api/list");
             //.AddParameter("id", _property.Id);
             _lists = new List<ListOfItem>();
             _lists = request.Execute<List<ListOfItem>>();

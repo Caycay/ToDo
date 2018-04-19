@@ -79,7 +79,7 @@ namespace Api.Controllers
         public HttpResponseMessage Delete(string id)
         {
             var list =  listRepository.DeleteList(id);
-            if(list != null && list.Result)
+            if (!list.Status.Equals(TaskStatus.Faulted)) 
             {
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

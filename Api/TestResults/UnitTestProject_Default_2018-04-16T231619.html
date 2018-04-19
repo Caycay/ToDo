@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<title>UnitTestProject Test Execution Report</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+        <script type="text/javascript">
+            /**
+            * jQuery.fn.sortElements
+            * --------------
+            * #author James Padolsey (http://james.padolsey.com)
+            * #version 0.11
+            * #updated 18-MAR-2010
+            * #url https://raw.github.com/jamespadolsey/jQuery-Plugins/master/sortElements/jquery.sortElements.js
+            * --------------
+            * #param Function comparator:
+            *   Exactly the same behaviour as [1,2,3].sort(comparator)
+            *   
+            * #param Function getSortable
+            *   A function that should return the element that is
+            *   to be sorted. The comparator will run on the
+            *   current collection, but you may want the actual
+            *   resulting sort to occur on a parent or another
+            *   associated element.
+            *   
+            *   E.g. $('td').sortElements(comparator, function(){
+            *      return this.parentNode; 
+            *   })
+            *   
+            *   The <td>'s parent (<tr>) will be sorted instead
+            *   of the <td> itself.
+            */
+            jQuery.fn.sortElements = (function () {
+
+                var sort = [].sort;
+
+                return function (comparator, getSortable) {
+
+                    getSortable = getSortable || function () { return this; };
+
+                    var placements = this.map(function () {
+
+                        var sortElement = getSortable.call(this),
+                parentNode = sortElement.parentNode,
+
+                        // Since the element itself will change position, we have
+                        // to have some way of storing it's original position in
+                        // the DOM. The easiest way is to have a 'flag' node:
+                nextSibling = parentNode.insertBefore(
+                    document.createTextNode(''),
+                    sortElement.nextSibling
+                );
+
+                        return function () {
+
+                            if (parentNode === this) {
+                                throw new Error(
+                        "You can't sort elements if any one is a descendant of another."
+                    );
+                            }
+
+                            // Insert before flag:
+                            parentNode.insertBefore(this, nextSibling);
+                            // Remove flag:
+                            parentNode.removeChild(nextSibling);
+
+                        };
+
+                    });
+
+                    return sort.call(this, comparator).each(function (i) {
+                        placements[i].call(getSortable.call(this));
+                    });
+
+                };
+
+            })();
+        </script>
+        <script type="text/javascript">
+            jQuery.fn.setBarSizes = (function () {
+                return function (metricName, maxBarSize, min) {
+                    var max = Math.max.apply(Math, $.makeArray($(this).map(function () { return Number($(this).attr('data-sr-' + metricName)); })));
+                    var scale = 1.0;
+                    while (max > 0.0 && max <= 10.0) {
+                        scale = scale * 10.0;
+                        max = max * 10.0;
+                    }
+                    max = (Math.ceil(max / 2) * 2) / scale;
+
+                    this.each(function () {
+                        var barAnchor = $(this).find('a');
+                        var actual = $(this).attr('data-sr-' + metricName);
+                        var newHeight = Math.max(Math.round(maxBarSize * (actual - min) / (max - min)), 2);
+                        barAnchor.css({ height: newHeight });
+                    });
+
+                    var unit = "";
+                    if (metricName.substr(metricName.length - 4, 4) === "time")
+                        unit = "s";
+
+                    $('#testview .scale-min-label').each(function () {
+                        $(this).text(min.toString() + unit);
+                    });
+                    $('#testview .scale-max-label').each(function () {
+                        $(this).text(max.toString() + unit);
+                    });
+                    var mid = max / 2;
+                    $('#testview .scale-mid-label').each(function () {
+                        $(this).text(mid.toString() + unit);
+                    });
+                };
+            })();
+
+            function getComparer(metricName, isDesc) {
+                return function (a, b) {
+                    var aNumber = Number($(a).attr('data-sr-' + metricName));
+                    var bNumber = Number($(b).attr('data-sr-' + metricName));
+                    var result = aNumber > bNumber ? 1 : (aNumber < bNumber ? -1 : 0);
+                    if (isDesc)
+                        result = -1 * result;
+
+                    if (result == 0 && metricName != "order")
+                        result = getComparer("order", false)(a, b);
+
+                    return result;
+                };
+            }
+
+            var currentSort = "";
+            function doSort(allowToggleDesc) {
+                var newSort = $("input[name='barSortOrder']:checked").val();
+                if (allowToggleDesc && currentSort == newSort) {
+                    $('#barSortDesc').click();
+                    doSort(false);
+                    return;
+                }
+                currentSort = newSort;
+                $('#testview td.testview-item').sortElements(getComparer(newSort, $('#barSortDesc').is(':checked')));
+            }
+
+
+            function doSetHeights(allowSort) {
+                var selectedMetric = $("input[name='barHeight']:checked").val();
+                $('#testview td.testview-item').setBarSizes(selectedMetric, 60, 0.0);
+
+                if (allowSort && currentSort != selectedMetric) {
+                    var $radios = $("input[name='barSortOrder']");
+                    $radios.filter('[value=' + selectedMetric + ']').attr('checked', true);
+                    $("#barSortDesc").attr("checked", [true]);
+                    doSort(false);
+                }
+            }
+
+            $(document).ready(function () {
+                $("input[name='barSortOrder']").click(function () { doSort(true); return true; });
+                $("input[name='barSortDesc']").change(function () { doSort(false); });
+                $("input[name='barHeight']").change(function () { doSetHeights(true); });
+
+                doSort(false);
+                doSetHeights(false);
+
+                $("div.scrollable").css({ 'overflow': 'auto' });
+            });
+        </script>
+
+        <style type="text/css">
+            body 
+            {
+                color: #000000;
+                font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
+                line-height: 130%;
+            }
+            h1 {
+                font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+                font-size: 170%;
+                font-weight: bold;
+            }            
+            h2 {
+                font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+                font-size: 130%;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }            
+            h3 {
+                font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+                font-size: 120%;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }            
+            a.bar
+            {
+                text-decoration: none;
+                display: block;
+                line-height: 1px;
+            }
+            .description
+            {
+                font-style: italic;
+            }
+            .log 
+            {
+                width: 600px;
+                white-space: pre-wrap;
+                display: block;
+                margin: 0px;
+            }
+            .errorMessage 
+            {
+                width: 600px;
+                color: Red;
+                font-weight: bold;
+            }
+            .stackTrace 
+            {
+                width: 600px;
+                white-space: pre-wrap;
+                font-style: italic;
+                color: Red;
+                display: block;
+            }
+            table.testEvents
+            {
+                border: solid 1px #e8eef4;
+                border-collapse: collapse;
+            }
+            table.testEvents td
+            {
+                vertical-align: top;
+                padding: 5px;
+                border: solid 1px #e8eef4;
+            }
+            table.testEvents th
+            {
+                padding: 6px 5px;
+                text-align: left;
+                background-color: #e8eef4;
+                border: solid 1px #e8eef4;                
+            }
+            .comment
+            {
+                font-style: italic;
+                font-size: smaller;
+            }
+            .startupBar
+            {
+                background-color: #EEEEEE;
+                cursor: default;
+            }
+            
+            .colorSucceeded
+            {
+                background-color: #90ED7B;
+            }
+            .colorIgnored
+            {
+                background-color: #FFFF85;
+            }
+            .colorPending
+            {
+                background-color: #D47BED;
+            }
+            .colorNothingToRun
+            {
+                background-color: #CCCCFF;
+            }
+            .colorSkipped
+            {
+                background-color: #CCCCFF;
+            }
+            .colorInconclusive
+            {
+                background-color: #7BEDED;
+            }
+            .colorCleanupFailed
+            {
+                background-color: #FFCCCC;
+            }
+            .colorRandomlyFailed
+            {
+                background-color: #EDB07B;
+            }
+            .colorFailed
+            {
+                background-color: #ED5F5F;
+            }
+            .colorInitializationFailed
+            {
+                background-color: #FF0000;
+            }
+            .colorFrameworkError
+            {
+                background-color: #FF0000;
+            }
+            ul.subNodeLinks
+            {
+                padding-left: 20px;
+                margin: 0px;
+            }
+            ul.subNodeLinks li
+            {
+                list-style: none;
+            }
+            
+            /* views general */
+            div.scrollable
+            {
+                /*overflow: auto; - thsi has to be set from js, because of an IE9 bug */
+            }
+            div.viewbox
+            {
+                position: relative;
+                border: 3px solid #e8eef4;
+            }
+            div.viewbox table
+            {
+                border: 0px;
+            }
+                        
+            /* testview */
+            #testview
+            {
+                padding-top: 23px;
+            }
+            
+            table.testview-items td
+            {
+                vertical-align: bottom;
+                padding: 0px 1px 0px 1px;
+            }
+            td.right-padding, td.left-padding
+            {
+                width: 25px;
+                min-width: 25px;
+            }
+            table.testview-items a.bar
+            {
+                width: 5px;
+            }
+            table.testview-items tr.testview-items-row
+            {
+                height: 60px;
+            }
+            
+            /* scale */
+            table.vertical-scale 
+            {
+                position: absolute;
+                top: 23px;
+                left: 0px;
+                width: 100%;
+                z-index: -100;
+            }
+            table.vertical-scale td, tr.horizontal-scale td
+            {
+                font-size: 60%;
+                line-height: normal;
+            }
+            table.vertical-scale tr.scale-max, table.vertical-scale tr.scale-mid 
+            {
+                height: 30px;
+            }
+            tr.horizontal-scale, table.vertical-scale tr.scale-min 
+            {
+                height: 12px;
+            }
+            
+            td.scale-max-label, td.scale-mid-label, td.scale-min-label
+            {
+                border-top: solid 1px #E6E6E6;
+                text-align: left;
+                vertical-align: top;
+            }
+            td.scale-10-label
+            {
+                border-left: solid 1px #E6E6E6;
+                text-align: left;
+                vertical-align: bottom;
+                padding-left: 1px;
+            }
+            tr.scale-mid td, tr.scale-min td, tr.scale-max td
+            {
+                border-top: solid 1px #E6E6E6;
+            }
+           
+            
+            /* bar-control */
+            #bar-control
+            {
+                font-size: 60%;
+                line-height: normal;
+                position: absolute;
+                right: 0px;
+                top: 0px;
+            }
+            #bar-control label
+            {
+                font-weight: bold;
+                vertical-align: middle;
+            }
+            #bar-control .option
+            {
+                vertical-align: middle;
+                text-transform: lowercase;
+            }
+            #bar-control input[type="checkbox"]
+            {
+                padding: 0 2px 0 3px;
+            }
+            #bar-control input
+            {
+                vertical-align: top;
+                height: 12px;
+                margin: 0px;
+                padding: 0px;
+            }
+            #bar-control div
+            {
+                float: right;
+                margin: 3px 5px 3px 5px;
+            }
+            
+            
+            /* timeline view */
+            #timelineview
+            {
+                padding-top: 5px;
+            }
+            table.timelineview a
+            {
+                height: 20px;
+            }
+            table.timelineview td
+            {
+                vertical-align: bottom;
+                padding: 0px 1px 0px 0px;
+                border: 0px;
+            }
+            tr.thread-items-row
+            {
+                height: 25px;
+            }
+            tr.thread-items-row td
+            {
+                vertical-align: bottom;
+            }
+            td.thread-label
+            {
+                padding: 0px 6px 0px 6px;
+                text-align: right;
+                line-height: 18px;
+                vertical-align: bottom;
+            }
+            th.thread-label
+            {
+                padding: 3px 6px 0px 6px;
+                line-height: 18px;
+                text-align: left;
+                vertical-align: bottom;
+            }
+        </style>
+	</head>
+	<body>
+        <h1>UnitTestProject Test Execution Report</h1>
+        <ul>
+            <li>Project: UnitTestProject</li>
+            <li>Configuration: Default</li>
+            <li>Test Assemblies: UnitTestProject.dll</li>
+            <li>Start Time: 16.04.2018 23:16:28</li>
+            <li>Duration: 00:05:38.2657255</li>
+            <li>Test Threads: 1</li>
+        </ul>
+
+        <h2>Result: 3 failed</h2>
+        <table class="testEvents">
+                <tr>
+        <th colspan="2">Success rate</th>
+        <th>Tests</th>
+        <th>Succeeded</th>
+        <th>Failed</th>
+        <th>Pending</th>
+        <th>Ignored</th>
+        <th>Skipped</th>
+    </tr>
+
+                <tr>
+            <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 149px;" 
+                           title="3 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+                    <td>
+                        <a class="bar colorSkipped" 
+                           style="width: 49px;" 
+                           title="1 skipped" 
+                                                   />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>4 (test executions: 8)</td>
+    <td>0</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+
+    </tr>
+
+        </table>
+        
+        <h2>Test Timeline Summary</h2>
+
+        <div id="timelineview" class="viewbox">
+            <div class="scrollable">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="thread-label" colspan="2">thread</th>
+                    </tr>
+                        <tr class="thread-items-row">
+                            <td class="thread-label" title="Machine: CAP-KAROLINAS">#0</td>
+                            <td colspan="1">
+                                <table class="timelineview" cellpadding="0" cellspacing="0">
+                                    <tr>
+
+                                            <td>
+        <a
+            class="bar startupBar" 
+            style="width: 3px;" 
+                title="test thread startup" 
+        >&nbsp;</a>
+    </td>
+
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 48px;" 
+                title="Add new list, cat (in List)" 
+                href="#t-2030637450.0"
+        >&nbsp;</a>
+    </td>
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 3px;" 
+                title="Add new list, cat (in List) retry #1" 
+                href="#t-2030637450.1"
+        >&nbsp;</a>
+    </td>
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 3px;" 
+                title="Add new list, cat (in List) retry #2" 
+                href="#t-2030637450.2"
+        >&nbsp;</a>
+    </td>
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 3px;" 
+                title="Add new list, doge (in List)" 
+                href="#t-2085132830.0"
+        >&nbsp;</a>
+    </td>
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 3px;" 
+                title="Add new list, doge (in List) retry #1" 
+                href="#t-2085132830.1"
+        >&nbsp;</a>
+    </td>
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 3px;" 
+                title="Add new list, doge (in List) retry #2" 
+                href="#t-2085132830.2"
+        >&nbsp;</a>
+    </td>
+    <td>
+        <a
+            class="bar colorFailed" 
+            style="width: 3px;" 
+                title="Get List (in List)" 
+                href="#t-1009327449.0"
+        >&nbsp;</a>
+    </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="horizontal-scale">
+                        <td>&nbsp;</td>
+                        <td class="scale-10-label">0s</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <h2>Test Result View</h2>
+        <div id="testview" class="viewbox">
+            <div id="bar-control">
+                <div id="bar-control-sort">
+                    <label>sort by:</label>
+                    <span class="option"><input type="radio" name="barSortOrder" value="exectime" />Time</span>
+                    <span class="option"><input type="radio" name="barSortOrder" value="acttime" />Act Time</span>
+                    <span class="option"><input type="radio" name="barSortOrder" value="order" />Execution</span>
+                    <span class="option"><input type="radio" name="barSortOrder" value="rescode" checked="checked" />Result</span>
+                    <span class="option"><input type="checkbox" name="barSortDesc" id="barSortDesc" checked="checked" />desc</span>
+                </div>
+                <div id="bar-control-heights">
+                    <label>heights:</label>
+                    <span class="option"><input type="radio" checked="checked" name="barHeight" value="exectime" />Time</span>
+                    <span class="option"><input type="radio" name="barHeight" value="acttime" />Act Time</span>
+                    
+                </div>
+            </div>
+            <table class="vertical-scale" cellpadding="0" cellspacing="0">
+                <tr class="scale-max">
+                    <td class="left-padding scale-max-label">&nbsp;</td>
+                    <td colspan="8">&nbsp;</td>
+                    <td class="right-padding">&nbsp;</td>
+                </tr>
+                <tr class="scale-mid">
+                    <td class="left-padding scale-mid-label">&nbsp;</td>
+                    <td colspan="8">&nbsp;</td>
+                    <td class="right-padding">&nbsp;</td>
+                </tr>
+                <tr class="scale-min">
+                    <td class="left-padding scale-min-label">&nbsp;</td>
+                    <td colspan="8">&nbsp;</td>
+                    <td class="right-padding">&nbsp;</td>
+                </tr>
+            </table>
+            <div class="scrollable">
+                <table class="testview-items" cellpadding="0" cellspacing="0">
+                    <tr class="testview-items-row">
+                        <td class="left-padding">&nbsp;</td>
+    <td class="testview-item" 
+        data-sr-exectime="0" data-sr-rescode="320" data-sr-order="7" data-sr-acttime="0.0">
+        <a
+            class="bar colorSkipped" 
+            style="height: 2px;"
+            title="Edit list, hello (in List)"
+            href="#t-390575155.0">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="321.3858064" data-sr-rescode="440" data-sr-order="0" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 60px;"
+            title="Add new list, cat (in List)"
+            href="#t-2030637450.0">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="2.8088127" data-sr-rescode="440" data-sr-order="1" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 2px;"
+            title="Add new list, cat (in List) retry #1"
+            href="#t-2030637450.1">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="2.7686476" data-sr-rescode="440" data-sr-order="2" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 2px;"
+            title="Add new list, cat (in List) retry #2"
+            href="#t-2030637450.2">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="2.3227661" data-sr-rescode="440" data-sr-order="3" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 2px;"
+            title="Add new list, doge (in List)"
+            href="#t-2085132830.0">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="2.3123349" data-sr-rescode="440" data-sr-order="4" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 2px;"
+            title="Add new list, doge (in List) retry #1"
+            href="#t-2085132830.1">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="2.0407229" data-sr-rescode="440" data-sr-order="5" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 2px;"
+            title="Add new list, doge (in List) retry #2"
+            href="#t-2085132830.2">&nbsp;</a>
+    </td>
+    <td class="testview-item" 
+        data-sr-exectime="3.8146114" data-sr-rescode="440" data-sr-order="6" data-sr-acttime="0.0">
+        <a
+            class="bar colorFailed" 
+            style="height: 2px;"
+            title="Get List (in List)"
+            href="#t-1009327449.0">&nbsp;</a>
+    </td>
+                        <td class="right-padding">&nbsp;</td>
+                    </tr>
+                    <tr class="horizontal-scale">
+                        <td class="left-padding">&nbsp;</td>
+                        <td colspan="10">&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <h2>Feature Summary</h2>
+        <table class="testEvents">
+                <tr>
+            <th>Feature</th>
+        <th colspan="2">Success rate</th>
+        <th>Tests</th>
+        <th>Succeeded</th>
+        <th>Failed</th>
+        <th>Pending</th>
+        <th>Ignored</th>
+        <th>Skipped</th>
+            <th>Duration</th>
+    </tr>
+
+    <tr>
+            <td><a href="#f1873363387">List</a></td>
+            <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 149px;" 
+                           title="3 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+                    <td>
+                        <a class="bar colorSkipped" 
+                           style="width: 49px;" 
+                           title="1 skipped" 
+                                                   />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>4 (test executions: 8)</td>
+    <td>0</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+        <td>00:05:37.4537020</td>
+
+    </tr>
+        </table>
+
+        <a name="error_summary" />
+        <h2>Error Summary</h2>
+        <table class="testEvents">
+                <tr>
+            <th>Test</th>
+        <th colspan="2">Success rate</th>
+        <th>Tests</th>
+        <th>Succeeded</th>
+        <th>Failed</th>
+        <th>Pending</th>
+        <th>Ignored</th>
+        <th>Skipped</th>
+    </tr>
+
+                <tr>
+                    <td>
+                        <a href="#t-2030637450.0">Add new list, cat (in UnitTestProject, List)</a>
+                            <a href="#t-2030637450.1">retry #1</a>
+                            <a href="#t-2030637450.2">retry #2</a>
+                    </td>
+                        <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 199px;" 
+                           title="1 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1 (test executions: 3)</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+
+                </tr>
+                <tr>
+                    <td colspan="9" style="padding-left: 20px;"><div class="errorMessage">Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#t-2085132830.0">Add new list, doge (in UnitTestProject, List)</a>
+                            <a href="#t-2085132830.1">retry #1</a>
+                            <a href="#t-2085132830.2">retry #2</a>
+                    </td>
+                        <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 199px;" 
+                           title="1 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1 (test executions: 3)</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+
+                </tr>
+                <tr>
+                    <td colspan="9" style="padding-left: 20px;"><div class="errorMessage">Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#t-1009327449.0">Get List (in UnitTestProject, List)</a>
+                    </td>
+                        <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 199px;" 
+                           title="1 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+
+                </tr>
+                <tr>
+                    <td colspan="9" style="padding-left: 20px;"><div class="errorMessage">Error: Error converting value &quot;5ac21f7f64af591e949b50f5&quot; to type &#39;MongoDB.Bson.ObjectId&#39;. Path &#39;[0].id&#39;, line 1, position 33. -&gt; Nieprawidłowe rzutowanie z elementu &#39;System.String&#39; na element &#39;MongoDB.Bson.ObjectId&#39;.</div></td>
+                </tr>
+        </table>
+
+        <h2>Scenario Summary</h2>
+            <a name="f1873363387" />
+            <h3>Feature: List</h3>
+            <table class="testEvents">
+                    <tr>
+            <th>Test</th>
+        <th colspan="2">Success rate</th>
+        <th>Tests</th>
+        <th>Succeeded</th>
+        <th>Failed</th>
+        <th>Pending</th>
+        <th>Ignored</th>
+        <th>Skipped</th>
+            <th>Duration</th>
+    </tr>
+
+                    <tr>
+                        <td>
+                                    <a href="#t-2030637450.0">Scenario: Add new list, cat</a>
+            <a href="#t-2030637450.1">retry #1</a>
+            <a href="#t-2030637450.2">retry #2</a>
+
+                        </td>
+                        
+                            <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 199px;" 
+                           title="1 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1 (test executions: 3)</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+        <td>00:05:26.9632667</td>
+
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                                    <a href="#t-2085132830.0">Scenario: Add new list, doge</a>
+            <a href="#t-2085132830.1">retry #1</a>
+            <a href="#t-2085132830.2">retry #2</a>
+
+                        </td>
+                        
+                            <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 199px;" 
+                           title="1 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1 (test executions: 3)</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+        <td>00:00:06.6758239</td>
+
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                                    <a href="#t-1009327449.0">Scenario: Get List</a>
+
+                        </td>
+                        
+                            <td>
+            0%
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorFailed" 
+                           style="width: 199px;" 
+                           title="1 failed" 
+                                                          href="#error_summary"
+                        />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+        <td>00:00:03.8146114</td>
+
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                                    <a href="#t-390575155.0">Scenario: Edit list, hello</a>
+
+                        </td>
+                        
+                            <td>
+            n/a
+    </td>
+    <td>
+        <table class="timelineview" cellpadding="0" cellspacing="0">
+            <tr>
+                    <td>
+                        <a class="bar colorSkipped" 
+                           style="width: 199px;" 
+                           title="1 skipped" 
+                                                   />
+                    </td>
+            </tr>
+            
+        </table>
+    </td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+        <td>00:00:00</td>
+
+                        
+                    </tr>
+            </table>
+
+        <h2>Execution Details</h2>
+            <a name="t-2030637450.0" />
+            <h3>Scenario: Add new list, cat (in UnitTestProject, List)</h3>
+                <div class="description">
+                    tags: mytag
+                </div>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:16:29</li>
+                <li>Execution time (sec): 321,3858064</li>
+                <li>Thread: #0</li>
+                <li>Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log"></pre>
+                        </td>
+                        <td>
+                            <!-- [Initialization: Feature - List] -->
+                            <pre class="log">-&gt; Using app.config</pre>
+                        </td>
+                        <td>Succeeded in 0.415s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I create a new list (cat, miau)</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, cat] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenICreateANewList(&quot;cat&quot;, &quot;miau&quot;) (318,8s)</pre>
+                        </td>
+                        <td>Succeeded in 318.947s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And ModelState is correct</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, cat] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)</pre>
+                        </td>
+                        <td>Succeeded in 0.013s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then the system should return 200</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Add new list, cat] -->
+                            <pre class="log">error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;.</pre>
+                                <div class="errorMessage">Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div>
+                                <pre class="stackTrace">Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. 
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
+   w UnitTestProject.SpecFlowFeature1Steps.ThenTheSystemShouldReturn(HttpStatusCode statusCode)
+   w lambda_method(Closure , IContextManager , HttpStatusCode )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.AddNewList(String name, String description, String statusCode, String[] exampleTags)
+   w UnitTestProject.Specs.ListFeature.AddNewList_Cat()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.972s</td>
+                    </tr>
+            </table>
+            <a name="t-2030637450.1" />
+            <h3>Scenario: Add new list, cat (in UnitTestProject, List) retry #1</h3>
+                <div class="description">
+                    tags: mytag
+                </div>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:21:50</li>
+                <li>Execution time (sec): 2,8088127</li>
+                <li>Thread: #0</li>
+                <li>Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I create a new list (cat, miau)</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, cat] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenICreateANewList(&quot;cat&quot;, &quot;miau&quot;) (0,9s)</pre>
+                        </td>
+                        <td>Succeeded in 0.909s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And ModelState is correct</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, cat] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)</pre>
+                        </td>
+                        <td>Succeeded in 0s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then the system should return 200</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Add new list, cat] -->
+                            <pre class="log">error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;.</pre>
+                                <div class="errorMessage">Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div>
+                                <pre class="stackTrace">Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. 
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
+   w UnitTestProject.SpecFlowFeature1Steps.ThenTheSystemShouldReturn(HttpStatusCode statusCode)
+   w lambda_method(Closure , IContextManager , HttpStatusCode )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.AddNewList(String name, String description, String statusCode, String[] exampleTags)
+   w UnitTestProject.Specs.ListFeature.AddNewList_Cat()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.899s</td>
+                    </tr>
+            </table>
+            <a name="t-2030637450.2" />
+            <h3>Scenario: Add new list, cat (in UnitTestProject, List) retry #2</h3>
+                <div class="description">
+                    tags: mytag
+                </div>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:21:53</li>
+                <li>Execution time (sec): 2,7686476</li>
+                <li>Thread: #0</li>
+                <li>Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I create a new list (cat, miau)</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, cat] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenICreateANewList(&quot;cat&quot;, &quot;miau&quot;) (0,9s)</pre>
+                        </td>
+                        <td>Succeeded in 0.877s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And ModelState is correct</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, cat] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)</pre>
+                        </td>
+                        <td>Succeeded in 0s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then the system should return 200</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Add new list, cat] -->
+                            <pre class="log">error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;.</pre>
+                                <div class="errorMessage">Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div>
+                                <pre class="stackTrace">Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. 
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
+   w UnitTestProject.SpecFlowFeature1Steps.ThenTheSystemShouldReturn(HttpStatusCode statusCode)
+   w lambda_method(Closure , IContextManager , HttpStatusCode )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.AddNewList(String name, String description, String statusCode, String[] exampleTags)
+   w UnitTestProject.Specs.ListFeature.AddNewList_Cat()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.891s</td>
+                    </tr>
+            </table>
+            <a name="t-2085132830.0" />
+            <h3>Scenario: Add new list, doge (in UnitTestProject, List)</h3>
+                <div class="description">
+                    tags: mytag
+                </div>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:21:55</li>
+                <li>Execution time (sec): 2,3227661</li>
+                <li>Thread: #0</li>
+                <li>Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I create a new list (doge, wof)</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, doge] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenICreateANewList(&quot;doge&quot;, &quot;wof&quot;) (0,9s)</pre>
+                        </td>
+                        <td>Succeeded in 0.853s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And ModelState is correct</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, doge] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)</pre>
+                        </td>
+                        <td>Succeeded in 0s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then the system should return 200</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Add new list, doge] -->
+                            <pre class="log">error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;.</pre>
+                                <div class="errorMessage">Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div>
+                                <pre class="stackTrace">Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. 
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
+   w UnitTestProject.SpecFlowFeature1Steps.ThenTheSystemShouldReturn(HttpStatusCode statusCode)
+   w lambda_method(Closure , IContextManager , HttpStatusCode )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.AddNewList(String name, String description, String statusCode, String[] exampleTags)
+   w UnitTestProject.Specs.ListFeature.AddNewList_Doge()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.469s</td>
+                    </tr>
+            </table>
+            <a name="t-2085132830.1" />
+            <h3>Scenario: Add new list, doge (in UnitTestProject, List) retry #1</h3>
+                <div class="description">
+                    tags: mytag
+                </div>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:21:58</li>
+                <li>Execution time (sec): 2,3123349</li>
+                <li>Thread: #0</li>
+                <li>Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I create a new list (doge, wof)</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, doge] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenICreateANewList(&quot;doge&quot;, &quot;wof&quot;) (0,7s)</pre>
+                        </td>
+                        <td>Succeeded in 0.658s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And ModelState is correct</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, doge] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)</pre>
+                        </td>
+                        <td>Succeeded in 0s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then the system should return 200</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Add new list, doge] -->
+                            <pre class="log">error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;.</pre>
+                                <div class="errorMessage">Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div>
+                                <pre class="stackTrace">Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. 
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
+   w UnitTestProject.SpecFlowFeature1Steps.ThenTheSystemShouldReturn(HttpStatusCode statusCode)
+   w lambda_method(Closure , IContextManager , HttpStatusCode )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.AddNewList(String name, String description, String statusCode, String[] exampleTags)
+   w UnitTestProject.Specs.ListFeature.AddNewList_Doge()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.654s</td>
+                    </tr>
+            </table>
+            <a name="t-2085132830.2" />
+            <h3>Scenario: Add new list, doge (in UnitTestProject, List) retry #2</h3>
+                <div class="description">
+                    tags: mytag
+                </div>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:22:00</li>
+                <li>Execution time (sec): 2,0407229</li>
+                <li>Thread: #0</li>
+                <li>Error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I create a new list (doge, wof)</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, doge] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenICreateANewList(&quot;doge&quot;, &quot;wof&quot;) (0,6s)</pre>
+                        </td>
+                        <td>Succeeded in 0.551s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And ModelState is correct</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Add new list, doge] -->
+                            <pre class="log">done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)</pre>
+                        </td>
+                        <td>Succeeded in 0s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then the system should return 200</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Add new list, doge] -->
+                            <pre class="log">error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;.</pre>
+                                <div class="errorMessage">Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. </div>
+                                <pre class="stackTrace">Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: &lt;BadRequest&gt;. Wartość rzeczywista: &lt;OK&gt;. 
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
+   w Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
+   w UnitTestProject.SpecFlowFeature1Steps.ThenTheSystemShouldReturn(HttpStatusCode statusCode)
+   w lambda_method(Closure , IContextManager , HttpStatusCode )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.AddNewList(String name, String description, String statusCode, String[] exampleTags)
+   w UnitTestProject.Specs.ListFeature.AddNewList_Doge()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.49s</td>
+                    </tr>
+            </table>
+            <a name="t-1009327449.0" />
+            <h3>Scenario: Get List (in UnitTestProject, List)</h3>
+            <ul>
+                <li>Status: Failed</li>
+                <li>Start time: 16.04.2018 23:22:02</li>
+                <li>Execution time (sec): 3,8146114</li>
+                <li>Thread: #0</li>
+                <li>Error: Error converting value &quot;5ac21f7f64af591e949b50f5&quot; to type &#39;MongoDB.Bson.ObjectId&#39;. Path &#39;[0].id&#39;, line 1, position 33. -&gt; Nieprawidłowe rzutowanie z elementu &#39;System.String&#39; na element &#39;MongoDB.Bson.ObjectId&#39;.</li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Given I request to view all list</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Get List] -->
+                            <pre class="log">error: Error converting value &quot;5ac21f7f64af591e949b50f5&quot; to type &#39;MongoDB.Bson.ObjectId&#39;. Path &#39;[0].id&#39;, line 1, position 33.</pre>
+                                <div class="errorMessage">Error converting value &quot;5ac21f7f64af591e949b50f5&quot; to type &#39;MongoDB.Bson.ObjectId&#39;. Path &#39;[0].id&#39;, line 1, position 33. -&gt; Nieprawidłowe rzutowanie z elementu &#39;System.String&#39; na element &#39;MongoDB.Bson.ObjectId&#39;.</div>
+                                <pre class="stackTrace">Newtonsoft.Json.JsonSerializationException: Error converting value &quot;5ac21f7f64af591e949b50f5&quot; to type &#39;MongoDB.Bson.ObjectId&#39;. Path &#39;[0].id&#39;, line 1, position 33. ---&gt; System.InvalidCastException: Nieprawidłowe rzutowanie z elementu &#39;System.String&#39; na element &#39;MongoDB.Bson.ObjectId&#39;.
+   w System.Convert.DefaultToType(IConvertible value, Type targetType, IFormatProvider provider)
+   w System.String.System.IConvertible.ToType(Type type, IFormatProvider provider)
+   w System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- Koniec śladu stosu wyjątk&#243;w wewnętrznych ---
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   w Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   w Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   w Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   w Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   w Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   w UnitTestProject.HttpRequestWrapper.Execute[T]()
+   w UnitTestProject.SpecFlowFeature1Steps.GivenIRequestToViewAllList()
+   w lambda_method(Closure , IContextManager )
+   w TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan&amp; duration)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecRun.SpecFlowPlugin.Runtime.RunnerTestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)
+   w TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+   w TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+   w UnitTestProject.Specs.ListFeature.ScenarioCleanup()
+   w UnitTestProject.Specs.ListFeature.GetList()
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.Execute(ITestThreadExecutionContext testThreadExecutionContext)
+   w TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)</pre>
+                        </td>
+                        <td>Failed in 1.269s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">And want to see my new list</pre>
+                        </td>
+                        <td>
+                            <!-- [TestArrange: Scenario - Get List] -->
+                            <pre class="log">skipped because of previous errors</pre>
+                        </td>
+                        <td>Skipped in 0.001s</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre class="log">Then want to get id</pre>
+                        </td>
+                        <td>
+                            <!-- [TestAssert: Scenario - Get List] -->
+                            <pre class="log">skipped because of previous errors</pre>
+                        </td>
+                        <td>Skipped in 2.543s</td>
+                    </tr>
+            </table>
+            <a name="t-390575155.0" />
+            <h3>Scenario: Edit list, hello (in UnitTestProject, List)</h3>
+            <ul>
+                <li>Status: Skipped</li>
+                <li>Start time: 16.04.2018 23:22:06</li>
+                <li>Execution time (sec): 0</li>
+                <li>Thread: #-1</li>
+            </ul>
+            <table class="testEvents">
+                <tr>
+                    <th>Steps</th>
+                    <th>Trace</th>
+                    <th>Result</th>
+                </tr>
+            </table>
+	</body>
+</html>
+</a><div style='position: absolute; top:0px; right:10px; z-index: 1000; text-align: right; font-size: small; color: #FF5555'>
+Generated by an evaluation version of SpecRun.<br />
+This version can be used for evaluation purposes only.<br />
+For obtaining a registered license please visit <a href='http://www.specflow.org/plus'>http://www.specflow.org/plus</a>.
+</div>

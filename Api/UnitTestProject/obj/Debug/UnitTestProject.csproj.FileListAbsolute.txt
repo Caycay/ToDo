@@ -50,3 +50,5 @@ D:\MyApp\Api\UnitTestProject\bin\Debug\DnsClient.xml
 D:\MyApp\Api\UnitTestProject\bin\Debug\pl\System.Web.Http.resources.dll
 D:\MyApp\Api\UnitTestProject\bin\Debug\pl\System.Web.Http.WebHost.resources.dll
 D:\MyApp\Api\UnitTestProject\bin\Debug\pl\System.Net.Http.Formatting.resources.dll
+D:\MyApp\Api\UnitTestProject\bin\Debug\Vse.Web.Serialization.dll
+D:\MyApp\Api\UnitTestProject\bin\Debug\Vse.Web.Serialization.pdb

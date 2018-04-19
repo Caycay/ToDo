@@ -1,0 +1,159 @@
+﻿2018-04-16T23:03:58.7968828+02:00;VSTestExecutionThread;Info;SpecFlow+Runner execution started
+2018-04-16T23:03:58.9803719+02:00;VSTestExecutionThread;Info;SpecRun Evaluation Mode: Please purchase at http://www.specflow.org/plus to remove test execution delay.
+2018-04-16T23:03:58.9808701+02:00;VSTestExecutionThread;Info;SpecRun: running tests in D:\MyApp\Api\UnitTestProject\bin\Debug\UnitTestProject.dll
+2018-04-16T23:03:58.9808701+02:00;VSTestExecutionThread;Info;Profile: Default
+2018-04-16T23:04:12.1010593+02:00;Thread#12;Info;Discovering target: Default
+2018-04-16T23:04:12.1010593+02:00;Thread#12;Info;Discovering tests from assembly: D:\MyApp\Api\UnitTestProject\bin\Debug\UnitTestProject.dll
+Appdomain Disposed
+Test Suite Dump
+#0: UnitTestProject/Default - 
+#1: Default - 
+#2: UnitTestProject - 
+#3: List - 
+#4: Add new list, cat - TestAssembly:UnitTestProject/Feature:List/Scenario:Add+new+list%2c+cat
+#5: Add new list, doge - TestAssembly:UnitTestProject/Feature:List/Scenario:Add+new+list%2c+doge
+#6: Get List - TestAssembly:UnitTestProject/Feature:List/Scenario:Get+List
+#7: Edit list, hello - TestAssembly:UnitTestProject/Feature:List/Scenario:Edit+list%2c+hello
+End: Test Suite Dump
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #4 from normal test queue 
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread #0: creating new test thread executor for UnitTestProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (target: Default)
+Loading SpecRun type 'TechTalk.SpecRun.Framework.TestAssemblyExecutor' from: C:\Users\Admin\AppData\Local\Temp\VisualStudioTestExplorerExtensions\SpecRun.Runner.1.7.0\tools\TechTalk.SpecRun.Framework.Executor.dll
+Thread#0: Test #4/0 is started on thread #0
+Thread#0:T:-> Using app.config
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("cat", "miau") (145,9s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <BadRequest>. Wartość rzeczywista: <OK>. 
+Thread#0:TestItem#4:Scheduler: reschedule tests for testitem #4
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #4
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 1
+Thread#0: Test #4/0 is finished on thread #0 as Failed within 148,7684971 seconds
+Thread#0: Test #4/1 is started on thread #0
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("cat", "miau") (1,4s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <BadRequest>. Wartość rzeczywista: <OK>. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #4
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 2
+Thread#0: Test #4/1 is finished on thread #0 as Failed within 5,3519655 seconds
+Thread#0: Test #4/2 is started on thread #0
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("cat", "miau") (2,1s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <BadRequest>. Wartość rzeczywista: <OK>. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #5 from normal test queue 
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #4/2 is finished on thread #0 as Failed within 5,5172885 seconds
+Thread#0: Test #5/0 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("doge", "wof") (1,2s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <BadRequest>. Wartość rzeczywista: <OK>. 
+Thread#0:TestItem#5:Scheduler: reschedule tests for testitem #5
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #5
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 1
+Thread#0: Test #5/0 is finished on thread #0 as Failed within 4,2830154 seconds
+Thread#0: Test #5/1 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("doge", "wof") (0,4s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <BadRequest>. Wartość rzeczywista: <OK>. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #5
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 2
+Thread#0: Test #5/1 is finished on thread #0 as Failed within 1,1358791 seconds
+Thread#0: Test #5/2 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: SpecFlowFeature1Steps.GivenICreateANewList("doge", "wof") (0,4s)
+Thread#0:B:And ModelState is correct
+Thread#0:T:done: SpecFlowFeature1Steps.GivenModelStateIsCorrect() (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <BadRequest>. Wartość rzeczywista: <OK>. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #6 from normal test queue 
+Thread#0:Scheduler: considering testitem #6 for thread 0
+Thread#0:TestItem#6:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#6:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#6:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #6 for thread 0
+Thread#0:Scheduler: Test #6 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #5/2 is finished on thread #0 as Failed within 1,1280193 seconds
+Thread#0: Test #6/0 is started on thread #0
+Thread#0:B:Given I request to view all list
+Thread#0:T:error: Error converting value "5ac21f7f64af591e949b50f5" to type 'MongoDB.Bson.ObjectId'. Path '[0].id', line 1, position 33.
+Thread#0:B:And want to see my new list
+Thread#0:T:skipped because of previous errors
+Thread#0:B:Then want to get id
+Thread#0:T:skipped because of previous errors
+Cancelling because configured number of failures reached
+Thread#0: Test #6/0 is finished on thread #0 as Failed within 1,3349616 seconds
+Appdomain Disposed
+Thread#-1:Scheduler: get next test for thread -1
+Thread#:Scheduler: testitem #7 from normal test queue 
+Thread#-1:Scheduler: considering testitem #7 for thread -1
+Thread#-1:Scheduler: using testitem #7 for thread -1
+Thread#-1:Scheduler: Test #7 is scheduled for thread
+Thread#-1: Test #7/0 is started on thread #-1
+Thread#-1: Test #7/0 is finished on thread #-1 as Skipped within 0 seconds
+Thread#-1:Scheduler: get next test for thread -1
+Thread#:Scheduler: at the end of normal test queue
+Thread#-1:Scheduler: enumerator for thread is at end
+Total: 4 (test executions: 8)
+Succeeded: 0
+Ignored: 0
+Pending: 0
+Skipped: 1
+Failed: 3

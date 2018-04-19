@@ -24,28 +24,53 @@ namespace Api.Controllers
         [HttpPost]
         public HttpResponseMessage InsertItem(Item item)
         {
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, allErrors);
+            }
+
             itemReposiotry.InsertItem(item);
             return Request.CreateResponse<Item>(HttpStatusCode.Created, item);
         }
         [Route("api/list/{idList}/item/{idItem}")]
         [HttpGet]
-        public Task<Item> GetItem(string idList, string idItem)
+        public async Task<IHttpActionResult> GetItem(string idList, string idItem)
         {       
-            return itemReposiotry.GetItemById(idItem, idList);
-            
+            var item = await itemReposiotry.GetItemById(idItem, idList);
+            if(item != null)
+            {
+                return Ok(item);
+            }
+            return NotFound();
         }
 
         [HttpPut]
         public HttpResponseMessage UpdateItem(string id, Item item)
         {
-            itemReposiotry.UpdateItem(id, item);
-            return Request.CreateResponse<Item>(HttpStatusCode.OK, item);
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, allErrors);
+            }
+            var newItem = itemReposiotry.UpdateItem(id, item);
+            if(newItem != null && !newItem.IsFaulted)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, item);
+            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, item);
         }
         [Route("api/list/{idList}/item/{idItem}")]
         [HttpDelete]
         public HttpResponseMessage Delete(string idList, string idItem)
         {
-            itemReposiotry.DeleteList(idList, idItem);
+            var item = itemReposiotry.DeleteList(idList, idItem);
+            if (!item.Status.Equals(TaskStatus.Faulted))
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
             return Request.CreateResponse(HttpStatusCode.OK, "Delete");
         }
     }

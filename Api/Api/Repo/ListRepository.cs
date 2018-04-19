@@ -31,7 +31,7 @@ namespace Api.Repo
             }
 
             return true;
-        } 
+        }
 
         public async Task InsertList(ListOfItem list)
         {
@@ -44,40 +44,23 @@ namespace Api.Repo
         }
         public async Task<ListOfItem> GetListById(string id)
         {
-            return await _listCollection.Find(x=>x.id == new ObjectId(id)).SingleOrDefaultAsync();
-           // var result = await _listCollection.FindSync(_ => _.id == new ObjectId(id)).SingleAsync();
-            
+            return await _listCollection.Find(x => x.id == new ObjectId(id)).SingleOrDefaultAsync();
+
         }
         public async Task<bool> UpdateList(string id, ListOfItem loi)
         {
-            try
-            {
-                loi.id = new ObjectId(id);
-                ListOfItem oldList = _listCollection.Find(x => x.id == loi.id).Single();
-                loi.items = oldList.items;
-                ReplaceOneResult actionResult = await _listCollection.ReplaceOneAsync(_ => _.id.Equals(id), loi, new UpdateOptions { IsUpsert = true });
 
-                return actionResult.IsAcknowledged && actionResult.ModifiedCount > 0;
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
+            loi.id = new ObjectId(id);
+            ListOfItem oldList = _listCollection.Find(x => x.id == loi.id).Single();
+            loi.items = oldList.items;
+            ReplaceOneResult actionResult = await _listCollection.ReplaceOneAsync(_ => _.id.Equals(id), loi, new UpdateOptions { IsUpsert = true });
+
+            return actionResult.IsAcknowledged && actionResult.ModifiedCount > 0;
+
         }
-        public async Task<bool> DeleteList(string id)
-        {
-            try
-            {
-                DeleteResult actionResult = await _listCollection.DeleteOneAsync(
-                    Builders<ListOfItem>.Filter.Eq("Id", id));
-                return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            //var result = await _listCollection.FindOneAndDeleteAsync(_ => _.id == new ObjectId(id));
+        public async Task DeleteList(string id)
+        { 
+            _listCollection.FindOneAndDelete(_ => _.id == new ObjectId(id));
         }
     }
 }
