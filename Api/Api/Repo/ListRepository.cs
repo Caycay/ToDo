@@ -35,6 +35,10 @@ namespace Api.Repo
 
         public async Task InsertList(ListOfItem list)
         {
+            if (list.id == ObjectId.Empty)
+            {
+                list.id = ObjectId.GenerateNewId();
+            }
             await _listCollection.InsertOneAsync(list);
         }
 

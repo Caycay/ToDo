@@ -1,0 +1,237 @@
+﻿2018-04-22T18:00:01.7699127+02:00;VSTestExecutionThread;Info;SpecFlow+Runner execution started
+2018-04-22T18:00:01.8792060+02:00;VSTestExecutionThread;Info;SpecRun Evaluation Mode: Please purchase at http://www.specflow.org/plus to remove test execution delay.
+2018-04-22T18:00:01.8792060+02:00;VSTestExecutionThread;Info;SpecRun: running tests in D:\MyApp\Api\UnitTestProject\bin\Debug\UnitTestProject.dll
+2018-04-22T18:00:01.8792060+02:00;VSTestExecutionThread;Info;Profile: Default
+2018-04-22T18:00:12.9513093+02:00;Thread#12;Info;Discovering target: Default
+2018-04-22T18:00:12.9513093+02:00;Thread#12;Info;Discovering tests from assembly: D:\MyApp\Api\UnitTestProject\bin\Debug\UnitTestProject.dll
+Appdomain Disposed
+Test Suite Dump
+#0: UnitTestProject/Default - 
+#1: Default - 
+#2: UnitTestProject - 
+#3: Tests - 
+#4: Get all list - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Get+all+list
+#5: Get one list, 5adc9d7f64af59197cc15767 - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Get+one+list%2c+5adc9d7f64af59197cc15767
+#6: Get one list, kitty - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Get+one+list%2c+kitty
+#7: Add new list, cat - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Add+new+list%2c+cat
+#8: Add new list, doge - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Add+new+list%2c+doge
+#9: Edit list, Variant 0 - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Edit+list%2c+Variant+0
+#10: Edit list, Variant 1 - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Edit+list%2c+Variant+1
+#11: Delete List, kitty - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Delete+List%2c+kitty
+#12: Add item to list, 5adc9d7f64af59197cc15767 - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Add+item+to+list%2c+5adc9d7f64af59197cc15767
+#13: Get one item, 5adc9d7f64af59197cc15767 - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Get+one+item%2c+5adc9d7f64af59197cc15767
+#14: Update item, 5adca73064af59197cc15774 - TestAssembly:UnitTestProject/Feature:Tests/Scenario:Update+item%2c+5adca73064af59197cc15774
+End: Test Suite Dump
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #4 from normal test queue 
+Thread#0:Scheduler: considering testitem #4 for thread 0
+Thread#0:TestItem#4:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#4:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#4:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #4 for thread 0
+Thread#0:Scheduler: Test #4 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread #0: creating new test thread executor for UnitTestProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (target: Default)
+Loading SpecRun type 'TechTalk.SpecRun.Framework.TestAssemblyExecutor' from: C:\Users\Admin\AppData\Local\Temp\VisualStudioTestExplorerExtensions\SpecRun.Runner.1.7.0\tools\TechTalk.SpecRun.Framework.Executor.dll
+Thread#0: Test #4/0 is started on thread #0
+Thread#0:T:-> Using app.config
+Thread#0:B:Given sending a query to the database
+Thread#0:T:done: Steps.GivenSendingAQueryToTheDatabase() (0,3s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(OK) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #5 from normal test queue 
+Thread#0:Scheduler: considering testitem #5 for thread 0
+Thread#0:TestItem#5:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#5:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#5:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #5 for thread 0
+Thread#0:Scheduler: Test #5 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #4/0 is finished on thread #0 as Succeeded within 0,8311801 seconds
+Thread#0: Test #5/0 is started on thread #0
+Thread#0:B:Given sending a list query to the database with 5adc9d7f64af59197cc15767
+Thread#0:T:done: Steps.GivenSendingAListQueryToTheDatabaseWith("5adc9d7f64af59197...") (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(OK) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #6 from normal test queue 
+Thread#0:Scheduler: considering testitem #6 for thread 0
+Thread#0:TestItem#6:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#6:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#6:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #6 for thread 0
+Thread#0:Scheduler: Test #6 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #5/0 is finished on thread #0 as Succeeded within 0,0100274 seconds
+Thread#0: Test #6/0 is started on thread #0
+Thread#0:B:Given sending a list query to the database with kitty
+Thread#0:T:done: Steps.GivenSendingAListQueryToTheDatabaseWith("kitty") (0,0s)
+Thread#0:B:Then the system should return 500
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(InternalServerError) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #7 from normal test queue 
+Thread#0:Scheduler: considering testitem #7 for thread 0
+Thread#0:TestItem#7:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#7:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#7:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #7 for thread 0
+Thread#0:Scheduler: Test #7 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #6/0 is finished on thread #0 as Succeeded within 0,0140362 seconds
+Thread#0: Test #7/0 is started on thread #0
+Thread#0:B:Given I create a new list (cat, miau)
+Thread#0:T:done: Steps.GivenICreateANewList("cat", "miau") (0,0s)
+Thread#0:B:Then the system should return 201
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(Created) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #8 from normal test queue 
+Thread#0:Scheduler: considering testitem #8 for thread 0
+Thread#0:TestItem#8:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#8:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#8:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #8 for thread 0
+Thread#0:Scheduler: Test #8 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #7/0 is finished on thread #0 as Succeeded within 0,0290768 seconds
+Thread#0: Test #8/0 is started on thread #0
+Thread#0:B:Given I create a new list (doge, wof)
+Thread#0:T:done: Steps.GivenICreateANewList("doge", "wof") (0,0s)
+Thread#0:B:Then the system should return 201
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(Created) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #9 from normal test queue 
+Thread#0:Scheduler: considering testitem #9 for thread 0
+Thread#0:TestItem#9:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#9:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#9:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #9 for thread 0
+Thread#0:Scheduler: Test #9 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #8/0 is finished on thread #0 as Succeeded within 0,0070191 seconds
+Thread#0: Test #9/0 is started on thread #0
+Thread#0:B:Given I can edit list (hello, kitty, 5adc9d7f64af59197cc15767)
+Thread#0:T:done: Steps.GivenICanEditList("hello", "kitty", "5adc9d7f64af59197...") (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(OK) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #10 from normal test queue 
+Thread#0:Scheduler: considering testitem #10 for thread 0
+Thread#0:TestItem#10:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#10:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#10:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #10 for thread 0
+Thread#0:Scheduler: Test #10 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #9/0 is finished on thread #0 as Succeeded within 0,0080233 seconds
+Thread#0: Test #10/0 is started on thread #0
+Thread#0:B:Given I can edit list (hello, kitty, kitty)
+Thread#0:T:done: Steps.GivenICanEditList("hello", "kitty", "kitty") (0,0s)
+Thread#0:B:Then the system should return 404
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(NotFound) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #11 from normal test queue 
+Thread#0:Scheduler: considering testitem #11 for thread 0
+Thread#0:TestItem#11:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#11:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#11:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #11 for thread 0
+Thread#0:Scheduler: Test #11 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #10/0 is finished on thread #0 as Succeeded within 0,0060148 seconds
+Thread#0: Test #11/0 is started on thread #0
+Thread#0:B:Given I can delete list with kitty
+Thread#0:T:done: Steps.GivenICanDeleteListWithKitty("kitty") (0,0s)
+Thread#0:B:Then the system should return 404
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(NotFound) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #12 from normal test queue 
+Thread#0:Scheduler: considering testitem #12 for thread 0
+Thread#0:TestItem#12:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#12:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#12:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #12 for thread 0
+Thread#0:Scheduler: Test #12 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #11/0 is finished on thread #0 as Succeeded within 0,0070175 seconds
+Thread#0: Test #12/0 is started on thread #0
+Thread#0:B:Given I create a new item (prop1, prop2, 33, 5adc9d7f64af59197cc15767)
+Thread#0:T:done: Steps.GivenICreateANewItem("prop1", "prop2", 33, "5adc9d7f64af59197...") (0,0s)
+Thread#0:B:Then the system should return 201
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(Created) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #13 from normal test queue 
+Thread#0:Scheduler: considering testitem #13 for thread 0
+Thread#0:TestItem#13:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#13:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#13:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #13 for thread 0
+Thread#0:Scheduler: Test #13 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #12/0 is finished on thread #0 as Succeeded within 0,0090263 seconds
+Thread#0: Test #13/0 is started on thread #0
+Thread#0:B:Given sending a item query to the database with (5adc9d7f64af59197cc15767, 5adca73064af59197cc15774)
+Thread#0:T:done: Steps.GivenSendingAItemQueryToTheDatabaseWith("5adc9d7f64af59197...", "5adca73064af59197...") (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:done: Steps.ThenTheSystemShouldReturn(OK) (0,0s)
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: testitem #14 from normal test queue 
+Thread#0:Scheduler: considering testitem #14 for thread 0
+Thread#0:TestItem#14:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#14:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#14:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #14 for thread 0
+Thread#0:Scheduler: Test #14 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 0
+Thread#0: Test #13/0 is finished on thread #0 as Succeeded within 0,015038 seconds
+Thread#0: Test #14/0 is started on thread #0
+Thread#0:B:Given I update an item (hello, kitty, 3020, 5adca73064af59197cc15774, 5adc9d7f64af59197cc15767)
+Thread#0:T:done: Steps.GivenIUpdateAnItemHelloKitty("hello", "kitty", 3020, "5adca73064af59197...", "5adc9d7f64af59197...") (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <NotFound>. Wartość rzeczywista: <OK>. 
+Thread#0:TestItem#14:Scheduler: reschedule tests for testitem #14
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #14
+Thread#0:Scheduler: considering testitem #14 for thread 0
+Thread#0:TestItem#14:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#14:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#14:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #14 for thread 0
+Thread#0:Scheduler: Test #14 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 1
+Thread#0: Test #14/0 is finished on thread #0 as Failed within 0,0220586 seconds
+Thread#0: Test #14/1 is started on thread #0
+Thread#0:B:Given I update an item (hello, kitty, 3020, 5adca73064af59197cc15774, 5adc9d7f64af59197cc15767)
+Thread#0:T:done: Steps.GivenIUpdateAnItemHelloKitty("hello", "kitty", 3020, "5adca73064af59197...", "5adc9d7f64af59197...") (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <NotFound>. Wartość rzeczywista: <OK>. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: dequeuing a rescheduled testitem: #14
+Thread#0:Scheduler: considering testitem #14 for thread 0
+Thread#0:TestItem#14:testItemMatchesCurrentTestThread:UnSpecific
+Thread#0:TestItem#14:runsOnOneOtherThreadSpecific:False
+Thread#0:TestItem#14:runsOnOneOtherThreadUnspecific:False
+Thread#0:Scheduler: using testitem #14 for thread 0
+Thread#0:Scheduler: Test #14 is scheduled for thread
+Thread#0:Scheduler: with testItemExecutionIndex 2
+Thread#0: Test #14/1 is finished on thread #0 as Failed within 0,0070183 seconds
+Thread#0: Test #14/2 is started on thread #0
+Thread#0:B:Given I update an item (hello, kitty, 3020, 5adca73064af59197cc15774, 5adc9d7f64af59197cc15767)
+Thread#0:T:done: Steps.GivenIUpdateAnItemHelloKitty("hello", "kitty", 3020, "5adca73064af59197...", "5adc9d7f64af59197...") (0,0s)
+Thread#0:B:Then the system should return 200
+Thread#0:T:error: Assert.AreEqual — niepowodzenie. Oczekiwana wartość: <NotFound>. Wartość rzeczywista: <OK>. 
+Thread#0:Scheduler: get next test for thread 0
+Thread#:Scheduler: at the end of normal test queue
+Thread#0:Scheduler: enumerator for thread is at end
+Thread#0:Scheduler: No more tests for thread
+Thread#0: Test #14/2 is finished on thread #0 as Failed within 0,0080237 seconds
+Appdomain Disposed
+Thread#-1:Scheduler: get next test for thread -1
+Thread#:Scheduler: at the end of normal test queue
+Thread#-1:Scheduler: enumerator for thread is at end
+Total: 11 (test executions: 13)
+Succeeded: 10
+Ignored: 0
+Pending: 0
+Skipped: 0
+Failed: 1

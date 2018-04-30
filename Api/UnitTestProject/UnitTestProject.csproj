@@ -79,11 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpRequestWrapper.cs" />
-    <Compile Include="SpecFlowFeature1Steps.cs" />
-    <Compile Include="specs\List.feature.cs">
+    <Compile Include="Steps.cs" />
+    <Compile Include="specs\tests.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>List.feature</DependentUpon>
+      <DependentUpon>tests.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,9 +100,9 @@
     <None Include="SpecRunTestProfile_2011_09.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="specs\List.feature">
+    <None Include="specs\tests.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>List.feature.cs</LastGenOutput>
+      <LastGenOutput>tests.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

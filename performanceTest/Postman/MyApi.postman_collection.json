@@ -1,6 +1,5 @@
 {
 	"id": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
-	"owner": "756657",
 	"name": "MyApi",
 	"description": "",
 	"order": [
@@ -15,16 +14,29 @@
 		"00f47a57-1cbe-70ae-fd95-5c6539f6dac0",
 		"48a1456b-ec16-0344-136a-668edc735775"
 	],
-	"folders": [],
-	"folders_order": [],
+	"folders": [
+		{
+			"name": "Errors",
+			"description": "",
+			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+			"order": [
+				"28123cae-081e-6996-d69e-22ff0c3af4e1",
+				"45ce2b99-3a31-2d61-d06e-f7a35b6d856c",
+				"1d83d19e-bc1c-b552-c70b-c2f44d251c62",
+				"7c60f65c-8f37-fad2-4ad0-924d15236e70",
+				"8d2b891d-c71f-d543-1e13-fe2a54dac2f2"
+			],
+			"owner": "756657",
+			"folders_order": [],
+			"id": "35c45d4c-5a5b-acd9-9184-f226195950db"
+		}
+	],
+	"folders_order": [
+		"35c45d4c-5a5b-acd9-9184-f226195950db"
+	],
 	"timestamp": 1515342981179,
+	"owner": "756657",
 	"public": false,
-	"lastUpdatedBy": "756657",
-	"lastRevision": 3274413679,
-	"team": null,
-	"variables": null,
-	"auth": null,
-	"events": null,
 	"requests": [
 		{
 			"id": "00f47a57-1cbe-70ae-fd95-5c6539f6dac0",
@@ -101,12 +113,103 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 201;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\nvar data = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"listId\", data.id)\ntests[\"Body matches name\"] = responseBody.has('\"name\":'+postman.getEnvironmentVariable(\"list-name\"));\ntests[\"Body matches description\"]= responseBody.has('\"description\":'+postman.getEnvironmentVariable(\"list-description\"));\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1516373628361,
+			"time": 1523300877884,
 			"name": "addList",
 			"description": "",
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
 			"responses": [],
 			"rawModeData": "{\r\n    \"name\": {{list-name}},\r\n    \"description\": {{list-description}},\r\n    \"items\": []\r\n  }\r\n"
+		},
+		{
+			"id": "1d83d19e-bc1c-b552-c70b-c2f44d251c62",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:62848/api/list/sdfghjkl",
+			"folder": "35c45d4c-5a5b-acd9-9184-f226195950db",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 404 not found\"] = responseCode.code === 404;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1523307281679,
+			"name": "updateListWithIncorrectId",
+			"description": "",
+			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+			"responses": [],
+			"rawModeData": "{\r\n    \"name\": {{update-name-list}},\r\n    \"description\": {{update-desc-list}}\r\n  }\r\n"
+		},
+		{
+			"id": "28123cae-081e-6996-d69e-22ff0c3af4e1",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:62848/api/list/",
+			"folder": "35c45d4c-5a5b-acd9-9184-f226195950db",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 400 bad request\"] = responseCode.code === 400;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has Message\"] = responseBody.has(\"Message\");\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1523305713215,
+			"name": "addListWithoutCorrectValue",
+			"description": "",
+			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+			"responses": [],
+			"rawModeData": "{\r\n    \"name\": {{list-name}},\r\n    \"description\": {{list-description}},\r\n    \"id\": 99999,\r\n    \"items\": []\r\n  }\r\n"
+		},
+		{
+			"id": "45ce2b99-3a31-2d61-d06e-f7a35b6d856c",
+			"headers": "",
+			"headerData": [],
+			"url": "localhost:62848/api/list/5abbdb3a64af591e949b505d",
+			"folder": "35c45d4c-5a5b-acd9-9184-f226195950db",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Status code is 404 not found\"] = responseCode.code === 404;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1523306610859,
+			"name": "getListByIdWithIncorrectId",
+			"description": null,
+			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+			"responses": []
 		},
 		{
 			"id": "48a1456b-ec16-0344-136a-668edc735775",
@@ -128,10 +231,10 @@
 			"data": [],
 			"dataMode": "params",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
+			"tests": "tests[\"Status code is 204 no content\"] = responseCode.code === 204\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1516374870400,
+			"time": 1523345601859,
 			"name": "deleteList",
 			"description": "",
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
@@ -205,6 +308,83 @@
 							"tests[\"Body matches propertyNumber\"] = responseBody.has('\"propertyNumber\":'+postman.getEnvironmentVariable(\"property3\"));",
 							"tests[\"Body matches done\"] = responseBody.has('\"done\":'+postman.getEnvironmentVariable(\"property-flag\"));",
 							"",
+							""
+						]
+					}
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"variables": null
+		},
+		{
+			"id": "7c60f65c-8f37-fad2-4ad0-924d15236e70",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:62848/api/list/{{listId}}",
+			"folder": "35c45d4c-5a5b-acd9-9184-f226195950db",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 400 bad request\"] = responseCode.code === 400;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1523307504063,
+			"name": "updateListWithoutCorrectValue",
+			"description": "",
+			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+			"responses": [],
+			"rawModeData": "{\r\n\t\"dfgh\": 6789\r\n    \"name\": \"67890\",\r\n    \"description\": {{update-desc-list}}\r\n  }\r\n"
+		},
+		{
+			"id": "8d2b891d-c71f-d543-1e13-fe2a54dac2f2",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true
+				}
+			],
+			"url": "localhost:62848/api/list/ghjkl",
+			"folder": "35c45d4c-5a5b-acd9-9184-f226195950db",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Status code is 404 not found\"] = responseCode.code === 404\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\n",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"time": 1523308345930,
+			"name": "deleteListWithIncorrectId",
+			"description": null,
+			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
+			"responses": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404 not found\"] = responseCode.code === 404",
+							"tests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');",
 							""
 						]
 					}
@@ -353,10 +533,10 @@
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\n\ntests[\"Body matches name\"] = responseBody.has('\"name\":'+postman.getEnvironmentVariable(\"update-name-list\"));\ntests[\"Body matches description\"]= responseBody.has('\"description\":'+postman.getEnvironmentVariable(\"update-desc-list\"));\n",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Response time is less than \"+postman.getGlobalVariable('response-time')] = responseTime < postman.getGlobalVariable('response-time');\ntests[\"Response body has id\"] = responseBody.has(\"id\");\nvar data = JSON.parse(responseBody);\n\ntests[\"Id is not null\"] = data.id !== \"000000000000000000000000\";\n\ntests[\"Body matches name\"] = responseBody.has('\"name\":'+postman.getEnvironmentVariable(\"update-name-list\"));\ntests[\"Body matches description\"]= responseBody.has('\"description\":'+postman.getEnvironmentVariable(\"update-desc-list\"));\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1516374601477,
+			"time": 1522604087039,
 			"name": "updateList",
 			"description": "",
 			"collectionId": "0dcd5f83-8cc1-9580-4b40-b40e312b162f",
